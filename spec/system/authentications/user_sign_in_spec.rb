@@ -15,13 +15,44 @@ describe 'Usuário se autentica' do
     within('nav') do
       click_on 'Entrar'
     end
-    fill_in 'E-mail', with: "sergio.vieira.de.melo@ri.com"
-    fill_in 'Senha', with: "nacoesunidas"
-    click_on 'Entrar'
+    within('form') do
+      fill_in 'E-mail', with: "sergio.vieira.de.melo@ri.com"
+      fill_in 'Senha', with: "nacoesunidas"
+      click_on 'Entrar'
+    end
 
     # Assert
     expect(page).not_to have_link 'Entrar'
-    expect(page).to have_link 'Sair'
+    expect(page).to have_button 'Sair'
       
   end
+
+  it 'e faz logout' do
+     # Arrange
+     User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+    # Act
+    visit root_path
+    within('nav') do
+      click_on 'Entrar'
+    end
+    within('form') do
+      fill_in 'E-mail', with: "sergio.vieira.de.melo@ri.com"
+      fill_in 'Senha', with: "nacoesunidas"
+      click_on 'Entrar'
+    end
+    within('nav') do
+      click_on 'Sair'
+    end
+
+    # Assert
+    expect(page).to have_link 'Entrar'
+    expect(page).not_to have_button 'Sair'
+  end
+
 end
