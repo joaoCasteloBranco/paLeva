@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :redirect_to_restaurant_creation_if_needed, if: :user_signed_in?
 
 
   protected
@@ -9,7 +10,16 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :last_name, :cpf])
   end
 
-  def after_sign_in_path_for(resource)
+  def after_sign_up_path_for(resource)
     new_restaurant_path
+  end
+
+  def redirect_to_restaurant_creation_if_needed
+    if current_user.present? && current_user.restaurant.nil? && request.path != destroy_user_session_path && request.path != restaurants_path
+      unless request.path == new_restaurant_path
+        redirect_to new_restaurant_path
+        return
+      end
+    end
   end
 end
