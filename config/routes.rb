@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     resources :dishes
     resources :beverages
   end
+  get 'search', to: 'search#search'
+
 end

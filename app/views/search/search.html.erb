@@ -1,0 +1,21 @@
+<h2>Resultados da Busca</h2>
+
+<h3>Pratos</h3>
+<ul>
+  <% @dishes.each do |dish| %>
+    <li>
+      <%= link_to dish.name, restaurant_dish_path(@restaurant, dish) %> |
+      <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, dish) %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Bebidas</h3>
+<ul>
+  <% @beverages.each do |beverage| %>
+    <li>
+      <%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage) %> |
+      <%= link_to 'Editar', edit_restaurant_beverage_path(@restaurant, beverage) %>
+    </li>
+  <% end %>
+</ul>

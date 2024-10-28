@@ -29,6 +29,7 @@ class DishesController < ApplicationController
   end
 
   def update
+    @dish = @restaurant.dishes.find(params[:id])
     if @dish.update(dish_params)
       redirect_to restaurant_dish_path(@restaurant, @dish), notice: 'Prato atualizado com sucesso!'
     else

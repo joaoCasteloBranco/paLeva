@@ -20,11 +20,16 @@
 
   <body>
     <header>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <
       <nav>
         <h1>PaLeva!</h1>
         <% if user_signed_in? %>
+
+          <%= form_with url: search_path, method: :get do |f| %>
+            <%= f.label :query, 'Buscar Item' %>
+            <%= f.text_field :query, placeholder: "Buscar pratos ou bebidas..." %>
+            <%= f.submit "Buscar" %>
+          <% end %>
 
           <% if !current_user.restaurant.nil? %>
             <%= link_to "Ver Restaurante",  restaurant_path(current_user.restaurant.id) %>
@@ -39,6 +44,12 @@
         <% end %>
         
       </nav>
+      <main>
+        <div>
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+      </main>
     </header>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
