@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra um restaurante' do
-  it 'e não está autenticado' do
+  it 'mas não está autenticado' do
     # Arrange 
 
     # Act

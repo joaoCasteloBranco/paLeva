@@ -25,10 +25,17 @@
       <nav>
         <h1>PaLeva!</h1>
         <% if user_signed_in? %>
+
+          <% if !current_user.restaurant.nil? %>
+            <%= link_to "Ver Restaurante",  restaurant_path(current_user.restaurant.id) %>
+          <% else %>
+            <%= link_to "Cadastrar Restaurante", new_restaurant_path %>
+          <% end %>
+          
           <%= button_to "Sair", destroy_user_session_path, method: :delete %>
-          <%= link_to "Cadastrar Restaurante", new_restaurant_path %>
+          
         <% else %>
-        <%= link_to 'Entrar', new_user_session_path  %> 
+          <%= link_to 'Entrar', new_user_session_path  %> 
         <% end %>
         
       </nav>
