@@ -1,6 +1,17 @@
 require 'rails_helper'
 
 describe 'Usuário cadastra um restaurante' do
+  it 'e não está autenticado' do
+    # Arrange 
+
+    # Act
+    visit root_path
+
+    # Assert
+    expect(page).not_to have_content 'Cadastrar Restaurante'
+
+  end
+
   it 'e com sucesso' do
     # Arrange
     user = User.create!(
@@ -17,9 +28,9 @@ describe 'Usuário cadastra um restaurante' do
     click_on 'Cadastrar Restaurante'
     fill_in 'Nome Fantasia', with: "Arvo"
     fill_in 'Razão Social', with: "Arvo Restaurante"
-    fill_in 'Nome Fantasia', with: "61.236.299/0001-72"
+    fill_in 'CNPJ', with: "61.236.299/0001-72"
     fill_in 'Endereço Completo', with: "Av. 1000"
-    fill_in 'Telefone', with: "(67) 3142-3872"
+    fill_in 'Telefone', with: "6731423872"
     fill_in 'E-mail', with: "arvo@restaurante.com"
     click_on 'Cadastrar'
 
