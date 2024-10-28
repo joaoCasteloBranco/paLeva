@@ -1,0 +1,21 @@
+<h1><%= @beverage.name %></h1>
+
+<div>
+  <strong>Descrição:</strong>
+  <p><%= @beverage.description %></p>
+</div>
+
+<div>
+  <strong>Tipo:</strong>
+  <p><%= @beverage.alcoholic ? "Alcoólica" : "Não alcoólica" %></p>
+</div>
+
+<div>
+  <strong>Calorias:</strong>
+  <p><%= @beverage.calories.present? ? @beverage.calories : "Não especificado" %></p>
+</div>
+
+
+<%= link_to 'Editar Bebida', edit_restaurant_beverage_path(@restaurant, @beverage) %> |
+<%= link_to 'Excluir Bebida', restaurant_beverage_path(@restaurant, @beverage), method: :delete %> |
+<%= link_to 'Voltar para o Restaurante', restaurant_path(@restaurant) %>

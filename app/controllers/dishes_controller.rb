@@ -24,6 +24,24 @@ class DishesController < ApplicationController
     end
   end
 
+  def edit
+    @dish = @restaurant.dishes.find(params[:id])
+  end
+
+  def update
+    if @dish.update(dish_params)
+      redirect_to restaurant_dish_path(@restaurant, @dish), notice: 'Prato atualizado com sucesso!'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @dish = @restaurant.dishes.find(params[:id])
+    @dish.destroy
+    redirect_to restaurant_path(@restaurant), notice: 'Prato excluído com sucesso!'
+  end
+
   private
 
   def set_restaurant
@@ -31,7 +49,14 @@ class DishesController < ApplicationController
   end
 
   def dish_params
-    params.require(:dish).permit(:name, :description, :calories, :photo)
+    params
+    .require(:dish)
+    .permit(
+    :name,
+    :description,
+    :calories,
+    :photo
+    )
   end
 
   def authorize_dish!

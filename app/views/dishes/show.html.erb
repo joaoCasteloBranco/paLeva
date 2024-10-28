@@ -1,0 +1,16 @@
+<h1><%= @dish.name %></h1>
+
+<div>
+  <strong>Descrição:</strong>
+  <p><%= @dish.description %></p>
+</div>
+
+<div>
+  <strong>Calorias:</strong>
+  <p><%= @dish.calories.present? ? @dish.calories : "Não especificado" %></p>
+</div>
+
+
+<%= link_to 'Editar Prato', edit_restaurant_dish_path(@restaurant, @dish) %> |
+<%= button_to 'Excluir Prato', restaurant_dish_path(@restaurant, @dish), method: :delete %> |
+<%= link_to 'Voltar para o Restaurante', restaurant_path(@restaurant) %>

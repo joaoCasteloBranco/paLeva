@@ -1,6 +1,6 @@
-<h1>Adicionar Prato</h1>
+<h1>Adicionar Bebida</h1>
 
-<%= form_with(model: [@restaurant, @dish]) do |f| %>
+<%= form_with(model: [@restaurant, @beverage]) do |f| %>
 
   <div class="field">
     <%= f.label :name, "Nome"  %>
@@ -18,12 +18,17 @@
   </div>
 
   <div class="field">
-    <%= f.label :photo, "Foto do Prato" %>
+    <%= f.label :alcoholic, "Alcólica?" %>
+    <%= f.check_box :alcoholic %>
+  </div>
+
+  <div class="field">
+    <%= f.label :photo, "Foto da Bebida" %>
     <%= f.file_field :photo %>
   </div>
 
   <div class="actions">
-    <%= f.submit 'Cadastrar Prato' %>
+    <%= f.submit 'Cadastrar Bebida' %>
   </div>
 <% end %>
 

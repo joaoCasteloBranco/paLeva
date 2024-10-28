@@ -1,6 +1,7 @@
 class Restaurant < ApplicationRecord
   belongs_to :user
   has_many :dishes, dependent: :destroy
+  has_many :beverages, dependent: :destroy
 
 
   validates :comercial_name, :registered_name, :cnpj, :address, :phone, :email, presence: true
