@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   root "home#index"
   resources :restaurants, only: [:new, :create, :show, :index]
   resources :menu_items, only: [:new, :create]
+  resources :restaurants do
+    resources :dishes
+    resources :beverages
+  end
 end

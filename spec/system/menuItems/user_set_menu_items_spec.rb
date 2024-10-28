@@ -28,7 +28,14 @@ describe 'Usuário cadastra um prato' do
       click_on "Ver Restaurante"
     end
     click_on "Adicionar um prato"
+    fill_in 'Nome', with: 'Prato Teste'
+    fill_in 'Descrição', with: 'Uma descrição do prato de teste.'
+    fill_in 'Calorias', with: 300
+    click_on 'Cadastrar Prato'
   
     # Assert
+
+    expect(page).to have_content('Prato Criado com sucesso!')
+    expect(page).to have_content('Prato Teste')
   end
 end

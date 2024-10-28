@@ -30,5 +30,22 @@
   <p><%= @restaurant.code %></p>
 </div>
 
-<%= link_to 'Adicionar um prato', new_menu_item_path %> 
+<%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
+<%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
+
+<h2>Pratos Cadastrados</h2>
+<% if @dishes.present? && @dishes.any? %>
+  <ul>
+    <% @dishes.each do |dish| %>
+      <li>
+        <strong><%= dish.name %></strong>: <%= dish.description %> (<%= dish.calories %> calorias)
+        <%= link_to 'Editar', edit_restaurant_dish_path(@restaurant, dish) %> |
+        <%= link_to 'Remover', restaurant_dish_path(@restaurant, dish), method: :delete, data: { confirm: 'Tem certeza que deseja remover este prato?' } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Nenhum prato cadastrado.</p>
+<% end %>
+
 
