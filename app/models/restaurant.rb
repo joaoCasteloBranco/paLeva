@@ -6,7 +6,7 @@ class Restaurant < ApplicationRecord
   validates :code, uniqueness: true
   validate :cnpj_must_be_valid
 
-  before_create :generate_code
+  before_create :generate_unique_code
 
 
   private
