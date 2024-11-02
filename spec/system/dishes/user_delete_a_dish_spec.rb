@@ -31,7 +31,7 @@ describe 'Usuário deleta um prato' do
     fill_in 'Nome', with: 'Prato Teste'
     fill_in 'Descrição', with: 'Uma descrição do prato de teste.'
     fill_in 'Calorias', with: 300
-    click_on 'Salvar Prato'
+    click_on 'Adicionar Prato'
     click_on 'Prato Teste'
     click_on 'Excluir Prato'
 

@@ -32,7 +32,7 @@ describe 'Usuário deleta uma bebida' do
     fill_in 'Descrição', with: 'Uma descrição da bebida de teste.'
     fill_in 'Calorias', with: 300
     check 'Alcólica?'
-    click_on 'Salvar Bebida'
+    click_on 'Adicionar Bebida'
     click_on 'Bebida Teste'
     click_on 'Excluir Bebida'
   

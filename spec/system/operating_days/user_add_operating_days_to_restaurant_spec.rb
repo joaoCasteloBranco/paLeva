@@ -32,7 +32,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     check 'Aberto?'
     fill_in 'Horário de Abertura', with: '06:00'
     fill_in 'Horário de Fechamento', with: '18:00'
-    click_on 'Gravar Horário'
+    click_on 'Adicionar Dia de Operação'
 
     # Assert
     expect(page).to have_content 'Horário Adicionado'
@@ -72,7 +72,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     check 'Aberto?'
     fill_in 'Horário de Abertura', with: '06:00'
     fill_in 'Horário de Fechamento', with: '18:00'
-    click_on 'Gravar Horário'
+    click_on 'Adicionar Dia de Operação'
     click_on 'monday'
 
     # Assert

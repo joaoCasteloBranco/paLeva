@@ -1,26 +1,26 @@
 <%= form_with(model: [@restaurant, @dish]) do |f| %>
 
   <div class="field">
-    <%= f.label :name, "Nome"  %>
+    <%= f.label :name%>
     <%= f.text_field :name, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :description, "Descrição" %>
+    <%= f.label :description%>
     <%= f.text_area :description, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label :calories, "Calorias" %>
+    <%= f.label :calories %>
     <%= f.number_field :calories %>
   </div>
 
   <div class="field">
-    <%= f.label :photo, "Foto do Prato" %>
+    <%= f.label :photo %>
     <%= f.file_field :photo %>
   </div>
 
   <div class="actions">
-    <%= f.submit 'Salvar Prato' %>
+    <%= f.submit %>
   </div>
 <% end %>

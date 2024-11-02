@@ -43,7 +43,7 @@ RSpec.describe Dish, type: :model do
     )
     dish = Dish.new(description: "Salada", calories: 150, restaurant: restaurant)
     expect(dish).to be_invalid
-    expect(dish.errors[:name]).to include("can't be blank")
+    expect(dish.errors[:name]).to include("não pode ficar em branco")
   end
 
   it "é inválido sem uma descrição" do
@@ -65,7 +65,7 @@ RSpec.describe Dish, type: :model do
     )
     dish = Dish.new(name: "Salada César", calories: 150, restaurant: restaurant)
     expect(dish).to be_invalid
-    expect(dish.errors[:description]).to include("can't be blank")
+    expect(dish.errors[:description]).to include("não pode ficar em branco")
   end
 
   it "é opcional ter calorias" do
@@ -92,7 +92,7 @@ RSpec.describe Dish, type: :model do
   it "é inválido sem um restaurante associado" do
     dish = Dish.new(name: "Salada César", description: "Salada com alface", calories: 150)
     expect(dish).to be_invalid
-    expect(dish.errors[:restaurant]).to include("must exist")
+    expect(dish.errors[:restaurant]).to include("não pode ficar em branco")
   end
   end
 end

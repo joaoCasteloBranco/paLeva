@@ -42,7 +42,7 @@ RSpec.describe Restaurant, type: :model do
       email: "contato@restauranteteste.com",
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:registered_name]).to include("can't be blank")
+    expect(restaurant.errors[:registered_name]).to include("não pode ficar em branco")
   end
 
   it "false without a comercial_name" do
@@ -63,7 +63,7 @@ RSpec.describe Restaurant, type: :model do
       email: "contato@restauranteteste.com",
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:comercial_name]).to include("can't be blank")
+    expect(restaurant.errors[:comercial_name]).to include("não pode ficar em branco")
   end
 
   it "false without a cnpj" do
@@ -84,7 +84,7 @@ RSpec.describe Restaurant, type: :model do
       email: "contato@restauranteteste.com",
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:cnpj]).to include("can't be blank")
+    expect(restaurant.errors[:cnpj]).to include("não pode ficar em branco")
   end
 
   it "false without an address" do
@@ -105,7 +105,7 @@ RSpec.describe Restaurant, type: :model do
       email: "contato@restauranteteste.com",
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:address]).to include("can't be blank")
+    expect(restaurant.errors[:address]).to include("não pode ficar em branco")
   end
 
   it "false without a phone" do
@@ -126,7 +126,7 @@ RSpec.describe Restaurant, type: :model do
       email: "contato@restauranteteste.com",
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:phone]).to include("can't be blank")
+    expect(restaurant.errors[:phone]).to include("não pode ficar em branco")
   end
 
   it "false without an email" do
@@ -147,7 +147,7 @@ RSpec.describe Restaurant, type: :model do
       email: nil,
     )
     expect(restaurant).not_to be_valid
-    expect(restaurant.errors[:email]).to include("can't be blank")
+    expect(restaurant.errors[:email]).to include("não pode ficar em branco")
   end
 
 

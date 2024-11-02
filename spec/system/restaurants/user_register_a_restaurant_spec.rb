@@ -32,7 +32,7 @@ describe 'Usuário cadastra um restaurante' do
     fill_in 'Endereço Completo', with: "Av. 1000"
     fill_in 'Telefone', with: "6731423872"
     fill_in 'E-mail', with: "arvo@restaurante.com"
-    click_on 'Cadastrar'
+    click_on 'Adicionar Restaurante'
 
     # Assert
     expect(page).to have_content "Arvo"

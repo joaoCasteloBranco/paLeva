@@ -2,32 +2,32 @@
 
 <div>
   <div>
-    <strong>Razão Social:</strong>
+    <strong><%= Restaurant.human_attribute_name(:registered_name) %>:</strong>
     <p><%= @restaurant.registered_name %></p>
   </div>
 
   <div>
-    <strong>CNPJ:</strong>
+    <strong><%= Restaurant.human_attribute_name(:cnpj) %>:</strong>
     <p><%= @restaurant.cnpj %></p>
   </div>
 
   <div>
-    <strong>Endereço:</strong>
+    <strong><%= Restaurant.human_attribute_name(:address) %>:</strong>
     <p><%= @restaurant.address %></p>
   </div>
 
   <div>
-    <strong>Telefone:</strong>
+    <strong><%= Restaurant.human_attribute_name(:phone) %>:</strong>
     <p><%= @restaurant.phone %></p>
   </div>
 
   <div>
-    <strong>Email:</strong>
+    <strong><%= Restaurant.human_attribute_name(:email) %>:</strong>
     <p><%= @restaurant.email %></p>
   </div>
 
   <div>
-    <strong>Código do Restaurante:</strong>
+    <strong><%= Restaurant.human_attribute_name(:code) %>:</strong>
     <p><%= @restaurant.code %></p>
   </div>
 
@@ -62,7 +62,7 @@
 
 </div>
 
-<div></div>
+
 
 <div>
   <h2 style=”color:blue”>Horário de Funcionamento</h2>
@@ -72,8 +72,8 @@
         <%= link_to restaurant_operating_day_path(day.id) do %>
           <p><%= day.week_day %></p>
           <% if day.open %>
-            <p>Abre: <%= day.opening_time.to_time %></p>
-            <p>Fecha: <%= day.closing_time.to_time %></p>
+            <p><%= OperatingDay.human_attribute_name(:opening_time)  %>: <%= I18n.localize(day.opening_time) %></p>
+            <p><%= OperatingDay.human_attribute_name(:closing_time)  %>: <%= day.closing_time.to_time %></p>
           <% else %>
             <p>Fechado</p>
           <% end %>

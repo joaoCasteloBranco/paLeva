@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    models:
+      operating_day:
+        one: "Dia de Operação"
+        other: "Dias de Operações"
+    attributes:
+      operating_day:
+        week_day: "Dia da Semana"
+        open: "Aberto?"
+        opening_time: "Horário de Abertura"
+        closing_time: "Horário de Fechamento"

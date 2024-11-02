@@ -44,7 +44,7 @@ RSpec.describe Beverage, type: :model do
     )
     beverage = Beverage.new(description: "Bebida refrescante", alcoholic: true, calories: 150, restaurant: restaurant)
     expect(beverage).to be_invalid
-    expect(beverage.errors[:name]).to include("can't be blank")
+    expect(beverage.errors[:name]).to include("não pode ficar em branco")
     end
 
     it "é inválido sem uma descrição" do
@@ -66,7 +66,7 @@ RSpec.describe Beverage, type: :model do
     )
     beverage = Beverage.new(name: "Cerveja", alcoholic: true, calories: 150, restaurant: restaurant)
     expect(beverage).to be_invalid
-    expect(beverage.errors[:description]).to include("can't be blank")
+    expect(beverage.errors[:description]).to include("não pode ficar em branco")
     end
 
     it "é inválido sem um marcador alcoólico" do
@@ -88,7 +88,7 @@ RSpec.describe Beverage, type: :model do
     )
     beverage = Beverage.new(name: "Cerveja", description: "Bebida refrescante", calories: 150, restaurant: restaurant)
     expect(beverage).to be_invalid
-    expect(beverage.errors[:alcoholic]).to include("can't be blank")
+    expect(beverage.errors[:alcoholic]).to include("não pode ficar em branco")
     end
 
     it "é opcional ter calorias" do
@@ -116,7 +116,7 @@ RSpec.describe Beverage, type: :model do
       
     beverage = Beverage.new(name: "Cerveja", description: "Bebida refrescante", alcoholic: true, calories: 150)
     expect(beverage).to be_invalid
-    expect(beverage.errors[:restaurant]).to include("must exist")
+    expect(beverage.errors[:restaurant]).to include("não pode ficar em branco")
     end
   end
 end
