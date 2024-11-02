@@ -30,6 +30,8 @@
   <p><%= @restaurant.code %></p>
 </div>
 
+<%= link_to 'Adicionar Horário de Funcionamento', new_restaurant_operating_day_path(@restaurant.id) %> 
+
 <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
 <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
 
