@@ -1,0 +1,10 @@
+<h1>Horário de Funcionamento: <%= @operating_day.week_day %></h1>
+
+<% if @operating_day.open %>
+  <p>Abre: <%= @operating_day.opening_time.to_time %></p>  
+  <p>Fecha: <%= @operating_day.closing_time.to_time %></p>
+<% else %>
+  <p>Fechado</p>
+<% end %>
+
+<%= link_to 'Editar Horário', edit_restaurant_operating_day_path(@operating_day.id) %>

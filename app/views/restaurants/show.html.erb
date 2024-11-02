@@ -1,52 +1,95 @@
 <h1><%= @restaurant.comercial_name %></h1>
 
 <div>
-  <strong>Razão Social:</strong>
-  <p><%= @restaurant.registered_name %></p>
+  <div>
+    <strong>Razão Social:</strong>
+    <p><%= @restaurant.registered_name %></p>
+  </div>
+
+  <div>
+    <strong>CNPJ:</strong>
+    <p><%= @restaurant.cnpj %></p>
+  </div>
+
+  <div>
+    <strong>Endereço:</strong>
+    <p><%= @restaurant.address %></p>
+  </div>
+
+  <div>
+    <strong>Telefone:</strong>
+    <p><%= @restaurant.phone %></p>
+  </div>
+
+  <div>
+    <strong>Email:</strong>
+    <p><%= @restaurant.email %></p>
+  </div>
+
+  <div>
+    <strong>Código do Restaurante:</strong>
+    <p><%= @restaurant.code %></p>
+  </div>
+
 </div>
+
+<div></div>
 
 <div>
-  <strong>CNPJ:</strong>
-  <p><%= @restaurant.cnpj %></p>
+  
+
+  <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
+  <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
+
 </div>
+
+<div></div>
 
 <div>
-  <strong>Endereço:</strong>
-  <p><%= @restaurant.address %></p>
+  <h2>Pratos</h2>
+  <ul>
+    <% @restaurant.dishes.each do |dish| %>
+      <li><%= link_to dish.name, restaurant_dish_path(@restaurant, dish) %></li>
+    <% end %>
+  </ul>
+
+  <h2>Bebidas</h2>
+  <ul>
+    <% @restaurant.beverages.each do |beverage| %>
+      <li><%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage) %></li>
+    <% end %>
+  </ul>
+
 </div>
+
+<div></div>
 
 <div>
-  <strong>Telefone:</strong>
-  <p><%= @restaurant.phone %></p>
-</div>
+  <h2 style=”color:blue”>Horário de Funcionamento</h2>
+  <ul>
+    <% @restaurant.operating_days.sort.each do |day| %>
+      <li style="background-color: aqua; margin-bottom: 10px;">
+        <%= link_to restaurant_operating_day_path(day.id) do %>
+          <p><%= day.week_day %></p>
+          <% if day.open %>
+            <p>Abre: <%= day.opening_time.to_time %></p>
+            <p>Fecha: <%= day.closing_time.to_time %></p>
+          <% else %>
+            <p>Fechado</p>
+          <% end %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
 
-<div>
-  <strong>Email:</strong>
-  <p><%= @restaurant.email %></p>
-</div>
-
-<div>
-  <strong>Código do Restaurante:</strong>
-  <p><%= @restaurant.code %></p>
-</div>
-
-<%= link_to 'Adicionar Horário de Funcionamento', new_restaurant_operating_day_path(@restaurant.id) %> 
-
-<%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
-<%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
-
-<h2>Pratos</h2>
-<ul>
-  <% @restaurant.dishes.each do |dish| %>
-    <li><%= link_to dish.name, restaurant_dish_path(@restaurant, dish) %></li>
+  <% if @restaurant.operating_days.length < 7 %>
+    <%= link_to 'Adicionar Horário de Funcionamento', new_restaurant_operating_day_path(@restaurant.id) %> 
   <% end %>
-</ul>
+</div>
 
-<h2>Bebidas</h2>
-<ul>
-  <% @restaurant.beverages.each do |beverage| %>
-    <li><%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage) %></li>
-  <% end %>
-</ul>
+
+
+
+
 
 

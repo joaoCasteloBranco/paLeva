@@ -1,0 +1,25 @@
+<%= form_with( model: [@restaurant, @operating_day]) do |f| %>
+
+  <div>
+    <%= f.label :week_day, 'Dia da Semana' %>
+    <%= f.select :week_day, options_for_select(OperatingDay.week_days.keys.map { |day| [day, day] }, f.object.week_day) %>
+  </div>
+
+  <div>
+    <%= f.label :open, "Aberto?" %>
+    <%= f.check_box :open %>
+  </div>
+
+  <div>
+    <%= f.label :opening_time, "Horário de Abertura" %>
+    <%= f.time_field :opening_time %>
+  </div>
+
+  <div>
+    <%= f.label :closing_time, "Horário de Fechamento" %>
+    <%= f.time_field :closing_time %>
+  </div>
+
+  <%= f.submit "Gravar Horário" %>
+  
+<% end %>

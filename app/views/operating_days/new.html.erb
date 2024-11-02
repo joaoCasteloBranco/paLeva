@@ -1,10 +1,3 @@
 <h1>Adicionar Horário de Funcionamento</h1>
 
-<%= form_with( model: [@restaurant, @operating_day]) do |f| %>
-
-  <div>
-    <%= f.label :week_day, 'Dia da Semana' %>
-     <%= f.select :week_day, options_for_select(YourModel.week_days.keys.map { |day| [day, day] }, f.object.week_day) %>
-  </div>
-
-<% end %>
+<%= render 'form' %>

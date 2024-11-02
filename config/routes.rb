@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :restaurants do
 
-    resources :operating_days, only: [:new, :create]
+    resources :operating_days, only: [:new, :create, :update, :edit, :show]
 
     resources :dishes
     resources :beverages
