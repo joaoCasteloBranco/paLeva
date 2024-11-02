@@ -29,6 +29,7 @@ class BeveragesController < ApplicationController
     end
   
     def update
+      @beverage = @restaurant.beverages.find(params[:id])
       if @beverage.update(beverage_params)
         redirect_to restaurant_beverage_path(@restaurant, @beverage), notice: 'Bebida atualizada com sucesso!'
       else

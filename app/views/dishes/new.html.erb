@@ -1,30 +1,5 @@
 <h1>Adicionar Prato</h1>
 
-<%= form_with(model: [@restaurant, @dish]) do |f| %>
-
-  <div class="field">
-    <%= f.label :name, "Nome"  %>
-    <%= f.text_field :name, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description, "Descrição" %>
-    <%= f.text_area :description, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :calories, "Calorias" %>
-    <%= f.number_field :calories %>
-  </div>
-
-  <div class="field">
-    <%= f.label :photo, "Foto do Prato" %>
-    <%= f.file_field :photo %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Cadastrar Prato' %>
-  </div>
-<% end %>
+<%= render "form" %>
 
 <%= link_to 'Voltar', restaurant_path(@restaurant) %>

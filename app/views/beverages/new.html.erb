@@ -1,35 +1,5 @@
 <h1>Adicionar Bebida</h1>
 
-<%= form_with(model: [@restaurant, @beverage]) do |f| %>
-
-  <div class="field">
-    <%= f.label :name, "Nome"  %>
-    <%= f.text_field :name, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description, "Descrição" %>
-    <%= f.text_area :description, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :calories, "Calorias" %>
-    <%= f.number_field :calories %>
-  </div>
-
-  <div class="field">
-    <%= f.label :alcoholic, "Alcólica?" %>
-    <%= f.check_box :alcoholic %>
-  </div>
-
-  <div class="field">
-    <%= f.label :photo, "Foto da Bebida" %>
-    <%= f.file_field :photo %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit 'Cadastrar Bebida' %>
-  </div>
-<% end %>
+<%= render "form" %>
 
 <%= link_to 'Voltar', restaurant_path(@restaurant) %>

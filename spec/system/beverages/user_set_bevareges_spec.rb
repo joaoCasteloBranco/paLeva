@@ -32,7 +32,7 @@ describe 'Usuário cadastra uma bebida' do
     fill_in 'Descrição', with: 'Uma descrição da bebida de teste.'
     fill_in 'Calorias', with: 300
     check 'Alcólica?'
-    click_on 'Cadastrar Bebida'
+    click_on 'Salvar Bebida'
   
     # Assert
 
@@ -71,7 +71,7 @@ describe 'Usuário cadastra uma bebida' do
     fill_in 'Nome', with: 'Bebida Teste'
     fill_in 'Descrição', with: 'Uma descrição da bebida de teste.'
     fill_in 'Calorias', with: 300
-    click_on 'Cadastrar Bebida'
+    click_on 'Salvar Bebida'
   
     # Assert
 
