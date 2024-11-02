@@ -1,9 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Dish, type: :model do
-  let(:user) { User.create(email: "test@example.com", password: "password") }
+  
   describe '#valid?' do
   it "é válido com nome, descrição e restaurante" do
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
     restaurant = Restaurant.new(
       registered_name: "Arvo",
       comercial_name: "Arvo Restaurante",
@@ -18,6 +25,13 @@ RSpec.describe Dish, type: :model do
   end
 
   it "é inválido sem um nome" do
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
     restaurant = Restaurant.new(
       registered_name: "Arvo",
       comercial_name: "Arvo Restaurante",
@@ -33,6 +47,13 @@ RSpec.describe Dish, type: :model do
   end
 
   it "é inválido sem uma descrição" do
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
     restaurant = Restaurant.new(
       registered_name: "Arvo",
       comercial_name: "Arvo Restaurante",
@@ -48,6 +69,13 @@ RSpec.describe Dish, type: :model do
   end
 
   it "é opcional ter calorias" do
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
     restaurant = Restaurant.new(
       registered_name: "Arvo",
       comercial_name: "Arvo Restaurante",

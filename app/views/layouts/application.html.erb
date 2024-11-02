@@ -22,7 +22,9 @@
     <header>
       <
       <nav>
-        <h1>PaLeva!</h1>
+        <%= link_to root_path do %>
+          <h1>PaLeva!</h1>
+        <% end %>
         <% if user_signed_in? %>
 
           <%= form_with url: search_path, method: :get do |f| %>

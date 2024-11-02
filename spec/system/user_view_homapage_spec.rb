@@ -5,10 +5,10 @@ describe 'Usuário visita a tela inicial' do
     # Arrange
 
     # Act
-    visit('/')
+    visit root_path
 
     # Assert
-    expect(page).to have_content 'PaLeva!'
+    expect(page).to have_link 'PaLeva!'
 
   end
     
