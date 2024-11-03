@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_03_084543) do
   create_table "beverages", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -37,12 +37,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
   end
 
   create_table "menu_items", force: :cascade do |t|
+    t.string "type"
     t.string "name"
     t.text "description"
+    t.integer "status"
     t.integer "calories"
-    t.string "type"
-    t.boolean "alcoholic"
+    t.string "photo"
     t.integer "restaurant_id", null: false
+    t.boolean "alcoholic"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
@@ -57,17 +59,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_operating_days_on_restaurant_id"
-  end
-
-  create_table "operating_hours", force: :cascade do |t|
-    t.integer "restaurant_id", null: false
-    t.integer "day"
-    t.time "opens_at"
-    t.time "closes_at"
-    t.boolean "closed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["restaurant_id"], name: "index_operating_hours_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -103,6 +94,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
   add_foreign_key "dishes", "restaurants"
   add_foreign_key "menu_items", "restaurants"
   add_foreign_key "operating_days", "restaurants"
-  add_foreign_key "operating_hours", "restaurants"
   add_foreign_key "restaurants", "users"
 end
