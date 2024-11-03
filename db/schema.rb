@@ -10,30 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
-  create_table "beverages", force: :cascade do |t|
+ActiveRecord::Schema[7.2].define(version: 2024_11_03_084543) do
+  create_table "menu_items", force: :cascade do |t|
+    t.string "type"
     t.string "name"
     t.text "description"
+    t.integer "status", default: 1
+    t.integer "calories"
+    t.string "photo"
+    t.integer "restaurant_id", null: false
     t.boolean "alcoholic"
-    t.integer "calories"
-    t.string "photo"
-    t.integer "restaurant_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "status", default: 1
-    t.index ["restaurant_id"], name: "index_beverages_on_restaurant_id"
-  end
-
-  create_table "dishes", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "calories"
-    t.string "photo"
-    t.integer "restaurant_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 1
-    t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
+    t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
   end
 
   create_table "operating_days", force: :cascade do |t|
@@ -76,8 +65,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "beverages", "restaurants"
-  add_foreign_key "dishes", "restaurants"
+  add_foreign_key "menu_items", "restaurants"
   add_foreign_key "operating_days", "restaurants"
   add_foreign_key "restaurants", "users"
 end
