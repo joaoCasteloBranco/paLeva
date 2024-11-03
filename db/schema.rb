@@ -36,18 +36,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
     t.index ["restaurant_id"], name: "index_dishes_on_restaurant_id"
   end
 
-  create_table "menu_items", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.integer "calories"
-    t.string "type"
-    t.boolean "alcoholic"
-    t.integer "restaurant_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
-  end
-
   create_table "operating_days", force: :cascade do |t|
     t.integer "restaurant_id", null: false
     t.integer "week_day"
@@ -57,17 +45,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_operating_days_on_restaurant_id"
-  end
-
-  create_table "operating_hours", force: :cascade do |t|
-    t.integer "restaurant_id", null: false
-    t.integer "day"
-    t.time "opens_at"
-    t.time "closes_at"
-    t.boolean "closed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["restaurant_id"], name: "index_operating_hours_on_restaurant_id"
   end
 
   create_table "restaurants", force: :cascade do |t|
@@ -101,8 +78,6 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_03_072629) do
 
   add_foreign_key "beverages", "restaurants"
   add_foreign_key "dishes", "restaurants"
-  add_foreign_key "menu_items", "restaurants"
   add_foreign_key "operating_days", "restaurants"
-  add_foreign_key "operating_hours", "restaurants"
   add_foreign_key "restaurants", "users"
 end
