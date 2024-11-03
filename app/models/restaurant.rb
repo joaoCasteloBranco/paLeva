@@ -12,6 +12,9 @@ class Restaurant < ApplicationRecord
 
   before_create :generate_unique_code
 
+  def all_operating_days_added?
+    operating_days.length < 7
+  end
 
   private
 
