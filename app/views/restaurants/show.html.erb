@@ -50,6 +50,7 @@
   <ul>
     <% @restaurant.dishes.each do |dish| %>
       <li><%= link_to dish.name, restaurant_dish_path(@restaurant, dish) %></li>
+      <li><%= t(dish.status) %></li>
     <% end %>
   </ul>
 
@@ -57,6 +58,7 @@
   <ul>
     <% @restaurant.beverages.each do |beverage| %>
       <li><%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage) %></li>
+      <li><%= t(beverage.status) %></li>
     <% end %>
   </ul>
 

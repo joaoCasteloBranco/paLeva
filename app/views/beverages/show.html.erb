@@ -15,7 +15,15 @@
   <p><%= @beverage.calories.present? ? @beverage.calories : "Não especificado" %></p>
 </div>
 
+<div>
+  <% if @beverage.active? %>
+    <%= button_to "Desativar Bebida", inactive_restaurant_beverage_path(@restaurant, @beverage) %>
+  <% else %>
+    <%= button_to "Ativar Bebida", active_restaurant_beverage_path(@restaurant, @beverage) %>
+  <% end %>
+</div>
+
 
 <%= link_to 'Editar Bebida', edit_restaurant_beverage_path(@restaurant, @beverage) %> |
-<%= link_to 'Excluir Bebida', restaurant_beverage_path(@restaurant, @beverage), method: :delete %> |
+<%= button_to 'Excluir Bebida', restaurant_beverage_path(@restaurant, @beverage), method: :delete %> |
 <%= link_to 'Voltar para o Restaurante', restaurant_path(@restaurant) %>

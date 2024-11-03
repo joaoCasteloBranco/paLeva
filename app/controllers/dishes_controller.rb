@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :set_restaurant
-  before_action :authorize_dish!, only: [:show]
+  before_action :authorize_dish!, only: [:show, :active]
 
   def index
     @dishes = @restaurant.dishes
@@ -33,6 +33,7 @@ class DishesController < ApplicationController
     if @dish.update(dish_params)
       redirect_to restaurant_dish_path(@restaurant, @dish), notice: 'Prato atualizado com sucesso!'
     else
+      flash.now[:notice] = 'Prato não cadastrado.'
       render :edit
     end
   end
@@ -41,6 +42,18 @@ class DishesController < ApplicationController
     @dish = @restaurant.dishes.find(params[:id])
     @dish.destroy
     redirect_to restaurant_path(@restaurant), notice: 'Prato excluído com sucesso!'
+  end
+
+  def active
+    @dish = @restaurant.dishes.find(params[:id])
+    @dish.active!
+    redirect_to restaurant_path, notice: "#{@dish.name} agora está ativo"
+  end
+
+  def inactive
+    @dish = @restaurant.dishes.find(params[:id])
+    @dish.inactive!
+    redirect_to restaurant_path, notice: "#{@dish.name} agora está inativo"
   end
 
   private

@@ -8,8 +8,15 @@ Rails.application.routes.draw do
 
     resources :operating_days, only: [:new, :create, :update, :edit, :show]
 
-    resources :dishes
-    resources :beverages
+    resources :dishes do
+      post 'active', on: :member
+      post 'inactive', on: :member
+    end
+    resources :beverages do
+      post 'active', on: :member
+      post 'inactive', on: :member
+    end
+
   end
   get 'search', to: 'search#search'
 

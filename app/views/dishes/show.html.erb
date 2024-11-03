@@ -10,6 +10,14 @@
   <p><%= @dish.calories.present? ? @dish.calories : "Não especificado" %></p>
 </div>
 
+<div>
+  <% if @dish.active? %>
+    <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>
+  <% else %>
+    <%= button_to "Ativar Prato", active_restaurant_dish_path(@restaurant, @dish) %>
+  <% end %>
+</div>
+
 
 <%= link_to 'Editar Prato', edit_restaurant_dish_path(@restaurant, @dish) %> |
 <%= button_to 'Excluir Prato', restaurant_dish_path(@restaurant, @dish), method: :delete %> |

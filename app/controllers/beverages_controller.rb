@@ -3,7 +3,6 @@ class BeveragesController < ApplicationController
     before_action :authorize_beverage!, only: [:show]
   
     def index
-      @beverage = @restaurant.beverages
     end
   
     def show
@@ -33,6 +32,7 @@ class BeveragesController < ApplicationController
       if @beverage.update(beverage_params)
         redirect_to restaurant_beverage_path(@restaurant, @beverage), notice: 'Bebida atualizada com sucesso!'
       else
+        flash.now[:notice] = 'Bebida não cadastrada.'
         render :edit
       end
     end
@@ -41,6 +41,18 @@ class BeveragesController < ApplicationController
       @beverage = @restaurant.beverages.find(params[:id])
       @beverage.destroy
       redirect_to restaurant_path(@restaurant), notice: 'Bebida excluída com sucesso!'
+    end
+
+    def active
+      @beverage = @restaurant.beverages.find(params[:id])
+      @beverage.active!
+      redirect_to restaurant_path, notice: "#{@beverage.name} agora está ativo"
+    end
+  
+    def inactive
+      @beverage = @restaurant.beverages.find(params[:id])
+      @beverage.inactive!
+      redirect_to restaurant_path, notice: "#{@beverage.name} agora está inativo"
     end
   
     private
