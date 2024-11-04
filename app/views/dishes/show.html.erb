@@ -14,6 +14,15 @@
   <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish) %>
 </div>
 
+<% if @dish.servings.empty? %>
+  <p>Não esqueça de adicionar porções para este prato!</p>
+<% else %>
+  <% @dish.servings.each do |serving| %>
+    <%= serving.description %>
+    <p>Preço: <%= number_to_currency(serving.price_display) %></p> 
+  <% end  %>
+<% end  %>
+
 <div>
   <% if @dish.active? %>
     <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>

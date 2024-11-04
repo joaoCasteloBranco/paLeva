@@ -7,4 +7,13 @@
     <%= f.text_field  :description %>
   </div>
 
+  <div>
+    <%= f.label :price, "Preço", required: true %>
+    <%= f.number_field  :price %>
+  </div>
+
+  <div>
+    <%= f.submit "Cadastrar Porção" %>
+  </div>
+
 <% end %>

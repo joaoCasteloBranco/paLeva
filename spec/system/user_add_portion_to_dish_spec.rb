@@ -36,11 +36,12 @@ describe 'Usuário adiciona porção para um prato' do
     click_on 'Cadastrar Porção'
     fill_in 'Descrição', with: 'Porção Teste (600g)'
     fill_in 'Preço', with: 1000
+    click_on 'Cadastrar Porção'
     
 
     # Assert
     expect(page).to have_content "Porção Teste (600g)"
-    expect(page).to have_content "Preço: 10,00 reais"
+    expect(page).to have_content "Preço: R$ 10,00"
 
   end
 
