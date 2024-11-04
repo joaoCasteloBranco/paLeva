@@ -7,7 +7,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
-    @dishes = @restaurant.dishes 
+    @markers = Marker.all
   end
 
   def new

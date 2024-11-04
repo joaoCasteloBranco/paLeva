@@ -33,18 +33,33 @@
 
 </div>
 
-<div></div>
+<hr>
 
 <div>
   
 
   <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
   <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
+  
+
+</div>
+
+<hr>
+
+<div>
+  <h2>Marcadores de Pratos do Restaurante</h2>
+  <div>
+    <% @markers.each do |marker| %>
+      <p><%= marker.name %></p>
+    <% end %>
+    
+  </div>
+
   <%= link_to 'Adicionar um Marcador', new_restaurant_marker_path(@restaurant) %> 
 
 </div>
 
-<div></div>
+<hr>
 
 <div>
   <h2>Pratos</h2>
@@ -65,7 +80,7 @@
 
 </div>
 
-
+<hr>
 
 <div>
   <h2 style=”color:blue”>Horário de Funcionamento</h2>

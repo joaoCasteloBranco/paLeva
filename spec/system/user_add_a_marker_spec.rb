@@ -33,6 +33,7 @@ describe 'Usuário cria um marcador' do
     click_on "Adicionar"
 
     # Assert
+    expect(page).to have_content "Marcador salvo com sucesso"
     expect(page).to have_content "Vegano"
 
 

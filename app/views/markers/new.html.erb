@@ -2,7 +2,11 @@
 
 <%= form_with(model: [@restaurant, @marker]) do |f| %>
 
+<div>
   <%= f.label :name, "Nome do Marcador" %>
   <%= f.text_field :name %>
+</div>
+  
+  <%= f.submit "Adicionar" %>
 
 <% end %>
