@@ -9,13 +9,16 @@ Rails.application.routes.draw do
     resources :operating_days, only: [:new, :create, :update, :edit, :show]
 
     resources :dishes do
+      resources :servings, only: [:new, :create, :edit, :update, :destroy, :index, :show]
       post 'active', on: :member
       post 'inactive', on: :member
-      resources :servings, only: [:new, :create]
+
     end
     resources :beverages do
+      resources :servings, only: [:new, :create, :edit, :update, :destroy, :index, :show]
       post 'active', on: :member
       post 'inactive', on: :member
+
     end
 
   end

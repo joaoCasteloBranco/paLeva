@@ -23,6 +23,21 @@
   <% end %>
 </div>
 
+<div>
+  <%= link_to "Cadastrar Embalagem", new_restaurant_beverage_serving_path(@restaurant, @beverage) %>
+</div>
+
+<% if @beverage.servings.empty? %>
+  <p>Não esqueça de adicionar embalagens para este prato!</p>
+<% else %>
+  <% @beverage.servings.each do |serving| %>
+    <%= serving.description %>
+    <p>Preço: <%= number_to_currency(serving.price_display) %></p> 
+  <% end  %>
+<% end  %>
+
+
+
 
 <%= link_to 'Editar Bebida', edit_restaurant_beverage_path(@restaurant, @beverage) %> |
 <%= button_to 'Excluir Bebida', restaurant_beverage_path(@restaurant, @beverage), method: :delete %> |
