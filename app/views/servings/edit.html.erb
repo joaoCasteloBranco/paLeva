@@ -1,0 +1,13 @@
+<h1>Cadastrar porção para o prato: <%= @menu_item.name %></h1>
+
+<%= form_with(model: [@restaurant, @menu_item, @serving]) do |f| %>
+  <div>
+    <%= f.label :price, "Preço", required: true %>
+    <%= f.number_field  :price %>
+  </div>
+
+  <div>
+    <%= f.submit "Atualizar" %>
+  </div>
+
+<% end %>

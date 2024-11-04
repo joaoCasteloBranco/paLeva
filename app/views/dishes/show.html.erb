@@ -11,10 +11,6 @@
 </div>
 
 <div>
-  <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish) %>
-</div>
-
-<div>
   <% if @dish.active? %>
     <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>
   <% else %>
@@ -22,12 +18,22 @@
   <% end %>
 </div>
 
+<div>
+  <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish) %>
+</div>
+
 <% if @dish.servings.empty? %>
   <p>Não esqueça de adicionar porções para este prato!</p>
 <% else %>
   <% @dish.servings.each do |serving| %>
     <%= serving.description %>
-    <p>Preço: <%= number_to_currency(serving.price_display) %></p> 
+    <p>Preço Atual: <%= number_to_currency(serving.price_display) %></p> 
+    <%= link_to "Atualizar Preço", edit_restaurant_dish_serving_path(@restaurant, @dish, serving) %>
+    <p>Histórico de Preços:</p>
+    <% serving.price_histories.each do |history| %>
+      <p>Preço: <%= number_to_currency(history.price_display) %></p>
+      <p>Data de Atualização: <%= history.changed_at.strftime("%d/%m/%Y") %></p>
+    <% end  %>
   <% end  %>
 <% end  %>
 

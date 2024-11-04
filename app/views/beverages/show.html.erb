@@ -28,13 +28,20 @@
 </div>
 
 <% if @beverage.servings.empty? %>
-  <p>Não esqueça de adicionar embalagens para este prato!</p>
+  <p>Não esqueça de adicionar porções para este prato!</p>
 <% else %>
   <% @beverage.servings.each do |serving| %>
     <%= serving.description %>
-    <p>Preço: <%= number_to_currency(serving.price_display) %></p> 
+    <p>Preço Atual: <%= number_to_currency(serving.price_display) %></p> 
+    <%= link_to "Atualizar Preço", edit_restaurant_beverage_serving_path(@restaurant, @beverage, serving) %>
+    <p>Histórico de Preços:</p>
+    <% serving.price_histories.each do |history| %>
+      <p>Preço: <%= number_to_currency(history.price_display) %></p>
+      <p>Data de Atualização: <%= history.changed_at.strftime("%d/%m/%Y") %></p>
+    <% end  %>
   <% end  %>
 <% end  %>
+
 
 
 
