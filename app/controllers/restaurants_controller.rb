@@ -31,7 +31,7 @@ class RestaurantsController < ApplicationController
       redirect_to @restaurant, notice: "Restaurante cadastrado!"
     else
       flash.now[:notice] = "Não foi possível registrar o restaurante"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end 
 

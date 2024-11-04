@@ -40,6 +40,7 @@ describe 'Usuário deleta uma bebida' do
 
     expect(page).not_to have_content 'Bebida Teste'
     expect(page).not_to have_content 'Uma descrição da bebida de teste.'
+    expect(page).to have_content 'Bebida excluída com sucesso!'
   end
 
 end

@@ -41,7 +41,7 @@ describe 'Usuário muda status de um bebida' do
     # Assert
     expect(page).to have_content "Ativo"
     expect(page).not_to have_content "Inativo"
-    expect(page).to have_content "Bebida Teste agora está ativo"
+    expect(page).to have_content "Bebida Teste agora está ativa"
 
   end
 
@@ -82,7 +82,7 @@ describe 'Usuário muda status de um bebida' do
     # Assert
     expect(page).to have_content "Inativo"
     expect(page).not_to have_content "Ativo"
-    expect(page).to have_content "Bebida Teste agora está inativo"
+    expect(page).to have_content "Bebida Teste agora está inativa"
   end
 
   it 'e está ativo por padrão' do

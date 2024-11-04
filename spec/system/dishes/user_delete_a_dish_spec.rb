@@ -10,7 +10,7 @@ describe 'Usuário deleta um prato' do
       last_name: "Vieira",
       password: "nacoesunidas",
     )
-
+ 
     restaurant = Restaurant.create!(
       user: user,
       registered_name: "Arvo",
@@ -20,6 +20,13 @@ describe 'Usuário deleta um prato' do
       phone: "6731423872",
       email: "arvo@restaurante.com"
     )
+ 
+    dish = Dish.create!(
+      restaurant: restaurant, 
+      name: "Prato Teste",
+      description: 'Uma descrição do prato de teste.',
+      calories: 300
+    )
 
     # Act
     login_as(user, :scope => :user)
@@ -27,17 +34,11 @@ describe 'Usuário deleta um prato' do
     within('nav') do
       click_on "Ver Restaurante"
     end
-    click_on "Adicionar um prato"
-    fill_in 'Nome', with: 'Prato Teste'
-    fill_in 'Descrição', with: 'Uma descrição do prato de teste.'
-    fill_in 'Calorias', with: 300
-    click_on 'Adicionar Prato'
     click_on 'Prato Teste'
     click_on 'Excluir Prato'
 
-  
     # Assert
-
+    expect(page).to have_content 'Prato excluído com sucesso!'
     expect(page).not_to have_content 'Uma descrição do prato de teste.'
     expect(page).not_to have_content 'Prato Teste'
   end

@@ -67,7 +67,6 @@ describe 'Usuário cadastra um prato' do
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
-    
     fill_in 'Calorias', with: 300
     click_on 'Adicionar Prato'
   
@@ -75,5 +74,6 @@ describe 'Usuário cadastra um prato' do
 
     expect(page).not_to have_content('Prato Criado com sucesso!')
     expect(page).not_to have_content('Prato Teste')
+    expect(page).to have_content "Não foi possível cadastrar o prato!"
   end
 end

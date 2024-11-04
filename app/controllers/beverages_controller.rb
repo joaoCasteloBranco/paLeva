@@ -19,7 +19,7 @@ class BeveragesController < ApplicationController
         redirect_to @restaurant, notice: 'Bebida Criada com sucesso!'
       else
         flash.now[:notice] = "Não foi possível cadastrar a bebida!"
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -32,8 +32,8 @@ class BeveragesController < ApplicationController
       if @beverage.update(beverage_params)
         redirect_to restaurant_beverage_path(@restaurant, @beverage), notice: 'Bebida atualizada com sucesso!'
       else
-        flash.now[:notice] = 'Bebida não cadastrada.'
-        render :edit
+        flash.now[:notice] = 'Bebida não atualizada.'
+        render :edit, status: :unprocessable_entity
       end
     end
   
@@ -46,13 +46,13 @@ class BeveragesController < ApplicationController
     def active
       @beverage = @restaurant.beverages.find(params[:id])
       @beverage.active!
-      redirect_to restaurant_path, notice: "#{@beverage.name} agora está ativo"
+      redirect_to restaurant_path, notice: "#{@beverage.name} agora está ativa"
     end
   
     def inactive
       @beverage = @restaurant.beverages.find(params[:id])
       @beverage.inactive!
-      redirect_to restaurant_path, notice: "#{@beverage.name} agora está inativo"
+      redirect_to restaurant_path, notice: "#{@beverage.name} agora está inativa"
     end
   
     private

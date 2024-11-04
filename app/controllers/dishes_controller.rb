@@ -21,7 +21,7 @@ class DishesController < ApplicationController
     else
       @markers = @restaurant.markers
       flash.now[:notice] = "Não foi possível cadastrar o prato!"
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -36,8 +36,8 @@ class DishesController < ApplicationController
       redirect_to restaurant_dish_path(@restaurant, @dish), notice: 'Prato atualizado com sucesso!'
     else
       @markers = @restaurant.markers
-      flash.now[:notice] = 'Prato não cadastrado.'
-      render :edit
+      flash.now[:notice] = 'Prato não Atualizado.'
+      render :edit, status: :unprocessable_entity
     end
   end
 

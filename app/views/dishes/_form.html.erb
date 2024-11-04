@@ -20,6 +20,8 @@
     <%= f.file_field :photo %>
   </div>
 
+  <%= link_to 'Adicionar Marcadores', new_restaurant_marker_path(@restaurant) %>
+
   <div>
     <%= f.label :markers, "Marcadores" %>
     <%= f.collection_check_boxes :marker_ids, Marker.all, :id, :name do |b| %>

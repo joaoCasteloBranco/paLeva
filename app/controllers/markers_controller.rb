@@ -22,7 +22,7 @@ class MarkersController < ApplicationController
     else
       puts @marker.errors.full_messages
       flash.now[:notice] = "Erro ao salvar marcadores"
-      render :new
+      render :new, status: :unprocessable_entity
     end
 
   end
