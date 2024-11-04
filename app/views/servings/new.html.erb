@@ -1,0 +1,10 @@
+<h1>Cadastrar porção para o prato: <%= @dish.name %></h1>
+
+<%= form_with(model: [@restaurant, @dish, @serving]) do |f| %>
+
+  <div>
+    <%= f.label :description, "Descrição", required: true %>
+    <%= f.text_field  :description %>
+  </div>
+
+<% end %>

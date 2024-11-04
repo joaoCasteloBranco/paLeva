@@ -11,6 +11,10 @@
 </div>
 
 <div>
+  <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish) %>
+</div>
+
+<div>
   <% if @dish.active? %>
     <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>
   <% else %>

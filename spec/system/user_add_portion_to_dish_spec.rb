@@ -34,7 +34,7 @@ describe 'Usuário adiciona porção para um prato' do
     click_on 'Adicionar Prato'
     click_on 'Prato Teste'
     click_on 'Cadastrar Porção'
-    fill_in 'Nome', with: 'Porção Teste (600g)'
+    fill_in 'Descrição', with: 'Porção Teste (600g)'
     fill_in 'Preço', with: 1000
     
 
