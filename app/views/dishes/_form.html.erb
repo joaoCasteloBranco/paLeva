@@ -20,6 +20,16 @@
     <%= f.file_field :photo %>
   </div>
 
+  <div>
+    <%= f.label :markers, "Marcadores" %>
+    <%= f.collection_check_boxes :marker_ids, Marker.all, :id, :name do |b| %>
+      <div>
+        <%= b.check_box %>
+        <%= b.label %>
+      </div>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

@@ -19,6 +19,7 @@ class DishesController < ApplicationController
     if @dish.save
       redirect_to @restaurant, notice: 'Prato Criado com sucesso!'
     else
+      @markers = @restaurant.markers
       flash.now[:notice] = "Não foi possível cadastrar o prato!"
       render :new
     end
@@ -26,6 +27,7 @@ class DishesController < ApplicationController
 
   def edit
     @dish = @restaurant.dishes.find(params[:id])
+    @markers = @restaurant.markers
   end
 
   def update
@@ -33,6 +35,7 @@ class DishesController < ApplicationController
     if @dish.update(dish_params)
       redirect_to restaurant_dish_path(@restaurant, @dish), notice: 'Prato atualizado com sucesso!'
     else
+      @markers = @restaurant.markers
       flash.now[:notice] = 'Prato não cadastrado.'
       render :edit
     end
@@ -69,7 +72,8 @@ class DishesController < ApplicationController
     :name,
     :description,
     :calories,
-    :photo
+    :photo,
+    marker_ids: []
     )
   end
 

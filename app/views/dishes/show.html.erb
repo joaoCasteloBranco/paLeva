@@ -11,6 +11,19 @@
 </div>
 
 <div>
+  <strong>Marcadores:</strong>
+  <% if @dish.markers.any? %>
+    <ul>
+      <% @dish.markers.each do |marker| %>
+        <li><%= marker.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Não há marcadores associados a este prato.</p>
+  <% end %>
+</div>
+
+<div>
   <% if @dish.active? %>
     <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>
   <% else %>
