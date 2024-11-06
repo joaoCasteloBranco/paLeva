@@ -29,12 +29,12 @@ describe 'Usuário edita um horário de funcionamento' do
     click_on "Ver Restaurante"
   end
   click_on 'Adicionar Horário de Funcionamento'
-  select "monday", from: "Dia da Semana"
+  select "Segunda-feira", from: "Dia da Semana"
   check 'Aberto?'
   fill_in 'Horário de Abertura', with: '06:00'
   fill_in 'Horário de Fechamento', with: '18:00'
   click_on 'Adicionar Dia de Operação'
-  click_on 'monday'
+  click_on 'Segunda-feira'
   click_on 'Editar Horário'
   fill_in 'Horário de Fechamento', with: '19:00'
   click_on 'Atualizar Dia de Operação'
@@ -75,12 +75,12 @@ describe 'Usuário edita um horário de funcionamento' do
       click_on "Ver Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
-    select "monday", from: "Dia da Semana"
+    select "Segunda-feira", from: "Dia da Semana"
     check 'Aberto?'
     fill_in 'Horário de Abertura', with: '06:00'
     fill_in 'Horário de Fechamento', with: '18:00'
     click_on 'Adicionar Dia de Operação'
-    click_on 'monday'
+    click_on 'Segunda-feira'
     click_on 'Editar Horário'
     uncheck 'Aberto?'
     click_on 'Atualizar Dia de Operação'
@@ -120,12 +120,12 @@ describe 'Usuário edita um horário de funcionamento' do
       click_on "Ver Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
-    select "monday", from: "Dia da Semana"
+    select "Segunda-feira", from: "Dia da Semana"
     check 'Aberto?'
     fill_in 'Horário de Abertura', with: '06:00'
     fill_in 'Horário de Fechamento', with: '18:00'
     click_on 'Adicionar Dia de Operação'
-    click_on 'monday'
+    click_on 'Segunda-feira'
     click_on 'Editar Horário'
     fill_in 'Horário de Fechamento', with: nil
     click_on 'Atualizar Dia de Operação'

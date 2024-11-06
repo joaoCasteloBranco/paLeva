@@ -15,7 +15,8 @@ class  OperatingDaysController < ApplicationController
     if @operating_day.save
       redirect_to @restaurant, notice: 'Horário Adicionado'
     else
-      redirect_to @restaurant, alert: 'Falha ao adicionar o horário'
+      flash.now[:alert] = 'Falha ao adicionar o horário'
+      render :new, status: :unprocessable_entity
     end
   end
 

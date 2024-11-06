@@ -111,7 +111,7 @@ RSpec.describe OperatingDay, type: :model do
         restaurant: restaurant
       )
       expect(duplicate_operating_day.valid?).to be false
-      expect(duplicate_operating_day.errors[:week_day]).to include("already has a set schedule for that day of the week.")
+      expect(duplicate_operating_day.errors[:week_day]).to include("Dia de Funcionamento já adicionado.")
     end
   end
 end

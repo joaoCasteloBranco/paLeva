@@ -88,13 +88,13 @@
 <div>
   <h2 style=”color:blue”>Horário de Funcionamento</h2>
   <ul>
-    <% @restaurant.operating_days.sort.each do |day| %>
+    <% @restaurant.operating_days.order(:week_day).each do |day| %>
       <li style="background-color: aqua; margin-bottom: 10px;">
         <%= link_to restaurant_operating_day_path(@restaurant, day) do %>
-          <p><%= day.week_day %></p>
+          <p><%= I18n.t(day.week_day) %></p>
           <% if day.open %>
-            <p><%= OperatingDay.human_attribute_name(:opening_time)  %>: <%= I18n.localize(day.opening_time) %></p>
-            <p><%= OperatingDay.human_attribute_name(:closing_time)  %>: <%= day.closing_time.to_time %></p>
+            <p><%= OperatingDay.human_attribute_name(:opening_time)  %>: <%= I18n.localize(day.opening_time, format: :short_time) %></p>
+            <p><%= OperatingDay.human_attribute_name(:closing_time)  %>: <%= I18n.localize(day.closing_time, format: :short_time) %></p>
           <% else %>
             <p>Fechado</p>
           <% end %>
