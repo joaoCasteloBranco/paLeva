@@ -1,37 +1,3 @@
 <h1>Registro Restaurante</h1>
 
-<%= form_with( model: @restaurant) do |f| %>
-
-  <div>
-    <%= f.label :registered_name %>
-    <%= f.text_field :registered_name, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :comercial_name%>
-    <%= f.text_field :comercial_name, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :cnpj%>
-    <%= f.text_field :cnpj, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :address%>
-    <%= f.text_field :address, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :phone%>
-    <%= f.telephone_field :phone, required: true %>
-  </div>
-
-  <div>
-    <%= f.label :email%>
-    <%= f.email_field :email, required: true %>
-  </div>
-
-  <%= f.submit%>
-
-<% end %>
+<%= render 'form' %>

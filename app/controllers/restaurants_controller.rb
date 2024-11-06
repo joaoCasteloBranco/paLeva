@@ -1,4 +1,6 @@
 class RestaurantsController < ApplicationController
+  before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:edit, :update, :destroy]
 
   def index
     @restaurants = Restaurant.all
@@ -6,7 +8,6 @@ class RestaurantsController < ApplicationController
 
 
   def show
-    @restaurant = Restaurant.find(params[:id])
     @markers = Marker.all
   end
 
@@ -15,9 +16,46 @@ class RestaurantsController < ApplicationController
   end
 
   def create
-    restaurant_params = params
-    .require(:restaurant)
-    .permit(
+    @restaurant = current_user.build_restaurant(restaurant_params)
+
+    if @restaurant.save
+      redirect_to @restaurant, notice: "Restaurante cadastrado!"
+    else
+      current_user.restaurant = nil
+      flash.now[:notice] = "Não foi possível registrar o restaurante"
+      render :new, status: :unprocessable_entity
+    end
+  end 
+
+  def edit 
+  end
+
+  def update
+    if @restaurant.update(restaurant_params)
+      redirect_to @restaurant, notice: "Restaurante Atualizado com Sucesso"
+    else 
+      flash.now[:notice] = "Não foi possível atualizar o restaurante"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @restaurant.destroy
+    redirect_to new_restaurant_path, notice: 'Restaurante Excluido com Sucesso!'
+  end
+
+  private
+
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
+
+  def authorize_user!
+    redirect_to root_path, alert: "Acesso não autorizado." unless @restaurant.user == current_user
+  end
+
+  def restaurant_params
+    params.require(:restaurant).permit(
       :registered_name,
       :comercial_name,
       :cnpj,
@@ -25,14 +63,6 @@ class RestaurantsController < ApplicationController
       :phone,
       :email
     )
-    @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.user = current_user
-    if @restaurant.save!
-      redirect_to @restaurant, notice: "Restaurante cadastrado!"
-    else
-      flash.now[:notice] = "Não foi possível registrar o restaurante"
-      render :new, status: :unprocessable_entity
-    end
-  end 
+  end
 
 end

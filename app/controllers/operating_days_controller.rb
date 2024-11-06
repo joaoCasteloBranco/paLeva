@@ -1,40 +1,42 @@
 class  OperatingDaysController < ApplicationController
   before_action :set_restaurant
+  before_action :set_operating_day, only: [:show, :edit, :update]
   before_action :authorize_operating_day!, only: [:show, :new, :edit]
 
-  def show
-    @operating_day = OperatingDay.find(params[:id])
-  end
+  def show; end
 
   def new
     @operating_day = OperatingDay.new
   end
 
   def create
-    if @restaurant.operating_days.create(operating_day_params)
+    @operating_day = @restaurant.operating_days.new(operating_day_params)
+
+    if @operating_day.save
       redirect_to @restaurant, notice: 'Horário Adicionado'
     else
       redirect_to @restaurant, alert: 'Falha ao adicionar o horário'
     end
   end
 
-  def edit
-    @operating_day = OperatingDay.find(params[:id])
-  end
+  def edit; end
 
   def update
-    if @restaurant.operating_days.update(operating_day_params)
+    if @operating_day.update(operating_day_params)
       redirect_to @restaurant, notice: 'Horário Atualizado'
     else
       redirect_to @restaurant, alert: 'Falha ao atualizar o horário'
     end
-
   end
 
   private 
 
   def set_restaurant
     @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def set_operating_day
+    @operating_day = OperatingDay.find(params[:id])
   end
 
   def operating_day_params

@@ -2,6 +2,8 @@ class Serving < ApplicationRecord
   belongs_to :menu_item
   has_many :price_histories, dependent: :destroy
 
+  validates :description, :price, :menu_item_id, presence: true
+
   after_create :record_price_history
   before_update :record_price_history
   

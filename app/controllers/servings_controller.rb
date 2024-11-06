@@ -12,7 +12,6 @@ class ServingsController < ApplicationController
     if @serving.save
       redirect_to [@restaurant, @menu_item], notice: "Cadastrado com sucesso"
     else
-      puts @serving.errors.full_messages
       flash.now[:alert] = "Não foi possível realizar o cadastro"
       render :new
     end
@@ -25,7 +24,6 @@ class ServingsController < ApplicationController
     if @serving.update(serving_params)
       redirect_to [@restaurant, @menu_item], notice: "Porção atualizada com sucesso"
     else
-      puts @serving.errors.full_messages
       flash.now[:alert] = "Não foi possível atualizar a porção"
       render :edit
     end

@@ -80,4 +80,30 @@ describe 'Usuário se autentica' do
       
   end
 
+  it 'mas falha' do 
+    # Arrange
+    User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+    # Act
+    visit root_path
+    within('nav') do
+      click_on 'Entrar'
+    end
+    within('form') do
+      fill_in 'E-mail', with: "sergio.vieira.de.melo@ri.com"
+      fill_in 'Senha', with: "wrong_password"
+      click_on 'Entrar'
+    end
+
+    # Assert
+    expect(page).to have_content 'E-mail ou senha inválidos'
+    expect(page).not_to have_content 'Registro Restaurante'
+      
+  end
+
 end

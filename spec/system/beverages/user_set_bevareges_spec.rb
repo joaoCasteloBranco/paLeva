@@ -74,5 +74,6 @@ describe 'Usuário cadastra uma bebida' do
 
     expect(page).not_to have_content 'Bebida Criada com sucesso!'
     expect(page).not_to have_content 'Bebida Teste'
+    expect(page).to have_content "Não foi possível cadastrar a bebida!"
   end
 end

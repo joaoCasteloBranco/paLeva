@@ -68,6 +68,7 @@ describe 'Usuário cadastra um prato' do
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
     fill_in 'Calorias', with: 300
+    fill_in 'Descrição', with: nil
     click_on 'Adicionar Prato'
   
     # Assert

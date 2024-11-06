@@ -2,7 +2,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Busca de pratos e bebidas', type: :system do
-  let(:user) { User.create!(email: "test@example.com", password: "password") }
+
+  it 'e não está autenticado' do
+    # Arrange
+
+    # Act
+    visit root_path
+    # Assert
+    expect(page).not_to have_content("Buscar")
+  end
 
   it 'E encontra resultados' do
     # Arrange
@@ -46,8 +54,6 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     restaurant: restaurant
     )
 
-
-
     # Act
     login_as(user, :scope => :user)
     visit root_path
@@ -59,15 +65,6 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     expect(page).to have_content("Macarrão Alho e Óleo")
     expect(page).not_to have_content("Salada Caesar")
     
-  end
-
-  it 'e não está autenticado' do
-    # Arrange
-
-    # Act
-    visit root_path
-    # Assert
-    expect(page).not_to have_content("Buscar")
   end
 
   it 'e não encontra resultados' do

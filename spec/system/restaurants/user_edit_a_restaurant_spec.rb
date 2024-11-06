@@ -1,17 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário cadastra um restaurante' do
-  it 'mas não está autenticado' do
-    # Arrange 
-
-    # Act
-    visit root_path
-
-    # Assert
-    expect(page).not_to have_content 'Cadastrar Restaurante'
-
-  end
-
+describe 'Usuário edita um restaurante' do
   it 'e com sucesso' do
     # Arrange
     user = User.create!(
@@ -33,12 +22,19 @@ describe 'Usuário cadastra um restaurante' do
     fill_in 'Telefone', with: "6731423872"
     fill_in 'E-mail', with: "arvo@restaurante.com"
     click_on 'Adicionar Restaurante'
+    click_on 'Ver Restaurante'
+    click_on 'Editar Restaurante'
+    fill_in 'Endereço Completo', with: "Av. 2000"
+    click_on 'Atualizar Restaurante'
 
     # Assert
+    expect(page).to have_content "Restaurante Atualizado com Sucesso"
     expect(page).to have_content "Arvo"
+    expect(page).to have_content "Av. 2000"
+    expect(page).not_to have_content "Av. 1000"
   end
 
-  it 'mas com falha' do
+  it 'mas falha' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -52,16 +48,22 @@ describe 'Usuário cadastra um restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     click_on 'Cadastrar Restaurante'
-    fill_in 'Nome Fantasia', with: "Arvo" 
-    fill_in 'Razão Social', with: nil
-    fill_in 'CNPJ', with: nil
-    fill_in 'Endereço Completo', with: nil
-    fill_in 'Telefone', with: nil
-    fill_in 'E-mail', with: nil 
+    fill_in 'Nome Fantasia', with: "Arvo"
+    fill_in 'Razão Social', with: "Arvo Restaurante"
+    fill_in 'CNPJ', with: "61.236.299/0001-72"
+    fill_in 'Endereço Completo', with: "Av. 1000"
+    fill_in 'Telefone', with: "6731423872"
+    fill_in 'E-mail', with: "arvo@restaurante.com"
     click_on 'Adicionar Restaurante'
+    click_on 'Ver Restaurante'
+    click_on 'Editar Restaurante'
+    fill_in 'Endereço Completo', with: "Av. 2000"
+    fill_in 'Telefone', with: nil
+    click_on 'Atualizar Restaurante'
 
     # Assert
-    expect(page).to have_content "Não foi possível registrar o restaurante"
-    expect(page).not_to have_content "Arvo"
+    expect(page).to have_content "Não foi possível atualizar o restaurante"
+    expect(page).not_to have_content "Av. 2000"
+
   end
 end

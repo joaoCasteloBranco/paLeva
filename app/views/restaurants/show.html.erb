@@ -31,6 +31,9 @@
     <p><%= @restaurant.code %></p>
   </div>
 
+  <%= link_to 'Editar Restaurante', edit_restaurant_path(@restaurant) %> 
+  <%= button_to 'Deletar Restaurante', restaurant_path(@restaurant), method: :delete %> 
+
 </div>
 
 <hr>

@@ -21,18 +21,20 @@ describe 'Usuário edita uma bebida' do
       email: "arvo@restaurante.com"
     )
 
+    beverage = Beverage.create!(
+      restaurant: restaurant, 
+      name: "Bebida Teste",
+      description: 'Uma descrição da Bebida de teste.',
+      calories: 300,
+      alcoholic: false
+    )
+
     # Act
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
     end
-    click_on "Adicionar uma bebida"
-    fill_in 'Nome', with: 'Bebida Teste'
-    fill_in 'Descrição', with: 'Uma descrição da bebida de teste.'
-    fill_in 'Calorias', with: 300
-    check 'Alcólica?'
-    click_on 'Adicionar Bebida'
     click_on 'Bebida Teste'
     click_on 'Editar Bebida'
     fill_in 'Descrição', with: 'Outra descrição'
@@ -66,24 +68,25 @@ describe 'Usuário edita uma bebida' do
       email: "arvo@restaurante.com"
     )
 
+    beverage = Beverage.create!(
+      restaurant: restaurant, 
+      name: "Bebida Teste",
+      description: 'Uma descrição da Bebida de teste.',
+      calories: 300,
+      alcoholic: false
+    )
+
     # Act
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
     end
-    click_on "Adicionar uma bebida"
-    fill_in 'Nome', with: 'Bebida Teste'
-    fill_in 'Descrição', with: 'Uma descrição da bebida de teste.'
-    fill_in 'Calorias', with: 300
-    check 'Alcólica?'
-    click_on 'Adicionar Bebida'
     click_on 'Bebida Teste'
     click_on 'Editar Bebida'
     fill_in 'Descrição', with: nil
     click_on 'Atualizar Bebida'
 
-  
     # Assert
 
     expect(page).not_to have_content 'Bebida atualizada com sucesso!'

@@ -41,7 +41,9 @@ RSpec.describe Dish, type: :model do
       email: "arvo@restaurante.com",
       user: user
     )
-    dish = Dish.new(description: "Salada", calories: 150, restaurant: restaurant)
+    dish = Dish.new(
+      description: "Salada", calories: 150, restaurant: restaurant
+    )
     expect(dish).to be_invalid
     expect(dish.errors[:name]).to include("não pode ficar em branco")
   end

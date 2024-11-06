@@ -13,6 +13,8 @@ class Restaurant < ApplicationRecord
 
   before_create :generate_unique_code
 
+  after_destroy :remove_user_association
+
   def all_operating_days_added?
     operating_days.length < 7
   end
@@ -28,5 +30,9 @@ class Restaurant < ApplicationRecord
       self.code = SecureRandom.alphanumeric(6).upcase
       break unless Restaurant.exists?(code: code)
     end
+  end
+
+  def remove_user_association
+    user.update(restaurant: nil)
   end
 end
