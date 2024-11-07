@@ -12,7 +12,7 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     expect(page).not_to have_content("Buscar")
   end
 
-  it 'E encontra resultados' do
+  it 'e encontra resultados' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -102,7 +102,7 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     expect(page).not_to have_content("Macarrão Alho e Óleo")
   end
 
-  it 'E encontra vários resultados' do
+  it 'e encontra vários resultados' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -149,7 +149,7 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     
   end
 
-  it 'E encontra resultados apenas do seu restaurante' do
+  it 'e encontra resultados apenas do seu restaurante' do
     # Arrange
     user1 = User.create!(
       cpf: "109.789.030-99",
@@ -194,10 +194,10 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     )
 
     Beverage.create!(
-    name: "Vodka",
-    description: "Nem um pouco refrescante",
-    alcoholic: true,
-    restaurant: reteteu
+      name: "Vodka",
+      description: "Nem um pouco refrescante",
+      alcoholic: true,
+      restaurant: reteteu
     )
 
     # Act
@@ -212,6 +212,184 @@ RSpec.describe 'Busca de pratos e bebidas', type: :system do
     expect(page).not_to have_content("Vodka")
     expect(page).not_to have_content("Salada Caesar")
     
+  end
+
+  it 'e encontra resultados baseado no nome e na descrição' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    restaurant.dishes.create!(
+      name: "Macarrão Alho e Óleo Refrescante",
+      description: "Prato de macarrão com alho, óleo e temperos"
+    )
+
+    Beverage.create!(
+      name: "Cerveja",
+      description: "Bebida refrescante",
+      alcoholic: true,
+      restaurant: restaurant
+    )
+
+    Beverage.create!(
+      name: "Vodka",
+      description: "Muito forte",
+      alcoholic: true,
+      restaurant: restaurant
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    fill_in 'Buscar Item', with: 'refrescante'
+    click_button 'Buscar'
+
+    # Assert
+    
+    expect(page).to have_content "Macarrão Alho e Óleo Refrescante"
+    expect(page).to have_content "Cerveja"
+    expect(page).not_to have_content "Vodka"
+    
+  end
+
+  it 'e consegue ver os detalhes o resultado da pesquisa' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    dish = Dish.create!(
+      name: "Macarrão Alho e Óleo Refrescante",
+      description: "Prato de macarrão com alho, óleo e temperos",
+      restaurant: restaurant
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    fill_in 'Buscar Item', with: 'Refrescante'
+    click_button 'Buscar'
+    click_on 'Macarrão Alho e Óleo Refrescante'
+
+    # Assert
+    expect(page).to have_content "Macarrão Alho e Óleo Refrescante"
+    expect(page).to have_content "Prato de macarrão com alho, óleo e temperos"
+    expect(current_path).to eq restaurant_dish_path(restaurant.id, dish.id)
+  end
+
+  it 'e consegue acessar diretamente a tela de edição do prato ou bebida.' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    dish = Dish.create!(
+      name: "Macarrão Alho e Óleo Refrescante",
+      description: "Prato de macarrão com alho, óleo e temperos",
+      restaurant: restaurant
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    fill_in 'Buscar Item', with: 'Refrescante'
+    click_button 'Buscar'
+
+    # Assert
+    expect(page).to have_content "Macarrão Alho e Óleo Refrescante"
+    expect(page).to have_content "Editar"
+
+    # Act 2
+    click_on "Editar"
+
+    # Assert
+    expect(current_path).to eq edit_restaurant_dish_path(restaurant.id, dish.id)
+  end
+
+  it 'e consegue fazer fluxo de pesquisa  e edição' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    dish = Dish.create!(
+      name: "Macarrão Alho e Óleo Refrescante",
+      description: "Prato de macarrão com alho, óleo e temperos",
+      restaurant: restaurant
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    fill_in 'Buscar Item', with: 'Refrescante'
+    click_button 'Buscar'
+    click_on "Editar"
+    fill_in 'Descrição', with: 'Prato de macarrão com alho, óleo e temperos picantes'
+    click_on 'Atualizar Prato'
+    fill_in 'Buscar Item', with: 'picantes'
+    click_button 'Buscar'
+    click_on 'Macarrão Alho e Óleo Refrescante'
+
+    # Assert
+    expect(page).to have_content "Macarrão Alho e Óleo Refrescante"
+    expect(page).to have_content "Prato de macarrão com alho, óleo e temperos picantes"
   end
 
 end

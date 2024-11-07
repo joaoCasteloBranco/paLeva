@@ -15,11 +15,12 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_to_restaurant_creation_if_needed
-    if current_user.present? && current_user.restaurant.nil? && request.path != destroy_user_session_path && request.path != restaurants_path
-      unless request.path == new_restaurant_path
-        redirect_to new_restaurant_path
-        return
-      end
+    unless current_user&.restaurant.nil?
+      return
+    end
+
+    unless request.path.in?([destroy_user_session_path, restaurants_path, new_restaurant_path])
+      redirect_to new_restaurant_path
     end
   end
 end

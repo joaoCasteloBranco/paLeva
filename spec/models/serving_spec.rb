@@ -145,6 +145,34 @@ RSpec.describe Serving, type: :model do
       expect(serving.errors[:price]).to include("não pode ficar em branco")
     end
 
+    it 'é inválido com preço negativo' do
+      user = User.new(
+        cpf: "109.789.030-99",
+        email: "sergio.vieira.de.melo@ri.com",
+        name: "Sergio",
+        last_name: "Vieira",
+        password: "nacoesunidas"
+      )
+      restaurant = Restaurant.new(
+        user: user,
+        registered_name: "Arvo",
+        comercial_name: "Arvo Restaurante",
+        cnpj: "61.236.299/0001-72",
+        address: "Av. 1000",
+        phone: "6731423872",
+        email: "arvo@restaurante.com"
+      )
+      dish = Dish.new(
+        name: "Cesar Salad",
+        description: "Salada",
+        calories: 150,
+        restaurant: restaurant
+      )
+      serving = Serving.new(description: "Porção Média 600g", menu_item: dish, price: -10)
+      expect(serving.valid?).to be false
+      expect(serving.errors[:price]).to include("deve ser maior ou igual a 0")
+    end
+
     it 'é inválido sem menu_item_id' do
       serving = Serving.new(description: "Porção Média 600g", price: 1000)
       expect(serving.valid?).to be false
@@ -228,13 +256,14 @@ RSpec.describe Serving, type: :model do
         phone: "6731423872",
         email: "arvo@restaurante.com"
       )
-      dish = Dish.create!(
+      beverage = Beverage.create!(
         name: "Cesar Salad",
         description: "Salada",
         calories: 150,
-        restaurant: restaurant
+        restaurant: restaurant,
+        alcoholic: false
       )
-      serving = Serving.create!(price: 1000, description: "Porção Média 600g", menu_item: dish)
+      serving = Serving.create!(price: 1000, description: "Porção Média 600g", menu_item: beverage)
       serving.update(price: 1200)
 
       expect(serving.price_histories.count).to eq(2)

@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :set_restaurant
-  before_action :authorize_dish!, only: [:show, :active]
+  before_action :authorize_dish!, only: [:show, :active, :inactive, :edit, :index, :destroy ]
 
   def index
     @dishes = @restaurant.dishes

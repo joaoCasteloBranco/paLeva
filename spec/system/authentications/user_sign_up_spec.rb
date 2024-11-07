@@ -90,4 +90,23 @@ describe 'Usuário vai se autenticar' do
     expect(page).not_to have_button 'Sair'
     expect(page).to have_link 'Entrar'
   end
+
+  it 'e é redirecionado automaticamente para a tela de cadastro de restaurante' do
+    # Arrange 
+
+    # Act
+    visit root_path
+    click_on 'Entrar'
+    click_on 'Criar conta'
+    fill_in 'Senha', with: "nacoesunidas"
+    fill_in 'Nome', with: "Sergio"
+    fill_in 'CPF', with: "109.789.030-99"
+    fill_in 'Sobrenome', with: "Vieira"
+    fill_in 'E-mail', with: "sergio.vieira.de.melo@ri.com"
+    fill_in 'Confirme sua senha', with: "nacoesunidas"
+    click_on 'Criar conta'
+
+    # Assert
+    expect(current_path).to eq new_restaurant_path
+  end
 end

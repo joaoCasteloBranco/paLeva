@@ -8,7 +8,7 @@ class RestaurantsController < ApplicationController
 
 
   def show
-    @markers = Marker.all
+    @markers = @restaurant.markers
   end
 
   def new

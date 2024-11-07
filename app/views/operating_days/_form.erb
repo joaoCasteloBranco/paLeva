@@ -1,34 +1,35 @@
 <% if @operating_day.errors.any? %>
-  <% @operating_day.errors.full_messages.each do |message|%>\
-  <h3><%= message %> </h3>
+  <% @operating_day.errors.full_messages.each do |message|%>
+    <h3><%= message %></h3>
   <%end%>
 <%end%>
 
 
-<%= form_with( model: [@restaurant, @operating_day]) do |f| %>
+<%= form_with(model: [@restaurant, @operating_day]) do |f| %>
 
   <div>
     <%= f.label :week_day %>
     <%= f.select :week_day, options_for_select(
       OperatingDay.week_days.keys.map { |day| [I18n.t(day), day] }, f.object.week_day
-  ) %>
+    ) %>
   </div>
 
-  <div>
-    <%= f.label :open %>
-    <%= f.check_box :open %>
-  </div>
-
-  <div>
-    <%= f.label :opening_time %>
-    <%= f.time_field :opening_time %>
-  </div>
-
-  <div>
-    <%= f.label :closing_time %>
-    <%= f.time_field :closing_time %>
-  </div>
-
-  <%= f.submit  %>
+  <div >
+    <div>
+      <%= f.label :open %>
+      <%= f.check_box :open %>
+    </div>
   
+    <div>
+      <%= f.label :opening_time %>
+      <%= f.time_field :opening_time %>
+    </div>
+
+    <div>
+      <%= f.label :closing_time %>
+      <%= f.time_field :closing_time  %>
+    </div>
+
+    <%= f.submit %>
+  </div>
 <% end %>
