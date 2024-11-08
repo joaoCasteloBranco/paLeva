@@ -50,13 +50,13 @@ class DishesController < ApplicationController
   def active
     @dish = @restaurant.dishes.find(params[:id])
     @dish.active!
-    redirect_to restaurant_path, notice: "#{@dish.name} agora está ativo"
+    redirect_to restaurant_path(@restaurant), notice: "#{@dish.name} agora está ativo"
   end
 
   def inactive
     @dish = @restaurant.dishes.find(params[:id])
     @dish.inactive!
-    redirect_to restaurant_path, notice: "#{@dish.name} agora está inativo"
+    redirect_to restaurant_path(@restaurant), notice: "#{@dish.name} agora está inativo"
   end
 
   private

@@ -8,8 +8,12 @@
 <% else %>
   <div>
     <% @menus.each do |menu| %>
-      <div>
-        <%= menu.name %>
+      <div id="menu_<%= menu.id %>"> 
+        
+        <%= link_to menu.name, restaurant_menu_path(@restaurant, menu) %>
+
+        <%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, menu) %>
+
       </div>
     <% end %>
   </div>

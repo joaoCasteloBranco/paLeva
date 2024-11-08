@@ -1,19 +1,16 @@
 class MenusController < ApplicationController
+  before_action :set_restaurant
+  before_action :authorize_menu!, only: [:show, :new ]
+
+  def show
+    @menu = Menu.find(params[:id])
+  end
 
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @menu = Menu.new
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-
-    menus_params = params
-    .require(:menu)
-    .permit(
-      :name
-    )
-
     @menu = @restaurant.menus.new(menus_params)
 
     if @menu.save
@@ -24,4 +21,25 @@ class MenusController < ApplicationController
     end
     
   end
+
+  private 
+
+  def menus_params
+    menus_params = params
+    .require(:menu)
+    .permit(
+      :name
+    )
+  end
+
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def authorize_menu!
+    unless @restaurant.user_id == current_user.id
+      redirect_to root_path, alert: 'Acesso negado!'
+    end
+  end
+
 end

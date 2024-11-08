@@ -46,13 +46,13 @@ class BeveragesController < ApplicationController
     def active
       @beverage = @restaurant.beverages.find(params[:id])
       @beverage.active!
-      redirect_to restaurant_path, notice: "#{@beverage.name} agora está ativa"
+      redirect_to restaurant_path(@restaurant), notice: "#{@beverage.name} agora está ativa"
     end
   
     def inactive
       @beverage = @restaurant.beverages.find(params[:id])
       @beverage.inactive!
-      redirect_to restaurant_path, notice: "#{@beverage.name} agora está inativa"
+      redirect_to restaurant_path(@restaurant), notice: "#{@beverage.name} agora está inativa"
     end
   
     private

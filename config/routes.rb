@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
     resources :markers, only: [:new, :create]
 
-    resources :menus, only: [:new, :create]
+    resources :menus, only: [:new, :create, :show] do
+      resources :menu_contents, only: [:new, :create, :show, :destroy]
+    end
 
     resources :dishes do
       resources :servings, only: [:new, :create, :edit, :update, :destroy, :index, :show]

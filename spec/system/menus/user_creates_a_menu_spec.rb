@@ -162,4 +162,66 @@ describe 'Usuário cria um cardápio' do
     expect(page).to have_content "falha ao criar o cardápio"
 
   end
+
+  it 'e só consegue ver cardápios do seu restaurante' do
+    # Arrange
+    user_1 = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+  
+    restaurant_1 = Restaurant.create!(
+      user: user_1,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    menu_1 = Menu.create!(
+      name: "Menu Restaurante 1",
+      restaurant: restaurant_1
+    )
+  
+    user_2 = User.create!(
+      cpf: "662.142.320-99",
+      email:  "email@email.com",
+      name: "Usuário",
+      last_name: "Teste",
+      password: "nacoesunidas",
+    )
+  
+    restaurant_2 = Restaurant.create!(
+      user: user_2,
+      registered_name: "Reteteu",
+      comercial_name: "Reteteu Restaurante",
+      cnpj: "50.934.557/0001-78",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "reteteu@restaurante.com"
+    )
+
+    menu_2 = Menu.create!(
+      name: "Menu Restaurante 2",
+      restaurant: restaurant_2
+    )
+
+    # Act
+    login_as(user_2)
+    visit restaurant_menu_path(restaurant_1.id, menu_1.id)
+  
+
+    # Assert
+    expect(page).to have_content "Acesso negado"
+    expect(page).not_to have_content "Menu Restaurante 1"
+
+
+    expect(current_path).to eq root_path  
+
+  end
 end

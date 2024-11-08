@@ -1,0 +1,33 @@
+<h1>Cardápio: <%= @menu.name %></h1>
+
+
+<div>
+  <p>Pratos Ativos:</p>
+  <% @menu.menu_items.active.each do |menu_item| %>
+    
+    <div id="menu_item_<%= menu_item.id %>">
+      <%= menu_item.name %>
+      <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
+    </div>
+  <% end %>
+
+  <p>Pratos Inativos:</p>
+  <% @menu.menu_items.inactive.each do |menu_item| %>
+    
+    <div id="menu_item_<%= menu_item.id %>">
+      <%= menu_item.name %>
+      <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, @menu) %>
+
+
+
+
+
+  
+
+
+

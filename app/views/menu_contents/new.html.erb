@@ -1,0 +1,14 @@
+<h1>Adicionar Itens para o Cardápio: <%= @menu.name %> </h1>
+
+<%= form_with(model: [@restaurant, @menu, @menu_content]) do |f| %>
+
+  <div>
+    <%= f.label :menu_item_id, "Itens:" %>
+    <%= f.collection_select :menu_item_id, @restaurant.menu_items, :id, :name  %>
+  </div>
+
+  <div>
+    <%= f.submit "Adicionar Item" %>
+  </div>
+
+<% end %>
