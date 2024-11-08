@@ -21,8 +21,6 @@ class  MenuContentsController < ApplicationController
         @restaurant, @menu
       ), notice: "Cadastrado com sucesso"
     else
-      puts @menu_content.errors.messages
-
       flash.now[:alert] = "Não foi possível realizar o cadastro"
       render :new
     end

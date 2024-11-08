@@ -3,22 +3,29 @@
 
 <div>
   <p>Pratos Ativos:</p>
-  <% @menu.menu_items.active.each do |menu_item| %>
+
+  <% if @menu.menu_items.active.empty? %>
+    <p>Esse cardapio não possui pratos ativos</p>
+  <% else %>
+    <% @menu.menu_items.active.each do |menu_item| %>
     
-    <div id="menu_item_<%= menu_item.id %>">
-      <%= menu_item.name %>
-      <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
-    </div>
+      <div id="menu_item_<%= menu_item.id %>">
+        <%= menu_item.name %>
+        <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
+        <div>
+          <% menu_item.servings.each do |serving|  %>
+            <%= serving.description %>
+            <p>Preço: <%= number_to_currency(serving.price_display) %></p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 
-  <p>Pratos Inativos:</p>
-  <% @menu.menu_items.inactive.each do |menu_item| %>
-    
-    <div id="menu_item_<%= menu_item.id %>">
-      <%= menu_item.name %>
-      <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
-    </div>
+  <% if @menu.menu_items.inactive.present? %>
+    <p>Há pratos inativos para esse Cardápio</p>
   <% end %>
+  
 </div>
 
 <%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, @menu) %>
