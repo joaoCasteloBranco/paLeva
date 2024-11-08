@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_04_085431) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_100935) do
   create_table "markers", force: :cascade do |t|
     t.string "name"
     t.integer "restaurant_id", null: false
@@ -40,6 +40,14 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_04_085431) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["restaurant_id"], name: "index_menu_items_on_restaurant_id"
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.string "name"
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_menus_on_restaurant_id"
   end
 
   create_table "operating_days", force: :cascade do |t|
@@ -104,6 +112,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_04_085431) do
   add_foreign_key "menu_item_markers", "markers"
   add_foreign_key "menu_item_markers", "menu_items"
   add_foreign_key "menu_items", "restaurants"
+  add_foreign_key "menus", "restaurants"
   add_foreign_key "operating_days", "restaurants"
   add_foreign_key "price_histories", "servings"
   add_foreign_key "restaurants", "users"

@@ -1,10 +1,11 @@
 class Restaurant < ApplicationRecord
   belongs_to :user
+  
   has_many :dishes, dependent: :destroy
   has_many :beverages, dependent: :destroy
   has_many :operating_days
   has_many :markers
-
+  has_many :menus
 
   validates :comercial_name, :registered_name, :cnpj, :address, :phone, :email, presence: true
   validates :phone, length: { in: 10..11 }

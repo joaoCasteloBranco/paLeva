@@ -1,3 +1,24 @@
 <h1>Cardápios:</h1>
 
-<%= link_to 'Adicionar Cardápio', new_restaurant_menu_path(@restaurant) %>
+<% unless user_signed_in? %>
+
+  <h2>Entre para registrar pedidos</h2>
+  <%= link_to 'Criar Cadastro', new_user_session_path %>
+
+<% else %>
+  <div>
+    <% @menus.each do |menu| %>
+      <div>
+        <%= menu.name %>
+      </div>
+    <% end %>
+  </div>
+
+
+  <div>
+    <%= link_to 'Adicionar Cardápio', new_restaurant_menu_path(@restaurant) %>
+  </div>
+  
+<% end %> 
+
+
