@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users
-  root "home#index"
-  resources :restaurants, only: [:new, :create, :show, :index]
 
+  root "home#index"
 
   resources :restaurants do
 
     resources :operating_days, only: [:new, :create, :update, :edit, :show]
+
     resources :markers, only: [:new, :create]
+
+    resources :menus, only: [:new, :create]
 
     resources :dishes do
       resources :servings, only: [:new, :create, :edit, :update, :destroy, :index, :show]

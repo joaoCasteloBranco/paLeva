@@ -1,0 +1,10 @@
+<h1>Adicionar novo Cardápio</h1>
+
+<%= form_with( model: [@restaurant, @menu]) do |f| %>
+
+  <div>
+    <%= f.label :name, "Nome" %>
+    <%= f.text_field :name %>
+  </div>
+
+<% end %>

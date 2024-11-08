@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
 
-    def index
-    end
+  def index
+    @restaurant = current_user.restaurant
+  end
 end
