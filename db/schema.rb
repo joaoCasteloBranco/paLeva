@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_08_113928) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_08_210204) do
   create_table "markers", force: :cascade do |t|
     t.string "name"
     t.integer "restaurant_id", null: false
@@ -70,6 +70,29 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_113928) do
     t.index ["restaurant_id"], name: "index_operating_days_on_restaurant_id"
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.string "note"
+    t.integer "order_id", null: false
+    t.integer "serving_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["serving_id"], name: "index_order_items_on_serving_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.string "customer_name"
+    t.string "contact_phone"
+    t.string "contact_email"
+    t.string "cpf"
+    t.string "code"
+    t.integer "status"
+    t.integer "restaurant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_orders_on_restaurant_id"
+  end
+
   create_table "price_histories", force: :cascade do |t|
     t.integer "serving_id", null: false
     t.integer "price"
@@ -125,6 +148,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_08_113928) do
   add_foreign_key "menu_items", "restaurants"
   add_foreign_key "menus", "restaurants"
   add_foreign_key "operating_days", "restaurants"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "servings"
+  add_foreign_key "orders", "restaurants"
   add_foreign_key "price_histories", "servings"
   add_foreign_key "restaurants", "users"
   add_foreign_key "servings", "menu_items"

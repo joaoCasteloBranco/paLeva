@@ -9,6 +9,7 @@ class Restaurant < ApplicationRecord
   
   has_many :markers
   has_many :menus
+  has_many :orders
 
   validates :comercial_name, :registered_name, :cnpj, :address, :phone, :email, presence: true
   validates :phone, length: { in: 10..11 }

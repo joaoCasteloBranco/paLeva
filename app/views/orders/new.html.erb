@@ -1,0 +1,27 @@
+<h1>Criar Novo Pedido</h1>
+
+<%= form_with( model: [@restaurant, @order]) do |f| %>
+
+  <div>
+    <%= f.label :customer_name, "Nome do Cliente" %>
+    <%= f.text_field :customer_name%>
+  </div>
+
+  <div>
+    <%= f.label :cpf, "CPF" %>
+    <%= f.text_field :cpf  %>
+  </div>
+
+  <div>
+    <%= f.label :contact_phone, "Telefone" %>
+    <%= f.telephone_field :contact_phone, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :contact_email, "E-mail" %>
+    <%= f.email_field :contact_email %>
+  </div>
+
+  <%= f.submit "Criar Novo Pedido" %>
+
+<% end %>

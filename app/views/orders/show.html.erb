@@ -1,0 +1,30 @@
+<h1>Pedido: <%= @order.code %></h1>
+
+<h2>Detalhes do Pedido:</h2>
+<div>
+  <%= @order.customer_name %>
+</div>
+<div> 
+  <%= @order.contact_phone %>
+</div>
+<div>
+  <%= @order.contact_email %>
+</div>
+<div>
+  <%= @order.cpf %>
+</div>
+<div>
+  <%= @order.status %>
+</div>
+
+<h2>Itens:</h2>
+
+<% @order.servings.each do |serving| %>
+
+  <%= serving.description %>
+  <p>Preço: <%= number_to_currency(serving.price_display) %></p>
+  
+
+<% end %>
+
+<p>Valor Total do Pedido: <%= number_to_currency(@order.total_price) %> </p>

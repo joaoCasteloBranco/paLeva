@@ -1,6 +1,7 @@
 class Serving < ApplicationRecord
   belongs_to :menu_item
   has_many :price_histories, dependent: :destroy
+  has_many :order_items
 
   validates :description, :price, :menu_item_id, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
