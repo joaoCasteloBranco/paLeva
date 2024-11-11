@@ -32,7 +32,7 @@ class DeviseCreateEmployees < ActiveRecord::Migration[7.2]
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
       # t.datetime :locked_at
 
-      t.references :restaurant
+      t.references :restaurant, null: false, foreign_key: true
       t.string :name
       t.string :cpf
 

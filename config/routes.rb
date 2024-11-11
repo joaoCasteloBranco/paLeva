@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   resources :restaurants do
 
+    resources :employees, only: [:index, :new, :create, :destroy]
+
     resources :operating_days, only: [:new, :create, :update, :edit, :show]
 
     resources :markers, only: [:new, :create]
