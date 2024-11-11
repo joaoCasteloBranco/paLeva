@@ -33,8 +33,7 @@
           <% end %>
 
           <% if !current_user.restaurant.nil? %>
-            <%= link_to 'Ver Funcionários Cadastrados',
-              restaurant_employees_path(current_user.restaurant.id) %>
+            
 
             <%= link_to "Ver Restaurante",  restaurant_path(current_user.restaurant.id) %>
           <% else %>
@@ -45,6 +44,9 @@
           
         <% else %>
           <%= link_to 'Entrar', new_user_session_path  %> 
+
+          <%= link_to 'Área Funcionários', new_employee_session_path  %> 
+
         <% end %>
         
       </nav>

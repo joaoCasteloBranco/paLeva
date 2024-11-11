@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  devise_for :employees, path: 'employees', controllers: {
+    sessions: 'employees/sessions',
+    registrations: 'employees/registrations'
+  }
   devise_for :users
 
   root "home#index"
