@@ -35,7 +35,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Adicionar Itens"
     select "Bebida Teste", from: "Itens:"
@@ -90,7 +90,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
 
     within "#menu_#{menu_1.id}" do
@@ -160,7 +160,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Adicionar Itens"
 
@@ -221,7 +221,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Adicionar Itens"
 

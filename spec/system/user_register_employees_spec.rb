@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Usuário registra um funcionário' do 
-  it 'e com sucesso' do
+describe 'Usuário realiza pré cadastro' do 
+  it 'e visualiza com sucesso' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -37,7 +37,7 @@ describe 'Usuário registra um funcionário' do
 
   end
 
-  it 'e falha por cpf já está em uso no sistema' do
+  it 'e visualiza com sucesso mais de um usuário' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -57,23 +57,36 @@ describe 'Usuário registra um funcionário' do
       email: "arvo@restaurante.com"
     )
 
+    employee = Employee.create!(
+      cpf: "662.142.320-99",
+      email: "email@email.com",
+      status: :pre_registered,
+      restaurant: restaurant
+    )
+
+    employee = Employee.create!(
+      cpf: "165.180.750-74",
+      email: "email2@email.com",
+      status: :pre_registered,
+      restaurant: restaurant
+    )
+
     # Act
     login_as(user, :scope => :user)
     visit root_path
     click_on 'Ver Funcionários Cadastrados'
-    click_on 'Adicionar novo funcionário'
-    fill_in "E-mail", with: "email@email.com"
-    fill_in "CPF", with: "109.789.030-99"
-    click_on 'Pré-Cadastrar'
+
 
     # Assert
-    expect(page).not_to have_content 'Funcionário pré-cadastrado com sucesso.'
-    expect(page).not_to have_content 'email@email.com'
-    expect(page).not_to have_content '662.142.320-99'
+    expect(page).to have_content 'email@email.com'
+    expect(page).to have_content '662.142.320-99'
+
+    expect(page).to have_content "email2@email.com"
+    expect(page).to have_content '165.180.750-74'
 
   end
 
-  it 'e falha por email já está em uso no sistema' do
+  it 'e visualiza usuário que já completaram o cadastro e que não completaram' do
     # Arrange
     user = User.create!(
       cpf: "109.789.030-99",
@@ -93,19 +106,35 @@ describe 'Usuário registra um funcionário' do
       email: "arvo@restaurante.com"
     )
 
+    employee = Employee.create!(
+      cpf: "662.142.320-99",
+      email: "email@email.com",
+      status: :pre_registered,
+      restaurant: restaurant
+    )
+
+    employee = Employee.create!(
+      cpf: "165.180.750-74",
+      email: "email2@email.com",
+      status: :active,
+      restaurant: restaurant,
+      password: "nacoesunidas"
+    )
+
     # Act
     login_as(user, :scope => :user)
     visit root_path
     click_on 'Ver Funcionários Cadastrados'
-    click_on 'Adicionar novo funcionário'
-    fill_in "E-mail", with:  "sergio.vieira.de.melo@ri.com"
-    fill_in "CPF", with: "662.142.320-99"
-    click_on 'Pré-Cadastrar'
+
 
     # Assert
-    expect(page).not_to have_content 'Funcionário pré-cadastrado com sucesso.'
-    expect(page).not_to have_content 'email@email.com'
-    expect(page).not_to have_content '662.142.320-99'
+    within("#active_employees") do
+      expect(page).to have_content "email2@email.com"
+      expect(page).to have_content '165.180.750-74'
+    end
+    
+    expect(page).to have_content 'email@email.com'
+    expect(page).to have_content '662.142.320-99'
 
   end
 end

@@ -30,22 +30,27 @@ describe 'Funcionário Pré-cadastrado se cadastra' do
 
     # Act
     visit root_path
-    click_on 'Entrar Funcionário'
+    click_on 'Área Funcionários'
     click_on 'Sign up'
-    fill_in 'Password ', with: "nacoesunidas"
-    fill_in 'Nome', with: "Usuario"
-    fill_in 'Cpf', with: "662.142.320-99"
     fill_in 'Email', with: "email@email.com"
-    fill_in 'Password confirmation', with: "nacoesunidas"
+    fill_in 'Cpf', with: "662.142.320-99"
+    fill_in 'Nome', with: "Usuario"
+    fill_in 'employee_password', with: "nacoesunidas"
+    fill_in 'employee_password_confirmation', with: "nacoesunidas"
     click_on 'Criar conta'
-    
-
+  
     # Assert
+    expect(page).to have_content 'Cadastro concluído com sucesso.'
+    expect(page).not_to have_content 'Email ou CPF inválidos ou não encontrados.'
+
     expect(page).to have_button 'Sair'
     expect(page).not_to have_link 'Entrar'
 
+    employee = Employee.last
+
     expect(employee.name).to eq 'Usuario'
-    expect(employee.status).to eq :active
+    expect(employee.status).to eq "active"
+    expect(employee.restaurant).to eq restaurant
 
   end
 end

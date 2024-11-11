@@ -1,6 +1,8 @@
 <h1>Funcionários</h1>
 
-<% @restaurant.employees.each do |employee| %>
+<h2>Funcionários Cadastrados:</h2>
+<div id="active_employees">
+  <% @restaurant.employees.active.each do |employee| %>
 
   <div>
     <%= employee.email %>
@@ -11,5 +13,26 @@
   </div>
 
 <% end %>
+
+</div>
+
+
+<h2>Funcionários Pré-Cadastrados:</h2>
+<div id="pre_registred_employees">
+  <% @restaurant.employees.pre_registered.each do |employee| %>
+
+  <div>
+    <%= employee.email %>
+  </div>
+
+  <div>
+    <%= employee.cpf %>
+  </div>
+
+<% end %>
+
+</div>
+
+
 
 <%= link_to 'Adicionar novo funcionário', new_restaurant_employee_path(@restaurant) %>

@@ -22,7 +22,7 @@ describe 'Usuário cria um cardápio' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on 'Adicionar Cardápio'
     fill_in "Nome", with: "Almoço Executivo"
@@ -56,7 +56,7 @@ describe 'Usuário cria um cardápio' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     
     click_on 'Adicionar Cardápio'
@@ -116,7 +116,7 @@ describe 'Usuário cria um cardápio' do
     )
 
     # Act
-    login_as(user_2)
+    login_as(user_2, :scope => :user)
     visit root_path
     
     click_on 'Adicionar Cardápio'
@@ -151,7 +151,7 @@ describe 'Usuário cria um cardápio' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     
     click_on 'Adicionar Cardápio'
@@ -212,7 +212,7 @@ describe 'Usuário cria um cardápio' do
     )
 
     # Act
-    login_as(user_2)
+    login_as(user_2, :scope => :user)
     visit restaurant_menu_path(restaurant_1.id, menu_1.id)
   
 

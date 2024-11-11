@@ -22,7 +22,7 @@ describe 'Usuário vizualiza cardápios' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     
     click_on 'Adicionar Cardápio'
@@ -90,7 +90,7 @@ describe 'Usuário vizualiza cardápios' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Almoço executivo"
 
@@ -162,7 +162,7 @@ describe 'Usuário vizualiza cardápios' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Almoço executivo"
 
@@ -217,7 +217,7 @@ describe 'Usuário vizualiza cardápios' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Almoço executivo"
 

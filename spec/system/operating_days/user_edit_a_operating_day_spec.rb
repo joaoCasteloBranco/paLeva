@@ -23,7 +23,7 @@ describe 'Usuário edita um horário de funcionamento' do
   )
 
   # Act
-  login_as(user)
+  login_as(user, :scope => :user)
   visit root_path
   within('nav') do
     click_on "Ver Restaurante"
@@ -69,7 +69,7 @@ describe 'Usuário edita um horário de funcionamento' do
     )
   
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -114,7 +114,7 @@ describe 'Usuário edita um horário de funcionamento' do
     )
   
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"

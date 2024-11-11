@@ -22,7 +22,7 @@ describe 'Usuário inicia um novo pedido' do
     )
 
     # Act 
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Criar Novo Pedido"
     fill_in 'Nome do Cliente', with: 'João'
@@ -89,7 +89,7 @@ describe 'Usuário inicia um novo pedido' do
 
     
     # Act 
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     visit restaurant_order_path(restaurant.id, order.id)
 
@@ -160,7 +160,7 @@ describe 'Usuário inicia um novo pedido' do
 
     
     # Act 
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     visit restaurant_order_path(restaurant.id, order.id)
 

@@ -22,7 +22,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -62,7 +62,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -99,7 +99,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -139,7 +139,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -179,7 +179,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"
@@ -226,7 +226,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     OperatingDay.create!(week_day: :saturday, restaurant: restaurant, open: false)
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     within('nav') do
       click_on "Ver Restaurante"

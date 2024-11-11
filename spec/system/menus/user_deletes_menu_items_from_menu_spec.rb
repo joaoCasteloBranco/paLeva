@@ -53,7 +53,7 @@ describe 'Usuário exclui um item de menu do cardápio' do
     )
 
     # Act
-    login_as(user)
+    login_as(user, :scope => :user)
     visit root_path
     click_on "Almoço executivo"
 

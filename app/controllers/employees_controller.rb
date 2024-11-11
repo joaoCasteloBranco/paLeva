@@ -17,7 +17,7 @@ class EmployeesController < ApplicationController
     @employee.status = :pre_registered
     
     if @employee.save
-      redirect_to restaurant_path(@restaurant), notice: 'Funcionário pré-cadastrado com sucesso.'
+      redirect_to restaurant_employees_path(@restaurant), notice: 'Funcionário pré-cadastrado com sucesso.'
     else
       puts @employee.errors.full_messages
       render :new, status: :unprocessable_entity
