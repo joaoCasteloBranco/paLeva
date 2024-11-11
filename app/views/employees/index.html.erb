@@ -1,0 +1,15 @@
+<h1>Funcionários</h1>
+
+<% @restaurant.employees.each do |employee| %>
+
+  <div>
+    <%= employee.email %>
+  </div>
+
+  <div>
+    <%= employee.cpf %>
+  </div>
+
+<% end %>
+
+<%= link_to 'Adicionar novo funcionário', new_restaurant_employee_path(@restaurant) %>

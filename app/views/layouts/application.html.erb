@@ -33,6 +33,9 @@
           <% end %>
 
           <% if !current_user.restaurant.nil? %>
+            <%= link_to 'Ver Funcionários Cadastrados',
+              restaurant_employees_path(current_user.restaurant.id) %>
+
             <%= link_to "Ver Restaurante",  restaurant_path(current_user.restaurant.id) %>
           <% else %>
             <%= link_to "Cadastrar Restaurante", new_restaurant_path %>

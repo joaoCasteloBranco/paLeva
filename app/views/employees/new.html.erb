@@ -1,0 +1,19 @@
+<h1>Pré-Cadastro de Funcionário</h1>
+
+<%= form_with( model: [@restaurant, @employee]) do |f| %>
+
+  <div>
+    <%= f.label :email, "E-mail" %>
+    <%= f.email_field :email, required: true %>
+  </div>
+
+  <div>
+    <%= f.label :cpf, "CPF" %>
+    <%= f.text_field :cpf, required: true %>
+  </div>
+
+  <div>
+    <%= f.submit 'Pré-Cadastrar' %>
+  </div>
+
+<% end %>
