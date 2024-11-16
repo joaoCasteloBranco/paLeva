@@ -87,7 +87,6 @@ describe 'Usuário inicia um novo pedido' do
       serving: serving
     )
 
-    
     # Act 
     login_as(user, :scope => :user)
     visit root_path

@@ -48,6 +48,8 @@ describe 'Usuário adiciona porção para o pedido' do
     visit root_path
     click_on "Ver Pedidos"
     click_on "joao.silva@email.com"
+    click_on "Adicionar Porções ao Pedido"
+
     select 'Porção Teste (600g)'
     click_on "Adicionar ao Pedido"
 

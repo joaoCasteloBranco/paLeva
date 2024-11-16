@@ -1,0 +1,31 @@
+<h1>Pedidos:</h1>
+
+
+<% @orders.each do |order| %>
+  <%= link_to restaurant_order_path(@restaurant, order)  do  %> 
+    <div>
+       <%= order.code %>
+    </div>
+
+    <div>
+      <%= order.customer_name %>
+    </div>
+
+    <div>
+      <%= order.contact_phone %>
+    </div>
+
+    <div>
+      <%= order.contact_email %>
+    </div>
+
+    <div>
+      <%= order.cpf %>
+    </div>
+
+    <div>
+      <%= order.status %>
+    </div>
+  <% end %>
+
+<% end %>

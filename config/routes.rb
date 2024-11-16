@@ -32,7 +32,7 @@ Rails.application.routes.draw do
 
     end
 
-    resources :orders, only: [:new, :create, :show]
+    resources :orders, only: [:new, :create, :show, :index]
 
   end
   get 'search', to: 'search#search'

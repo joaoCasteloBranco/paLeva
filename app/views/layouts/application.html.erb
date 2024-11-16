@@ -25,7 +25,6 @@
           <h1>PaLeva!</h1>
         <% end %>
         <% if user_signed_in? %>
-          <!-- User is signed in -->
           <%= form_with url: search_path, method: :get do |f| %>
             <%= f.label :query, 'Buscar Item' %>
             <%= f.text_field :query, placeholder: "Buscar pratos ou bebidas..." %>
@@ -35,7 +34,10 @@
           <% if current_user.restaurant.present? %>
             <%= link_to 'Ver Funcionários Cadastrados',
               restaurant_employees_path(current_user.restaurant.id) %>
+
             <%= link_to "Ver Restaurante",  restaurant_path(current_user.restaurant.id) %>
+            
+            <%= link_to "Ver Pedidos",  restaurant_orders_path(current_user.restaurant.id) %>
           <% else %>
             <%= link_to "Cadastrar Restaurante", new_restaurant_path %>
           <% end %>
@@ -48,8 +50,6 @@
             <%= f.text_field :query, placeholder: "Buscar pratos ou bebidas..." %>
             <%= f.submit "Buscar" %>
           <% end %>
-
-          <%= link_to "Ver Restaurante", restaurant_path(current_employee.restaurant.id) %>
 
           <%= button_to "Sair", destroy_employee_session_path, method: :delete %>
 

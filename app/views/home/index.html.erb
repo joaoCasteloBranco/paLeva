@@ -1,6 +1,6 @@
 <h1>Cardápios:</h1>
 
-<% unless user_signed_in? %>
+<% unless user_signed_in? || employee_signed_in? %>
 
   <h2>Entre para registrar pedidos</h2>
   <%= link_to 'Criar Cadastro', new_user_session_path %>
