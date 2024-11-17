@@ -18,6 +18,19 @@ class Order < ApplicationRecord
     BigDecimal(order_items.sum { |item| item.serving.price }) / 100
   end
 
+  def can_transition_to?(new_status)
+    case new_status
+    when 'in_preparation'
+      awaiting_confirmation?
+    when 'ready'
+      in_preparation?
+    when 'delivered'
+      ready?
+    else
+      true
+    end
+  end
+
   private
 
   def generate_order_code

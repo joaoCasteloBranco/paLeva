@@ -106,6 +106,10 @@ pt-BR:
       month: Mês
       year: Ano
   errors:
+    not_found:
+      restaurant: Restaurante não encontrado
+      order: Pedido não encontrado
+      default: Recurso não encontrado
     format: "%{attribute} %{message}"
     messages:
       accepted: deve ser aceito

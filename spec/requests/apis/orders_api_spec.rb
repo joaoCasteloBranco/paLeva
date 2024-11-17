@@ -53,16 +53,22 @@ describe 'Orders API', type: :request do
       # Act 
       get "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}"
 
+      json_response = JSON.parse(response.body)
+
       # Assert
+      order = json_response["order"]
+      order_items = json_response["order_items"]
+
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
-      expect(response.body).to include 'Prato Teste'
-      expect(response.body).to include 'Sem Cebola'
-      expect(response.body).to include 'awaiting_confirmation'      
+
+      expect(order['customer_name']).to include 'João'
+      expect(order['contact_phone']).to include '6731423872'
+      expect(order['contact_email']).to include 'joao.silva@email.com'
+      expect(order['cpf']).to include '109.789.030-99'
+      expect(order_items.first['menu_item']).to include 'Prato Teste'
+      expect(order_items.first['note']).to include 'Sem Cebola'
+      expect(order['status']).to include 'awaiting_confirmation'      
 
     end
 
@@ -182,10 +188,12 @@ describe 'Orders API', type: :request do
       # Act 
       get "/api/v1/restaurants/INVALIDO/orders/#{order.code}"
 
+      json_response = JSON.parse(response.body)
+
       # Assert
       expect(response.status).to eq 404
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include 'Restaurante não encontrado'
+      expect(json_response["error"]).to include 'Restaurante não encontrado'
 
       expect(response.body).not_to include 'Pedido não encontrado'
       expect(response.body).not_to include 'João'
@@ -267,12 +275,14 @@ describe 'Orders API', type: :request do
       # Act 
       get "/api/v1/restaurants/#{not_used_restaurant.code}/orders/#{order.code}"
 
+      json_response = JSON.parse(response.body)
+
       # Assert
       expect(response.status).to eq 404
       expect(response.content_type).to include 'application/json'
       expect(response.body).to include 'Pedido não encontrado'
 
-      expect(response.body).not_to include 'Restaurante não encontrado'
+      expect(json_response['error']).not_to include 'Restaurante não encontrado'
       expect(response.body).not_to include 'João'
       expect(response.body).not_to include '6731423872'
       expect(response.body).not_to include 'joao.silva@email.com'
@@ -281,9 +291,6 @@ describe 'Orders API', type: :request do
       expect(response.body).not_to include 'Sem Cebola'
       expect(response.body).not_to include '2024-11-16'
       expect(response.body).not_to include 'awaiting_confirmation'  
-    end
-
-    it 'bad request' do
     end
   end
 
@@ -350,19 +357,27 @@ describe 'Orders API', type: :request do
       # Act
       get "/api/v1/restaurants/#{restaurant.code}/orders/"
 
+      json_response = JSON.parse(response.body)
+      orders_response = json_response['orders']
+      order_1_response = orders_response.first['order']
+      order_items_response_1 = orders_response.first['order_items'].first     
+      order_items_response_2 = orders_response.first['order_items'].last
 
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
-      expect(response.body).to include 'Prato Teste'
-      expect(response.body).to include 'Sem Cebola'
-      expect(response.body).to include 'awaiting_confirmation'     
-      expect(response.body).to include 'Com Cebola'
-      expect(response.body).to include 'awaiting_confirmation'   
+      expect(order_1_response['customer_name']).to include 'João'
+      expect(order_1_response['contact_phone']).to include '6731423872'
+      expect(order_1_response['contact_email']).to include 'joao.silva@email.com'
+      expect(order_1_response['cpf']).to include '109.789.030-99'
+      expect(order_1_response['status']).to include 'awaiting_confirmation' 
+      
+      expect(order_items_response_1['menu_item']).to include 'Prato Teste'
+      expect(order_items_response_1['note']).to include 'Sem Cebola'
+         
+      expect(order_items_response_2['menu_item']).to include 'Prato Teste'
+      expect(order_items_response_2['note']).to include 'Com Cebola'
+     
 
     end
 
@@ -469,6 +484,12 @@ describe 'Orders API', type: :request do
       # Act
       get "/api/v1/restaurants/#{restaurant.code}/orders/?status=canceled"
 
+      json_response = JSON.parse(response.body)
+      orders_response = json_response['orders']
+      
+      order_2_response = orders_response.last['order']
+      order_items_response_3 = orders_response.last['order_items'].first     
+      order_items_response_4 = orders_response.last['order_items'].last
 
       # Assert
       expect(response.status).to eq 200
@@ -483,14 +504,14 @@ describe 'Orders API', type: :request do
       expect(response.body).not_to include 'Sem Cebola'   
       expect(response.body).not_to include 'Com Cebola'
 
-      expect(response.body).to include 'Carlos'
-      expect(response.body).to include '6731423873'
-      expect(response.body).to include 'carlos.silva@email.com'
-      expect(response.body).to include '662.142.320-99'
+      expect(order_2_response['customer_name']).to include 'Carlos'
+      expect(order_2_response['contact_phone']).to include '6731423873'
+      expect(order_2_response['contact_email']).to include 'carlos.silva@email.com'
+      expect(order_2_response['cpf']).to include '662.142.320-99'
 
-      expect(response.body).to include 'Bebida Teste'
-      expect(response.body).to include 'Quente'   
-      expect(response.body).to include 'Fria'
+      expect(order_items_response_3['menu_item']).to include 'Bebida Teste'
+      expect(order_items_response_3['note']).to include  'Fria'
+      expect(order_items_response_4['note']).to include 'Quente'   
 
     end
 
@@ -596,29 +617,37 @@ describe 'Orders API', type: :request do
 
       # Act
       get "/api/v1/restaurants/#{restaurant.code}/orders/?status=invalido"
+      json_response = JSON.parse(response.body)
+      orders_response = json_response['orders']
+      order_1_response = orders_response.first['order']
+      order_items_response_1 = orders_response.first['order_items'].first     
+      order_items_response_2 = orders_response.first['order_items'].last
 
+      order_2_response = orders_response.last['order']
+      order_items_response_3 = orders_response.last['order_items'].first     
+      order_items_response_4 = orders_response.last['order_items'].last
 
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
 
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
+      expect(order_1_response['customer_name']).to include 'João'
+      expect(order_1_response['contact_phone']).to include '6731423872'
+      expect(order_1_response['contact_email']).to include 'joao.silva@email.com'
+      expect(order_1_response['cpf']).to include '109.789.030-99'
       
-      expect(response.body).to include 'Prato Teste'
-      expect(response.body).to include 'Sem Cebola'   
-      expect(response.body).to include 'Com Cebola'
+      expect(order_items_response_1['menu_item']).to include 'Prato Teste'
+      expect(order_items_response_1['note']).to include 'Sem Cebola'   
+      expect(order_items_response_2['note']).to include 'Com Cebola'
 
-      expect(response.body).to include 'Carlos'
-      expect(response.body).to include '6731423873'
-      expect(response.body).to include 'carlos.silva@email.com'
-      expect(response.body).to include '662.142.320-99'
+      expect(order_2_response['customer_name']).to include 'Carlos'
+      expect(order_2_response['contact_phone']).to include '6731423873'
+      expect(order_2_response['contact_email']).to include 'carlos.silva@email.com'
+      expect(order_2_response['cpf']).to include '662.142.320-99'
 
-      expect(response.body).to include 'Bebida Teste'
-      expect(response.body).to include 'Quente'   
-      expect(response.body).to include 'Fria'
+      expect(order_items_response_3['menu_item']).to include 'Bebida Teste'
+      expect(order_items_response_3['note']).to include  'Fria'
+      expect(order_items_response_4['note']).to include 'Quente'  
 
     end
 
@@ -724,29 +753,37 @@ describe 'Orders API', type: :request do
 
       # Act
       get "/api/v1/restaurants/#{restaurant.code}/orders/?status="
+      json_response = JSON.parse(response.body)
+      orders_response = json_response['orders']
+      order_1_response = orders_response.first['order']
+      order_items_response_1 = orders_response.first['order_items'].first     
+      order_items_response_2 = orders_response.first['order_items'].last
 
+      order_2_response = orders_response.last['order']
+      order_items_response_3 = orders_response.last['order_items'].first     
+      order_items_response_4 = orders_response.last['order_items'].last
 
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
 
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
+      expect(order_1_response['customer_name']).to include 'João'
+      expect(order_1_response['contact_phone']).to include '6731423872'
+      expect(order_1_response['contact_email']).to include 'joao.silva@email.com'
+      expect(order_1_response['cpf']).to include '109.789.030-99'
       
-      expect(response.body).to include 'Prato Teste'
-      expect(response.body).to include 'Sem Cebola'   
-      expect(response.body).to include 'Com Cebola'
+      expect(order_items_response_1['menu_item']).to include 'Prato Teste'
+      expect(order_items_response_1['note']).to include 'Sem Cebola'   
+      expect(order_items_response_2['note']).to include 'Com Cebola'
 
-      expect(response.body).to include 'Carlos'
-      expect(response.body).to include '6731423873'
-      expect(response.body).to include 'carlos.silva@email.com'
-      expect(response.body).to include '662.142.320-99'
+      expect(order_2_response['customer_name']).to include 'Carlos'
+      expect(order_2_response['contact_phone']).to include '6731423873'
+      expect(order_2_response['contact_email']).to include 'carlos.silva@email.com'
+      expect(order_2_response['cpf']).to include '662.142.320-99'
 
-      expect(response.body).to include 'Bebida Teste'
-      expect(response.body).to include 'Quente'   
-      expect(response.body).to include 'Fria'
+      expect(order_items_response_3['menu_item']).to include 'Bebida Teste'
+      expect(order_items_response_3['note']).to include  'Fria'
+      expect(order_items_response_4['note']).to include 'Quente'  
 
     end
 
@@ -971,15 +1008,17 @@ describe 'Orders API', type: :request do
 
       # Act 
       post "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/in_preparation"
+      json_response = JSON.parse(response.body)
 
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
-      expect(response.body).to include 'in_preparation'      
+      expect(json_response['message']).to include 'Pedido atualizado'
+      expect(json_response['order']['order']['customer_name']).to include 'João'
+      expect(json_response['order']['order']['contact_phone']).to include '6731423872'
+      expect(json_response['order']['order']['contact_email']).to include 'joao.silva@email.com'
+      expect(json_response['order']['order']['cpf']).to include '109.789.030-99'
+      expect(json_response['order']['order']['status']).to include 'in_preparation'      
 
     end
 
@@ -1300,14 +1339,17 @@ describe 'Orders API', type: :request do
       # Act 
       post "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/ready"
 
+      json_response = JSON.parse(response.body)
+      puts json_response
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'
-      expect(response.body).to include 'João'
-      expect(response.body).to include '6731423872'
-      expect(response.body).to include 'joao.silva@email.com'
-      expect(response.body).to include '109.789.030-99'
-      expect(response.body).to include 'ready'      
+      expect(json_response['message']).to include 'Pedido atualizado'
+      expect(json_response['order']['order']['customer_name']).to include 'João'
+      expect(json_response['order']['order']['contact_phone']).to include '6731423872'
+      expect(json_response['order']['order']['contact_email']).to include 'joao.silva@email.com'
+      expect(json_response['order']['order']['cpf']).to include '109.789.030-99'
+      expect(json_response['order']['order']['status']).to include 'ready'  
 
     end
 
