@@ -18,7 +18,6 @@ class OrdersController < ApplicationController
     if @order.save
       redirect_to restaurant_order_path(@restaurant, @order), notice: 'Pedido registrado com sucesso.'
     else
-      puts @order.errors.full_messages
       flash.now[:notice] = "Não foi possível registrar o pedido"
       render :new, status: :unprocessable_entity
     end
