@@ -20,7 +20,6 @@ class MarkersController < ApplicationController
     if @marker.save
       redirect_to @restaurant, notice: "Marcador salvo com sucesso"
     else
-      puts @marker.errors.full_messages
       flash.now[:notice] = "Erro ao salvar marcadores"
       render :new, status: :unprocessable_entity
     end

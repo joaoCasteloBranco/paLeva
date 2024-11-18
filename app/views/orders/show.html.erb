@@ -24,7 +24,8 @@
   <%= serving.description %>
   <p>Preço: <%= number_to_currency(serving.price_display) %></p>
   
-
 <% end %>
+
+<%= link_to 'Adicionar Porções ao Pedido', new_restaurant_order_order_item_path(@restaurant, @order) %>
 
 <p>Valor Total do Pedido: <%= number_to_currency(@order.total_price) %> </p>

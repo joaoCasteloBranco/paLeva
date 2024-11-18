@@ -42,6 +42,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -340,6 +341,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -446,6 +448,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -580,6 +583,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -716,6 +720,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -849,6 +854,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -925,6 +931,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -998,6 +1005,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423872",
         contact_email: 'joao.silva@email.com',
         cpf: '109.789.030-99',
+        status: :awaiting_confirmation
       )
   
       order_item = OrderItem.create!(
@@ -1340,7 +1348,7 @@ describe 'Orders API', type: :request do
       post "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/ready"
 
       json_response = JSON.parse(response.body)
-      puts json_response
+
       # Assert
       expect(response.status).to eq 200
       expect(response.content_type).to include 'application/json'

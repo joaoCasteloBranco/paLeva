@@ -4,8 +4,8 @@ class Order < ApplicationRecord
   has_many :servings, through: :order_items
 
   enum :status, {
-    :awaiting_confirmation=>0, :in_preparation=>1, :canceled=>2, :ready=>3, :delivered=>4
-  }, default: :awaiting_confirmation
+    :awaiting_confirmation=>0, :in_preparation=>1, :canceled=>2, :ready=>3, :delivered=>4, :editing=>10
+  }, default: :editing
 
   validates :status, :code, :customer_name, :contact_phone, presence: true
   validates :contact_phone, presence: true, unless: -> { contact_email.present? }

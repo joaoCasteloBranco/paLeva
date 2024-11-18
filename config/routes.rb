@@ -32,7 +32,10 @@ Rails.application.routes.draw do
 
     end
 
-    resources :orders, only: [:new, :create, :show, :index]
+    resources :orders, only: [:new, :create, :show, :index] do
+      post 'close_order', on: :member
+      resources :order_items, only: [:new, :create]
+    end
 
   end
   get 'search', to: 'search#search'

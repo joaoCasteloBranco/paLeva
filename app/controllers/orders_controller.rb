@@ -16,11 +16,17 @@ class OrdersController < ApplicationController
   def create
     @order = @restaurant.orders.build(order_params)
     if @order.save
-      redirect_to restaurant_order_path(@restaurant, @order), notice: 'Pedido registrado com sucesso.'
+      redirect_to new_restaurant_order_order_item_path(@restaurant, @order), notice: 'Pedido registrado com sucesso.'
     else
       flash.now[:notice] = "Não foi possível registrar o pedido"
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def close_order
+    @order = Order.find(params[:id])
+    @order.awaiting_confirmation!
+    redirect_to restaurant_orders_path(@restaurant, @order), notice: "#{@order.code} agora está completo"
   end
 
   private

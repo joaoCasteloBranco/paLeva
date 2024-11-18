@@ -30,9 +30,11 @@ describe 'Usuário inicia um novo pedido' do
     fill_in 'CPF', with: '109.789.030-99' 
     fill_in 'E-mail', with: 'joao.silva@email.com'
     click_on "Criar Novo Pedido"
-
+    
     # Assert
     expect(page).to have_content 'Pedido registrado com sucesso.'
+
+    click_on "Ver Pedidos"
     expect(page).to have_content 'João'
     expect(page).to have_content "6731423872"
     expect(page).to have_content '109.789.030-99'
