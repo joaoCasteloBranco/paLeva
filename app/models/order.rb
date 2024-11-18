@@ -7,9 +7,9 @@ class Order < ApplicationRecord
     :awaiting_confirmation=>0, :in_preparation=>1, :canceled=>2, :ready=>3, :delivered=>4, :editing=>10
   }, default: :editing
 
-  validates :status, :code, :customer_name, :contact_phone, presence: true
-  validates :contact_phone, presence: true, unless: -> { contact_email.present? }
-  validates :contact_email, presence: true, unless: -> { contact_phone.present? }
+  validates :status, :code, :customer_name, presence: true
+ 
+  validate :phone_or_email_present
   validate :cpf_must_be_valid
 
   before_validation :generate_order_code
@@ -32,6 +32,12 @@ class Order < ApplicationRecord
   end
 
   private
+
+  def phone_or_email_present
+    if contact_phone.blank? && contact_email.blank?
+      errors.add(:base, 'Necessário um telefone ou email.')
+    end
+  end
 
   def generate_order_code
     self.code = SecureRandom.alphanumeric(8).upcase

@@ -6,26 +6,36 @@
   <%= link_to 'Criar Cadastro', new_user_session_path %>
 
 <% else %>
-  <div>
-    <% @menus.each do |menu| %>
-      <div id="menu_<%= menu.id %>"> 
-        
-        <%= link_to menu.name, restaurant_menu_path(@restaurant, menu) %>
 
-        <%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, menu) %>
+  <% if @menus.present? %>
+    <div>
+      <% @menus.each do |menu| %>
+        <div id="menu_<%= menu.id %>"> 
+          
+          <%= link_to menu.name, restaurant_menu_path(@restaurant, menu) %>
 
-      </div>
-    <% end %>
-  </div>
+          <%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, menu) %>
+
+        </div>
+      <% end %>
+    </div>
 
 
-  <div>
+    <div>
+      <%= link_to 'Adicionar Cardápio', new_restaurant_menu_path(@restaurant) %>
+    </div>
+
+    <div>
+      <%= link_to 'Criar Novo Pedido', new_restaurant_order_path(@restaurant) %>
+    </div>
+
+  <% else %>
+
+    <h2>Adicione cardápios para criar pedidos</h2>
+
     <%= link_to 'Adicionar Cardápio', new_restaurant_menu_path(@restaurant) %>
-  </div>
-
-  <div>
-    <%= link_to 'Criar Novo Pedido', new_restaurant_order_path(@restaurant) %>
-  </div>
+  <% end %>
+  
   
 <% end %> 
 

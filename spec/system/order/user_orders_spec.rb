@@ -21,6 +21,11 @@ describe 'Usuário inicia um novo pedido' do
       email: "arvo@restaurante.com"
     )
 
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
+    )
+
     # Act 
     login_as(user, :scope => :user)
     visit root_path
@@ -87,6 +92,11 @@ describe 'Usuário inicia um novo pedido' do
     order_item = OrderItem.create!(
       order: order,
       serving: serving
+    )
+
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
     )
 
     # Act 
@@ -159,6 +169,11 @@ describe 'Usuário inicia um novo pedido' do
       serving: serving_2
     )
 
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
+    )
+
     
     # Act 
     login_as(user, :scope => :user)
@@ -173,6 +188,140 @@ describe 'Usuário inicia um novo pedido' do
     expect(page).to have_content "Preço: R$ 20,00"
 
     expect(page).to have_content "Valor Total do Pedido: R$ 30,00"
+    
+  end
+
+  it 'e falha por cpf inválido' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
+    )
+
+    # Act 
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on "Criar Novo Pedido"
+    fill_in 'Nome do Cliente', with: 'João'
+    fill_in 'Telefone', with: "6731423872"
+    fill_in 'CPF', with: '123.456.789-10' 
+    fill_in 'E-mail', with: 'joao.silva@email.com'
+    click_on "Criar Novo Pedido"
+    
+    # Assert
+    expect(page).to have_content 'Não foi possível registrar o pedido'
+
+    click_on "Ver Pedidos"
+    expect(page).not_to have_content 'João'
+    expect(page).not_to have_content "6731423872"
+    expect(page).not_to have_content '123.456.789-10'
+    expect(page).not_to have_content 'joao.silva@email.com'
+    
+  end
+
+  it 'e com sucesso com apenas email' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
+    )
+
+    # Act 
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on "Criar Novo Pedido"
+    fill_in 'Nome do Cliente', with: 'João'
+    fill_in 'CPF', with: '109.789.030-99' 
+    fill_in 'E-mail', with: 'joao.silva@email.com'
+    click_on "Criar Novo Pedido"
+    
+    # Assert
+    expect(page).to have_content 'Pedido registrado com sucesso.'
+
+    click_on "Ver Pedidos"
+    expect(page).to have_content 'João'
+    expect(page).to have_content '109.789.030-99'
+    expect(page).to have_content 'joao.silva@email.com'
+    
+  end
+
+  it 'e com sucesso com apenas telefone' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    menu = Menu.create!(
+      name: "Almoço executivo",
+      restaurant: restaurant
+    )
+
+    # Act 
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on "Criar Novo Pedido"
+    fill_in 'Nome do Cliente', with: 'João'
+    fill_in 'Telefone', with: "6731423872"
+    fill_in 'CPF', with: '109.789.030-99' 
+    click_on "Criar Novo Pedido"
+    
+    # Assert
+    expect(page).to have_content 'Pedido registrado com sucesso.'
+
+    click_on "Ver Pedidos"
+    expect(page).to have_content 'João'
+    expect(page).to have_content "6731423872"
+    expect(page).to have_content '109.789.030-99'
     
   end
 end
