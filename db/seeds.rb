@@ -106,3 +106,12 @@ order_item_4 = OrderItem.create!(
   serving: serving_4,
   note: "Quente"
 )
+
+order_3 = Order.create!(
+  restaurant: restaurant,
+  customer_name: 'Junior',
+  contact_phone: "6731423875",
+  contact_email: 'junior.silva@email.com',
+  cpf: '662.142.320-99',
+
+)
