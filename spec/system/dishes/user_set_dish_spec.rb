@@ -133,4 +133,52 @@ describe 'Usuário cadastra um prato' do
     expect(page).not_to have_content "Arvo Restaurante"
     expect(page).to have_content 'Acesso negado!'
   end
+
+  require 'rails_helper'
+
+describe 'Usuário adiciona uma imagem ao prato' do
+  it 'com sucesso' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    within('nav') do
+      click_on "Ver Restaurante"
+    end
+    click_on "Adicionar um prato"
+    fill_in 'Nome', with: 'Prato com imagem'
+    fill_in 'Descrição', with: 'Descrição do prato com imagem.'
+    fill_in 'Calorias', with: 400
+    attach_file 'Imagem', Rails.root.join('spec/fixtures/files/example.png')
+    click_on 'Adicionar Prato'
+    dish = Dish.all.last
+
+    # Assert
+    expect(page).to have_content('Prato Criado com sucesso!')
+
+    visit restaurant_dish_path(restaurant.id, dish.id)
+    expect(page).to have_css("img[src*='example.png']")
+  end
+
+  
+end
+
 end

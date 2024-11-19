@@ -15,6 +15,15 @@
   <p><%= @beverage.calories.present? ? @beverage.calories : "Não especificado" %></p>
 </div>
 
+<% if @beverage.photo.attached? %>
+  <p>
+    <strong>Photo:</strong>
+    <%= image_tag @beverage.photo, style: "max-width: 300px; max-height: 300px;" %>
+  </p>
+<% else %>
+  <p>Sem Imagem</p>
+<% end %>
+
 <div>
   <% if @beverage.active? %>
     <%= button_to "Desativar Bebida", inactive_restaurant_beverage_path(@restaurant, @beverage) %>

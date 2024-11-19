@@ -9,6 +9,7 @@ class MenuItem < ApplicationRecord
   has_many :menu_contents
   has_many :menus, through: :menu_contents
 
+  has_one_attached :photo
 
   validates :name, :description, :restaurant, :status, presence: true
   enum :status, {:inactive=>0, :active=>1}

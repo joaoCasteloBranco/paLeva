@@ -6,7 +6,6 @@ class  MenuContentsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
 
     menu_content_params = params.
     require(:menu_content)
