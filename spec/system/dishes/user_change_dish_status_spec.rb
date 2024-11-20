@@ -32,7 +32,7 @@ describe 'Usuário muda status de um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Prato Teste'
     click_on 'Desativar Prato'
@@ -78,7 +78,7 @@ describe 'Usuário muda status de um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Prato Teste'
     click_on 'Desativar Prato'
@@ -113,7 +113,7 @@ describe 'Usuário muda status de um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar um prato'
 
@@ -145,7 +145,7 @@ describe 'Usuário muda status de um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'

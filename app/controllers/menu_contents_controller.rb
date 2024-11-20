@@ -29,6 +29,7 @@ class  MenuContentsController < ApplicationController
   def destroy
     @menu_content = MenuContent.find(params[:id])
     @menu_content.destroy
+    puts @menu_content.errors.full_messages
     redirect_to restaurant_menu_path(@restaurant, @menu), notice: 'Prato excluído com sucesso do cardápio!'
   end
 

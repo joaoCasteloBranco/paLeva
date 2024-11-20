@@ -1,31 +1,37 @@
-<%= form_with(model: [@restaurant, @beverage]) do |f| %>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Adicionar Bebida</h1>
 
-  <div class="field">
-    <%= f.label :name%>
-    <%= f.text_field :name, required: true %>
-  </div>
+    <%= form_with(model: [@restaurant, @beverage], class: "space-y-6") do |f| %>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_area :description, required: true %>
-  </div>
+      <div>
+        <%= f.label :name, class: "block text-lg font-medium text-gray-700" %>
+        <%= f.text_field :name, required: true, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :calories %>
-    <%= f.number_field :calories %>
-  </div>
+      <div>
+        <%= f.label :description, class: "block text-lg font-medium text-gray-700" %>
+        <%= f.text_area :description, required: true, rows: 3, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :alcoholic %>
-    <%= f.check_box :alcoholic %>
-  </div>
+      <div>
+        <%= f.label :calories, class: "block text-lg font-medium text-gray-700" %>
+        <%= f.number_field :calories, class: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
 
-  <div class="field">
-    <%= f.label :photo%>
-    <%= f.file_field :photo, accept: "image/png, image/jpg, image/jpeg" %>
-  </div>
+      <div class="flex items-center">
+        <%= f.check_box :alcoholic, class: "h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" %>
+        <%= f.label :alcoholic, class: "ml-2 block text-lg font-medium text-gray-700" %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit %>
+      <div>
+        <%= f.label :photo, class: "block text-lg font-medium text-gray-700" %>
+        <%= f.file_field :photo, accept: "image/png, image/jpg, image/jpeg", class: "mt-1 block w-full text-gray-700 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.submit  class: "w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>

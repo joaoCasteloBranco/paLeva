@@ -26,7 +26,7 @@ describe 'Usuário edita um horário de funcionamento' do
   login_as(user, :scope => :user)
   visit root_path
   within('nav') do
-    click_on "Ver Restaurante"
+    click_on "Restaurante"
   end
   click_on 'Adicionar Horário de Funcionamento'
   select "Segunda-feira", from: "Dia da Semana"
@@ -72,7 +72,7 @@ describe 'Usuário edita um horário de funcionamento' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda-feira", from: "Dia da Semana"
@@ -117,7 +117,7 @@ describe 'Usuário edita um horário de funcionamento' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda-feira", from: "Dia da Semana"

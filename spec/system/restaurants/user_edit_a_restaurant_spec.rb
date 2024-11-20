@@ -22,7 +22,7 @@ describe 'Usuário edita um restaurante' do
     fill_in 'Telefone', with: "6731423872"
     fill_in 'E-mail', with: "arvo@restaurante.com"
     click_on 'Adicionar Restaurante'
-    click_on 'Ver Restaurante'
+    click_on 'Restaurante'
     click_on 'Editar Restaurante'
     fill_in 'Endereço Completo', with: "Av. 2000"
     click_on 'Atualizar Restaurante'
@@ -55,7 +55,7 @@ describe 'Usuário edita um restaurante' do
     fill_in 'Telefone', with: "6731423872"
     fill_in 'E-mail', with: "arvo@restaurante.com"
     click_on 'Adicionar Restaurante'
-    click_on 'Ver Restaurante'
+    click_on 'Restaurante'
     click_on 'Editar Restaurante'
     fill_in 'Endereço Completo', with: "Av. 2000"
     fill_in 'Telefone', with: nil

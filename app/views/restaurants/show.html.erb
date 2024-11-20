@@ -1,116 +1,92 @@
-<h1><%= @restaurant.comercial_name %></h1>
+<div class="container mx-auto px-5 mt-10">
+  <!-- Título principal -->
+  <h1 class="text-3xl font-bold text-gray-800 mb-6"><%= @restaurant.comercial_name %></h1>
 
-<div>
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:registered_name) %>:</strong>
-    <p><%= @restaurant.registered_name %></p>
-  </div>
-
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:cnpj) %>:</strong>
-    <p><%= @restaurant.cnpj %></p>
-  </div>
-
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:address) %>:</strong>
-    <p><%= @restaurant.address %></p>
-  </div>
-
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:phone) %>:</strong>
-    <p><%= @restaurant.phone %></p>
-  </div>
-
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:email) %>:</strong>
-    <p><%= @restaurant.email %></p>
-  </div>
-
-  <div>
-    <strong><%= Restaurant.human_attribute_name(:code) %>:</strong>
-    <p><%= @restaurant.code %></p>
-  </div>
-
-  <%= link_to 'Editar Restaurante', edit_restaurant_path(@restaurant) %> 
-  <%= button_to 'Deletar Restaurante', restaurant_path(@restaurant), method: :delete %> 
-
-</div>
-
-<hr>
-
-<div>
-  
-
-  <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant) %> 
-  <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant) %> 
-  
-
-</div>
-
-<hr>
-
-<div>
-  <h2>Marcadores de Pratos do Restaurante</h2>
-  <div>
-    <% @markers.each do |marker| %>
-      <p><%= marker.name %></p>
+  <!-- Informações do restaurante -->
+  <div class="bg-white shadow-md rounded-lg p-6 space-y-4">
+    <% [
+      [Restaurant.human_attribute_name(:registered_name), @restaurant.registered_name],
+      [Restaurant.human_attribute_name(:cnpj), @restaurant.cnpj],
+      [Restaurant.human_attribute_name(:address), @restaurant.address],
+      [Restaurant.human_attribute_name(:phone), @restaurant.phone],
+      [Restaurant.human_attribute_name(:email), @restaurant.email],
+      [Restaurant.human_attribute_name(:code), @restaurant.code]
+    ].each do |label, value| %>
+      <div>
+        <strong class="text-gray-700"><%= label %>:</strong>
+        <p class="text-gray-600"><%= value %></p>
+      </div>
     <% end %>
-    
+
+    <div class="flex space-x-4">
+      <%= link_to 'Editar Restaurante', edit_restaurant_path(@restaurant), class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500" %>
+      <%= button_to 'Deletar Restaurante', restaurant_path(@restaurant), method: :delete, class: "bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-500" %>
+    </div>
   </div>
 
-  <%= link_to 'Adicionar um Marcador', new_restaurant_marker_path(@restaurant) %> 
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6 flex space-x-4">
+    <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant), class: "bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500" %>
+    <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant), class: "bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500" %>
+  </div>
 
-</div>
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Marcadores de Pratos do Restaurante</h2>
+    <div class="space-y-2">
+      <% @markers.each do |marker| %>
+        <p class="text-gray-700"><%= marker.name %></p>
+      <% end %>
+    </div>
+    <%= link_to 'Adicionar um Marcador', new_restaurant_marker_path(@restaurant), class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 mt-4 inline-block" %>
+  </div>
 
-<hr>
-
-<div>
-  <h2>Pratos</h2>
-  <ul>
-    <% @restaurant.dishes.each do |dish| %>
-      <li><%= link_to dish.name, restaurant_dish_path(@restaurant, dish) %></li>
-      <li><%= t(dish.status) %></li>
-    <% end %>
-  </ul>
-
-  <h2>Bebidas</h2>
-  <ul>
-    <% @restaurant.beverages.each do |beverage| %>
-      <li><%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage) %></li>
-      <li><%= t(beverage.status) %></li>
-    <% end %>
-  </ul>
-
-</div>
-
-<hr>
-
-<div>
-  <h2 style=”color:blue”>Horário de Funcionamento</h2>
-  <ul>
-    <% @restaurant.operating_days.order(:week_day).each do |day| %>
-      <li style="background-color: aqua; margin-bottom: 10px;">
-        <%= link_to restaurant_operating_day_path(@restaurant, day) do %>
-          <p><%= I18n.t(day.week_day) %></p>
-          <% if day.open %>
-            <p><%= OperatingDay.human_attribute_name(:opening_time)  %>: <%= I18n.localize(day.opening_time, format: :short_time) %></p>
-            <p><%= OperatingDay.human_attribute_name(:closing_time)  %>: <%= I18n.localize(day.closing_time, format: :short_time) %></p>
-          <% else %>
-            <p>Fechado</p>
-          <% end %>
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6 space-y-8">
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Pratos</h2>
+      <ul class="space-y-2">
+        <% @restaurant.dishes.each do |dish| %>
+          <li class="flex justify-between items-center bg-gray-100 p-4 rounded-lg">
+            <%= link_to dish.name, restaurant_dish_path(@restaurant, dish), class: "text-blue-600 hover:underline" %>
+            <span class="text-sm text-gray-600"><%= t(dish.status) %></span>
+          </li>
         <% end %>
-      </li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Bebidas</h2>
+      <ul class="space-y-2">
+        <% @restaurant.beverages.each do |beverage| %>
+          <li class="flex justify-between items-center bg-gray-100 p-4 rounded-lg">
+            <%= link_to beverage.name, restaurant_beverage_path(@restaurant, beverage), class: "text-blue-600 hover:underline" %>
+            <span class="text-sm text-gray-600"><%= t(beverage.status) %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Horário de Funcionamento</h2>
+    <ul class="space-y-4">
+      <% @restaurant.operating_days.order(:week_day).each do |day| %>
+        <li class="bg-gray-100 p-4 rounded-lg">
+          <%= link_to restaurant_operating_day_path(@restaurant, day), class: "block" do %>
+            <p class="font-bold text-gray-700"><%= I18n.t(day.week_day) %></p>
+            <% if day.open %>
+              <p class="text-sm text-gray-600">
+                <%= OperatingDay.human_attribute_name(:opening_time) %>: <%= I18n.localize(day.opening_time, format: :short_time) %>
+              </p>
+              <p class="text-sm text-gray-600">
+                <%= OperatingDay.human_attribute_name(:closing_time) %>: <%= I18n.localize(day.closing_time, format: :short_time) %>
+              </p>
+            <% else %>
+              <p class="text-sm text-red-600">Fechado</p>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <% if @restaurant.all_operating_days_added? %>
+      <%= link_to 'Adicionar Horário de Funcionamento', new_restaurant_operating_day_path(@restaurant), class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 mt-4 inline-block" %>
     <% end %>
-  </ul>
-
-  <% if @restaurant.all_operating_days_added? %>
-    <%= link_to 'Adicionar Horário de Funcionamento', new_restaurant_operating_day_path(@restaurant.id) %> 
-  <% end %>
+  </div>
 </div>
-
-
-
-
-
-
-

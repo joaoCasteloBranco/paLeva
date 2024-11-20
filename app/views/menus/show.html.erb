@@ -1,40 +1,41 @@
-<h1>Cardápio: <%= @menu.name %></h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Cardápio: <%= @menu.name %></h1>
 
+    <div class="mb-6">
 
-<div>
-  <p>Pratos Ativos:</p>
+      <% if @menu.menu_items.active.empty? %>
+        <p class="text-sm text-gray-500">Esse cardápio não possui pratos ativos</p>
+      <% else %>
+        <% @menu.menu_items.active.each do |menu_item| %>
+          <div id="menu_item_<%= menu_item.id %>" class="bg-gray-50 rounded-md shadow p-4 mb-4">
+            <!-- Nome do prato com botão de exclusão -->
+            <div class="flex justify-between items-center border-b pb-2 mb-2">
+              <p class="font-medium text-lg text-gray-800"><%= menu_item.name %></p>
+              <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete, class: "py-1 px-3 bg-red-600 text-white rounded shadow hover:bg-red-700 focus:ring focus:ring-red-500" %>
+            </div>
 
-  <% if @menu.menu_items.active.empty? %>
-    <p>Esse cardapio não possui pratos ativos</p>
-  <% else %>
-    <% @menu.menu_items.active.each do |menu_item| %>
-    
-      <div id="menu_item_<%= menu_item.id %>">
-        <%= menu_item.name %>
-        <%= button_to "Excluir", restaurant_menu_menu_content_path(@restaurant, @menu, menu_item), method: :delete %>
-        <div>
-          <% menu_item.servings.each do |serving|  %>
-            <%= serving.description %>
-            <p>Preço: <%= number_to_currency(serving.price_display) %></p>
-          <% end %>
-        </div>
+            <!-- Porções do prato -->
+            <div class="space-y-3">
+              <% menu_item.servings.each do |serving| %>
+                <div class="flex justify-between items-center bg-white shadow-sm rounded-md p-3">
+                  <p class="text-gray-600 text-sm"><%= serving.description %></p>
+                  <p class="text-gray-800 font-bold"><%= number_to_currency(serving.price_display) %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @menu.menu_items.inactive.present? %>
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
+        <p class="text-sm text-yellow-800">Há pratos inativos para esse Cardápio.</p>
       </div>
     <% end %>
-  <% end %>
 
-  <% if @menu.menu_items.inactive.present? %>
-    <p>Há pratos inativos para esse Cardápio</p>
-  <% end %>
-  
+    <div>
+      <%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, @menu), class: "inline-block bg-blue-600 text-white py-2 px-4 rounded shadow hover:bg-blue-700 focus:ring focus:ring-blue-500" %>
+    </div>
+  </div>
 </div>
-
-<%= link_to 'Adicionar Itens', new_restaurant_menu_menu_content_path(@restaurant, @menu) %>
-
-
-
-
-
-  
-
-
-

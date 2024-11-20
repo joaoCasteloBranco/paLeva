@@ -38,7 +38,7 @@ describe 'Usuário edita o preço de uma porção' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Prato Teste"
     click_on 'Atualizar Preço'
@@ -96,7 +96,7 @@ describe 'Usuário edita o preço de uma porção' do
    login_as(user, :scope => :user)
    visit root_path
    within('nav') do
-     click_on "Ver Restaurante"
+     click_on "Restaurante"
    end
    click_on "Bebida Teste"
    click_on 'Atualizar Preço'
@@ -154,7 +154,7 @@ describe 'Usuário edita o preço de uma porção' do
   login_as(user, :scope => :user)
   visit root_path
   within('nav') do
-    click_on "Ver Restaurante"
+    click_on "Restaurante"
   end
   click_on "Bebida Teste"
   click_on 'Atualizar Preço'

@@ -1,35 +1,47 @@
-<% if @operating_day.errors.any? %>
-  <% @operating_day.errors.full_messages.each do |message|%>
-    <h3><%= message %></h3>
-  <%end%>
-<%end%>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <% if @operating_day.errors.any? %>
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md mb-6">
+      <% @operating_day.errors.full_messages.each do |message| %>
+        <p class="text-sm"><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
 
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Configurar Horário de Funcionamento</h1>
 
-<%= form_with(model: [@restaurant, @operating_day]) do |f| %>
+    <%= form_with(model: [@restaurant, @operating_day], class: "space-y-6") do |f| %>
+      <div>
+        <%= f.label :week_day, class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.select :week_day, 
+          options_for_select(OperatingDay.week_days.keys.map { |day| [I18n.t(day), day] }, f.object.week_day),
+          {}, 
+          class: "block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
 
-  <div>
-    <%= f.label :week_day %>
-    <%= f.select :week_day, options_for_select(
-      OperatingDay.week_days.keys.map { |day| [I18n.t(day), day] }, f.object.week_day
-    ) %>
+      <div>
+        <div class="flex items-center space-x-4">
+          <%= f.check_box :open, id: "open_checkbox", class: "h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" %>
+          <%= f.label :open, for: "open_checkbox", class: "text-sm font-medium text-gray-700" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <%= f.label :opening_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.time_field :opening_time, 
+            class: "block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+        <div>
+          <%= f.label :closing_time, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= f.time_field :closing_time, 
+                           class: "block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+        </div>
+      </div>
+
+      <div>
+        <%= f.submit   %>
+      </div>
+    <% end %>
   </div>
-
-  <div >
-    <div>
-      <%= f.label :open %>
-      <%= f.check_box :open %>
-    </div>
-  
-    <div>
-      <%= f.label :opening_time %>
-      <%= f.time_field :opening_time %>
-    </div>
-
-    <div>
-      <%= f.label :closing_time %>
-      <%= f.time_field :closing_time  %>
-    </div>
-
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

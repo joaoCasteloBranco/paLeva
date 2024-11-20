@@ -25,7 +25,7 @@ describe 'Usuário cadastra um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
@@ -63,7 +63,7 @@ describe 'Usuário cadastra um prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
@@ -161,7 +161,7 @@ describe 'Usuário adiciona uma imagem ao prato' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato com imagem'

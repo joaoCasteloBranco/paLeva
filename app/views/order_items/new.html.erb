@@ -1,8 +1,21 @@
-<h1>Adicionar Porções ao Pedido: <%= @order.code %></h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="flex items-center justify-between ">
+    <h1 class="text-3xl font-bold text-gray-800">
+      Adicionar Porções ao Pedido
+      <span class="text-sm text-blue-600 ml-2 font-medium">(Código: <%= @order.code %>)</span>
+    </h1>
+    <%= button_to "Fechar Pedido", 
+                  close_order_restaurant_order_path(@restaurant, @order), 
+                  class: "px-4 py-2 bg-green-600 text-white rounded-md shadow-sm hover:bg-green-700 focus:ring focus:ring-green-500 focus:outline-none" %>
+  </div>
 
-<% if @restaurant.menus.empty? %>
-  <h2>Para adicionar itens para um pedido, antes adicione cardápios</h2>
-<% else %>
-  <%= render 'form' %>
-<% end %> 
-
+  <% if @restaurant.menus.empty? %>
+    <div class="bg-yellow-100 border-l-4 border-yellow-400 text-yellow-700 p-4 rounded-md">
+      <h2 class="text-lg font-semibold">Para adicionar itens para um pedido, antes adicione cardápios</h2>
+    </div>
+  <% else %>
+    <div class="bg-white shadow-md rounded-md p-6">
+      <%= render 'form' %>
+    </div>
+  <% end %>
+</div>

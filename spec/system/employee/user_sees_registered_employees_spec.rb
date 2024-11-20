@@ -24,7 +24,7 @@ describe 'Usuário realiza pré cadastro' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
     click_on 'Adicionar novo funcionário'
     fill_in "E-mail", with: "email@email.com"
     fill_in "CPF", with: "662.142.320-99"
@@ -74,7 +74,7 @@ describe 'Usuário realiza pré cadastro' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
 
 
     # Assert
@@ -124,7 +124,7 @@ describe 'Usuário realiza pré cadastro' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
 
 
     # Assert

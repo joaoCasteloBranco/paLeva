@@ -38,7 +38,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     login_as(user, :scope => :user)
     visit root_path
     click_on "Adicionar Itens"
-    select "Bebida Teste", from: "Itens:"
+    select "Bebida Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
 
     # Assert
@@ -96,14 +96,14 @@ describe 'Usuário adiciona um item do menu ao menu' do
     within "#menu_#{menu_1.id}" do
       click_on "Adicionar Itens"
     end
-    select "Bebida Teste", from: "Itens:"
+    select "Bebida Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
     visit root_path
 
     within "#menu_#{menu_2.id}" do
       click_on "Adicionar Itens"
     end
-    select "Bebida Teste", from: "Itens:"
+    select "Bebida Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
     visit root_path
 
@@ -164,10 +164,10 @@ describe 'Usuário adiciona um item do menu ao menu' do
     visit root_path
     click_on "Adicionar Itens"
 
-    select "Bebida Teste", from: "Itens:"
+    select "Bebida Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
 
-    select "Prato Teste", from: "Itens:"
+    select "Prato Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
     
     # Assert
@@ -225,7 +225,7 @@ describe 'Usuário adiciona um item do menu ao menu' do
     visit root_path
     click_on "Adicionar Itens"
 
-    select "Bebida Teste", from: "Itens:"
+    select "Bebida Teste", from: "Selecione um Item"
     click_on "Adicionar Item"
     
     # Assert

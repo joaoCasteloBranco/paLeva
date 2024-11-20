@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário edita um restaurante' do
+describe 'Usuário deleta um restaurante' do
   it 'e com sucesso' do
     # Arrange
     user = User.create!(
@@ -23,7 +23,7 @@ describe 'Usuário edita um restaurante' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Restaurante'
+    click_on 'Restaurante'
     click_on 'Deletar Restaurante'
 
     # Assert
@@ -31,7 +31,10 @@ describe 'Usuário edita um restaurante' do
     expect(page).not_to have_content "Arvo"
     expect(page).not_to have_content "Av. 1000"
     expect(page).not_to have_content "61.236.299/0001-72"
-    expect(page).not_to have_content "Ver Restaurante"
+    within( "nav") do
+      expect(page).to have_content "Cadastrar Restaurante"
+    end
+    
 
   end
 

@@ -1,14 +1,22 @@
-<h1>Adicionar Itens para o Cardápio: <%= @menu.name %> </h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+      Adicionar Itens para o Cardápio: <%= @menu.name %>
+    </h1>
 
-<%= form_with(model: [@restaurant, @menu, @menu_content]) do |f| %>
+    <%= form_with(model: [@restaurant, @menu, @menu_content], class: "space-y-6") do |f| %>
 
-  <div>
-    <%= f.label :menu_item_id, "Itens:" %>
-    <%= f.collection_select :menu_item_id, @restaurant.menu_items, :id, :name  %>
+      <div class="flex flex-col">
+        <%= f.label :menu_item_id, "Selecione um Item", class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.collection_select :menu_item_id, @restaurant.menu_items, :id, :name, 
+          {}, 
+          class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
+      </div>
+
+      <div class="text-right">
+        <%= f.submit "Adicionar Item", class: "py-2 px-4 bg-blue-600 text-white rounded shadow hover:bg-blue-700 focus:ring focus:ring-blue-500" %>
+      </div>
+
+    <% end %>
   </div>
-
-  <div>
-    <%= f.submit "Adicionar Item" %>
-  </div>
-
-<% end %>
+</div>

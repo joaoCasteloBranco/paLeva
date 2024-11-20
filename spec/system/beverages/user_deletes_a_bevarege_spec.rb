@@ -25,7 +25,7 @@ describe 'Usuário deleta uma bebida' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar uma bebida"
     fill_in 'Nome', with: 'Bebida Teste'

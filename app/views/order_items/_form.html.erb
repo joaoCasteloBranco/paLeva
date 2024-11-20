@@ -1,28 +1,42 @@
-<%= form_with(model: [@restaurant, @order, @order_item]) do |f| %>
+<div class="container mx-auto px-5 mt-2 max-w-4xl">
+  <%= form_with(model: [@restaurant, @order, @order_item], class: "space-y-6") do |f| %>
 
-  <% @restaurant.menus.each do |menu| %>
-    <p><%= menu.name %></p>
+    <% @restaurant.menus.each do |menu| %>
+      <div class="mb-8">
+        <h2 class="text-xl font-semibold text-gray-700 border-b border-gray-300 pb-2 mb-4">
+          <%= menu.name %>
+        </h2>
 
-    <% menu.menu_items.each do |menu_item| %>
+        <% menu.menu_items.each do |menu_item| %>
+          <div class="mb-6">
+            <h3 class="text-lg font-medium text-gray-800">
+              <%= menu_item.name %>
+            </h3>
 
-      <p><strong><%= menu_item.name %></strong></p>
-
-      <% menu_item.servings.each do |serving| %>
-        <div>
-          <%= f.radio_button :serving_id, serving.id, id: "serving_#{serving.id}" %>
-          <%= label_tag "serving_#{serving.id}", "#{serving.description}", class: "serving-label" %>
-        </div>
-      <% end %>
-
+            <div class="space-y-3 mt-2">
+              <% menu_item.servings.each do |serving| %>
+                <div class="flex items-center">
+                  <%= f.radio_button :serving_id, serving.id, id: "serving_#{serving.id}", class: "h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500" %>
+                  <%= label_tag "serving_#{serving.id}", serving.description, class: "ml-3 text-gray-700" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     <% end %>
+
+    <div class="space-y-2">
+      <label for="order_note" class="block text-sm font-medium text-gray-700">
+        Adicionar Nota
+      </label>
+      <%= f.text_field :note, id: "order_note", class: "block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" %>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "Adicionar ao Pedido", class: "px-4 py-2 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 focus:ring focus:ring-blue-500 focus:outline-none" %>
+    </div>
   <% end %>
 
-  <div>
-    <%= f.label :note, "Adicionar Nota" %>
-    <%= f.text_field :note %>
-  </div>
-
-  <%= f.submit "Adicionar ao Pedido" %>
-<% end %>
-
-<%= button_to "Fechar Pedido", close_order_restaurant_order_path(@restaurant, @order) %>
+ 
+</div>

@@ -1,12 +1,18 @@
-<h1>Adicionar Marcadores</h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+      Adicionar Marcadores
+    </h1>
 
-<%= form_with(model: [@restaurant, @marker]) do |f| %>
+    <%= form_with(model: [@restaurant, @marker], class: "space-y-6") do |f| %>
+      <div class="flex flex-col">
+        <%= f.label :name, "Nome do Marcador", class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.text_field :name, class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
+      </div>
+      <div class="text-right">
+        <%= f.submit "Adicionar", class: "py-2 px-4 bg-blue-600 text-white rounded shadow hover:bg-blue-700 focus:ring focus:ring-blue-500" %>
+      </div>
 
-<div>
-  <%= f.label :name, "Nome do Marcador" %>
-  <%= f.text_field :name %>
+    <% end %>
+  </div>
 </div>
-  
-  <%= f.submit "Adicionar" %>
-
-<% end %>

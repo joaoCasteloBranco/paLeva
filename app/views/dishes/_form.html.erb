@@ -1,38 +1,45 @@
-<%= form_with(model: [@restaurant, @dish]) do |f| %>
+<div class="container mx-auto px-4 mt-8 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+       <%= form_with(model: [@restaurant, @dish], class: "space-y-6") do |f| %>
 
-  <div class="field">
-    <%= f.label :name%>
-    <%= f.text_field :name, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :description%>
-    <%= f.text_area :description, required: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :calories %>
-    <%= f.number_field :calories %>
-  </div>
-
-  <div class="field">
-    <%= f.label :photo %>
-    <%= f.file_field :photo, accept: "image/png, image/jpg, image/jpeg" %>
-  </div>
-
-  <%= link_to 'Adicionar Marcadores', new_restaurant_marker_path(@restaurant) %>
-
-  <div>
-    <%= f.label :markers, "Marcadores" %>
-    <%= f.collection_check_boxes :marker_ids, Marker.all, :id, :name do |b| %>
-      <div>
-        <%= b.check_box %>
-        <%= b.label %>
+      <div class="flex flex-col">
+        <%= f.label :name, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.text_field :name, required: true, class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
       </div>
+
+      <div class="flex flex-col">
+        <%= f.label :description, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.text_area :description, required: true, class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= f.label :calories, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.number_field :calories, class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= f.label :photo, class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.file_field :photo, accept: "image/png, image/jpg, image/jpeg", class: "w-full bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 py-2 px-3" %>
+      </div>
+
+      <div class="text-right mb-4">
+        <%= link_to 'Adicionar Marcadores', new_restaurant_marker_path(@restaurant), class: "text-blue-600 hover:text-blue-700 font-medium" %>
+      </div>
+
+      <div class="flex flex-col">
+        <%= f.label :markers, "Marcadores", class: "block text-gray-700 font-medium mb-2" %>
+        <%= f.collection_check_boxes :marker_ids, Marker.all, :id, :name do |b| %>
+          <div class="flex items-center space-x-2 mb-2">
+            <%= b.check_box class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" %>
+            <%= b.label class: "text-gray-800" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="text-right">
+        <%= f.submit class: "py-2 px-4 bg-blue-600 text-white rounded shadow hover:bg-blue-700 focus:ring focus:ring-blue-500" %>
+      </div>
+
     <% end %>
   </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>

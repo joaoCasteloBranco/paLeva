@@ -25,7 +25,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda", from: "Dia da Semana"
@@ -65,7 +65,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda", from: "Dia da Semana"
@@ -102,7 +102,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda", from: "Dia da Semana"
@@ -142,7 +142,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda", from: "Dia da Semana"
@@ -182,7 +182,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on 'Adicionar Horário de Funcionamento'
     select "Segunda", from: "Dia da Semana"
@@ -229,7 +229,7 @@ describe 'Usuário adiciona dias de operação para o restaurante' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
        
     # Assert

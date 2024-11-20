@@ -171,9 +171,9 @@ describe 'Usuário vizualiza cardápios' do
     expect(page).to have_content "Prato Teste"
 
     expect(page).to have_content 'Porção Teste Bebida'
-    expect(page).to have_content 'Preço: R$ 10,00'
+    expect(page).to have_content 'R$ 10,00'
     expect(page).to have_content 'Porção Teste Prato'
-    expect(page).to have_content 'Preço: R$ 20,00'
+    expect(page).to have_content 'R$ 20,00'
 
   end
 
@@ -224,7 +224,7 @@ describe 'Usuário vizualiza cardápios' do
     # Assert
     expect(page).not_to have_content "Bebida Teste"
     expect(page).to have_content "Há pratos inativos para esse Cardápio"
-    expect(page).to have_content "Esse cardapio não possui pratos ativos"
+    expect(page).to have_content "Esse cardápio não possui pratos ativos"
 
   end
 

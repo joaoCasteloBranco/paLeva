@@ -76,7 +76,7 @@ describe 'Usuário se autentica' do
     end
 
     # Assert
-    expect(page).to have_content 'Registro Restaurante'
+    expect(page).to have_content 'Registro do Restaurante'
     expect(current_path).to eq new_restaurant_path
       
   end

@@ -26,7 +26,7 @@ describe 'Usuário cria um marcador' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um Marcador"
     fill_in "Nome do Marcador", with: "Vegano"
@@ -82,7 +82,7 @@ describe 'Usuário cria um marcador' do
     login_as(user_2, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     
     # Assert

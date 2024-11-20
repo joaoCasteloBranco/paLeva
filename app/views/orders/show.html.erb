@@ -1,31 +1,54 @@
-<h1>Pedido: <%= @order.code %></h1>
+<div class="container mx-auto px-5 mt-10 max-w-3xl">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Pedido: <%= @order.code %></h1>
 
-<h2>Detalhes do Pedido:</h2>
-<div>
-  <%= @order.customer_name %>
-</div>
-<div> 
-  <%= @order.contact_phone %>
-</div>
-<div>
-  <%= @order.contact_email %>
-</div>
-<div>
-  <%= @order.cpf %>
-</div>
-<div>
-  <%= @order.status %>
-</div>
-
-<h2>Itens:</h2>
-
-<% @order.servings.each do |serving| %>
-
-  <%= serving.description %>
-  <p>Preço: <%= number_to_currency(serving.price_display) %></p>
+  <h2 class="text-xl font-semibold text-gray-700 mb-4">Detalhes do Pedido:</h2>
   
-<% end %>
+  <div class="space-y-2">
+    <div>
+      <strong class="text-gray-600">Nome do Cliente:</strong>
+      <p class="text-gray-800"><%= @order.customer_name %></p>
+    </div>
 
-<%= link_to 'Adicionar Porções ao Pedido', new_restaurant_order_order_item_path(@restaurant, @order) %>
+    <div>
+      <strong class="text-gray-600">Telefone:</strong>
+      <p class="text-gray-800"><%= @order.contact_phone %></p>
+    </div>
 
-<p>Valor Total do Pedido: <%= number_to_currency(@order.total_price) %> </p>
+    <div>
+      <strong class="text-gray-600">E-mail:</strong>
+      <p class="text-gray-800"><%= @order.contact_email %></p>
+    </div>
+
+    <div>
+      <strong class="text-gray-600">CPF:</strong>
+      <p class="text-gray-800"><%= @order.cpf %></p>
+    </div>
+
+    <div>
+      <strong class="text-gray-600">Status:</strong>
+      <p class="text-gray-800"><%= @order.status %></p>
+    </div>
+  </div>
+
+  <h2 class="text-xl font-semibold text-gray-700 mt-6 mb-4">Itens:</h2>
+  
+  <div class="space-y-4">
+    <% @order.servings.each do |serving| %>
+      <div class="bg-white shadow-md rounded-lg p-6">
+        <p class="text-gray-800 font-semibold"><%= serving.description %></p>
+        <p class="text-gray-600">Preço: <%= number_to_currency(serving.price_display) %></p>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @order.editing?  %>
+    <div class="mt-6">
+      <%= link_to 'Adicionar Porções ao Pedido', new_restaurant_order_order_item_path(@restaurant, @order), class: "text-blue-500 hover:underline" %>
+    </div>
+  <% end %>
+ 
+
+  <div class="mt-4 font-semibold text-lg">
+    <p>Valor Total do Pedido: <span class="text-green-600"><%= number_to_currency(@order.total_price) %></span></p>
+  </div>
+</div>

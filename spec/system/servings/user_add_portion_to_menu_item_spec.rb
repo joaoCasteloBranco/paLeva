@@ -25,7 +25,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
@@ -70,7 +70,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
    login_as(user, :scope => :user)
    visit root_path
    within('nav') do
-     click_on "Ver Restaurante"
+     click_on "Restaurante"
    end
    click_on "Adicionar uma bebida"
    fill_in 'Nome', with: 'Bebida Teste'
@@ -116,7 +116,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
     click_on "Adicionar um prato"
     fill_in 'Nome', with: 'Prato Teste'
@@ -161,7 +161,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
    login_as(user, :scope => :user)
    visit root_path
    within('nav') do
-     click_on "Ver Restaurante"
+     click_on "Restaurante"
    end
    click_on "Adicionar um prato"
    fill_in 'Nome', with: 'Prato Teste'
@@ -222,7 +222,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
 
     click_on 'Prato Teste'
@@ -271,7 +271,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
-      click_on "Ver Restaurante"
+      click_on "Restaurante"
     end
 
     click_on 'Prato Teste'

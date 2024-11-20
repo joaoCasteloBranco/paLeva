@@ -39,7 +39,7 @@ describe 'Usuário inicia um novo pedido' do
     # Assert
     expect(page).to have_content 'Pedido registrado com sucesso.'
 
-    click_on "Ver Pedidos"
+    click_on "Pedidos"
     expect(page).to have_content 'João'
     expect(page).to have_content "6731423872"
     expect(page).to have_content '109.789.030-99'
@@ -229,7 +229,7 @@ describe 'Usuário inicia um novo pedido' do
     # Assert
     expect(page).to have_content 'Não foi possível registrar o pedido'
 
-    click_on "Ver Pedidos"
+    click_on "Pedidos"
     expect(page).not_to have_content 'João'
     expect(page).not_to have_content "6731423872"
     expect(page).not_to have_content '123.456.789-10'
@@ -274,7 +274,7 @@ describe 'Usuário inicia um novo pedido' do
     # Assert
     expect(page).to have_content 'Pedido registrado com sucesso.'
 
-    click_on "Ver Pedidos"
+    click_on "Pedidos"
     expect(page).to have_content 'João'
     expect(page).to have_content '109.789.030-99'
     expect(page).to have_content 'joao.silva@email.com'
@@ -318,7 +318,7 @@ describe 'Usuário inicia um novo pedido' do
     # Assert
     expect(page).to have_content 'Pedido registrado com sucesso.'
 
-    click_on "Ver Pedidos"
+    click_on "Pedidos"
     expect(page).to have_content 'João'
     expect(page).to have_content "6731423872"
     expect(page).to have_content '109.789.030-99'

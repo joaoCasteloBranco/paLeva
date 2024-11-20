@@ -1,38 +1,44 @@
-<h1>Funcionários</h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
+  <div class="bg-white shadow-md rounded-md p-6">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6">Funcionários</h1>
 
-<h2>Funcionários Cadastrados:</h2>
-<div id="active_employees">
-  <% @restaurant.employees.active.each do |employee| %>
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Funcionários Cadastrados</h2>
 
-  <div>
-    <%= employee.email %>
+      <% if @restaurant.employees.active.any? %>
+        <div id="active_employees" class="space-y-4">
+          <% @restaurant.employees.active.each do |employee| %>
+            <div class="border border-gray-200 rounded-md p-4 shadow-sm">
+              <p class="text-lg font-semibold text-gray-700"><%= employee.email %></p>
+              <p class="text-gray-600">CPF: <%= employee.cpf %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 italic">Nenhum funcionário cadastrado no momento.</p>
+      <% end %>
+    </div>
+
+    <div>
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Funcionários Pré-Cadastrados</h2>
+
+      <% if @restaurant.employees.pre_registered.any? %>
+        <div id="pre_registered_employees" class="space-y-4">
+          <% @restaurant.employees.pre_registered.each do |employee| %>
+            <div class="border border-gray-200 rounded-md p-4 shadow-sm">
+              <p class="text-lg font-semibold text-gray-700"><%= employee.email %></p>
+              <p class="text-gray-600">CPF: <%= employee.cpf %></p>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 italic">Nenhum funcionário pré-cadastrado no momento.</p>
+      <% end %>
+    </div>
+
+    <div class="mt-8">
+      <%= link_to 'Adicionar novo funcionário', new_restaurant_employee_path(@restaurant), 
+        class: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700" %>
+    </div>
   </div>
-
-  <div>
-    <%= employee.cpf %>
-  </div>
-
-<% end %>
-
 </div>
-
-
-<h2>Funcionários Pré-Cadastrados:</h2>
-<div id="pre_registred_employees">
-  <% @restaurant.employees.pre_registered.each do |employee| %>
-
-  <div>
-    <%= employee.email %>
-  </div>
-
-  <div>
-    <%= employee.cpf %>
-  </div>
-
-<% end %>
-
-</div>
-
-
-
-<%= link_to 'Adicionar novo funcionário', new_restaurant_employee_path(@restaurant) %>

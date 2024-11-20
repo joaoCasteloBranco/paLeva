@@ -25,7 +25,7 @@ class OrderItemsController < ApplicationController
         @restaurant, @order
       ), notice: "Cadastrado com sucesso"
     else
-
+      puts @order_item.errors.full_messages
       flash.now[:alert] = "Não foi possível realizar o cadastro"
       render :new, status: :unprocessable_entity
     end

@@ -1,65 +1,83 @@
-<h1><%= @dish.name %></h1>
+<div class="container mx-auto px-5 mt-10 max-w-4xl">
 
-<div>
-  <strong>Descrição:</strong>
-  <p><%= @dish.description %></p>
-</div>
+  <div class="bg-white shadow-md rounded-md p-6">
 
-<div>
-  <strong>Calorias:</strong>
-  <p><%= @dish.calories.present? ? @dish.calories : "Não especificado" %></p>
-</div>
-
-<% if @dish.photo.attached? %>
-  <p>
-    <strong>Photo:</strong>
-    <%= image_tag @dish.photo, style: "max-width: 300px; max-height: 300px;" %>
-  </p>
-<% else %>
-  <p>Sem Imagem</p>
-<% end %>
-
-<div>
-  <strong>Marcadores:</strong>
-  <% if @dish.markers.any? %>
-    <ul>
-      <% @dish.markers.each do |marker| %>
-        <li><%= marker.name %></li>
+    <div class="mb-6 flex justify-center">
+      <% if @dish.photo.attached? %>
+        <div class="border-4 border-gray-300 p-4 rounded-lg shadow-lg">
+          <%= image_tag @dish.photo, style: "max-width: 500px; max-height: 500px;", class: "rounded-lg shadow-xl" %>
+        </div>
+      <% else %>
+        <p class="text-gray-600">Sem Imagem</p>
       <% end %>
-    </ul>
-  <% else %>
-    <p>Não há marcadores associados a este prato.</p>
-  <% end %>
+    </div>
+
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 flex justify-center">
+      <%= @dish.name %>
+    </h1>
+
+    <div class="mb-4">
+      <strong class="text-lg text-gray-700">Descrição:</strong>
+      <p class="text-gray-600"><%= @dish.description %></p>
+    </div>
+
+    <div class="mb-4">
+      <strong class="text-lg text-gray-700">Calorias:</strong>
+      <p class="text-gray-600">
+        <%= @dish.calories.present? ? @dish.calories : "Não especificado" %>
+      </p>
+    </div>
+
+    <div class="mb-4">
+      <strong class="text-lg text-gray-700">Marcadores:</strong>
+      <% if @dish.markers.any? %>
+        <ul class="list-disc pl-5 text-gray-600">
+          <% @dish.markers.each do |marker| %>
+            <li><%= marker.name %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="text-gray-600">Não há marcadores associados a este prato.</p>
+      <% end %>
+    </div>
+
+    <div class="mb-4">
+      <% if @dish.active? %>
+        <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish), class: "py-2 px-4 bg-red-600 text-white rounded-md shadow hover:bg-red-700 focus:ring focus:ring-red-500" %>
+      <% else %>
+        <%= button_to "Ativar Prato", active_restaurant_dish_path(@restaurant, @dish), class: "py-2 px-4 bg-green-600 text-white rounded-md shadow hover:bg-green-700 focus:ring focus:ring-green-500" %>
+      <% end %>
+    </div>
+
+    <div class="mb-4">
+      <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish), class: "text-blue-600 hover:text-blue-700 font-medium" %>
+    </div>
+
+    <div class="mb-4">
+      <% if @dish.servings.empty? %>
+        <p class="text-gray-500 italic">Não esqueça de adicionar porções para este prato!</p>
+      <% else %>
+        <% @dish.servings.each do |serving| %>
+          <div class="mb-4 p-4 border border-gray-300 rounded-md shadow-sm">
+            <h3 class="text-lg font-semibold text-gray-800"><%= serving.description %></h3>
+            <p class="text-gray-600">Preço Atual: <%= number_to_currency(serving.price_display) %></p>
+            <%= link_to "Atualizar Preço", edit_restaurant_dish_serving_path(@restaurant, @dish, serving), class: "text-blue-600 hover:text-blue-700 font-medium" %>
+            <p class="mt-2 text-gray-700 font-semibold">Histórico de Preços:</p>
+            <% serving.price_histories.each do |history| %>
+              <div class="mt-2">
+                <p class="text-gray-600">Preço: <%= number_to_currency(history.price_display) %></p>
+                <p class="text-gray-600">Data de Atualização: <%= history.changed_at.strftime("%d/%m/%Y") %></p>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-6 flex space-x-4">
+      <%= link_to 'Editar Prato', edit_restaurant_dish_path(@restaurant, @dish), class: "text-blue-600 hover:text-blue-700 font-medium" %> 
+      <%= button_to 'Excluir Prato', restaurant_dish_path(@restaurant, @dish), method: :delete, class: "text-red-600 hover:text-red-700 font-medium" %> 
+      <%= link_to 'Voltar para o Restaurante', restaurant_path(@restaurant), class: "text-blue-600 hover:text-blue-700 font-medium" %>
+    </div>
+  </div>
 </div>
-
-<div>
-  <% if @dish.active? %>
-    <%= button_to "Desativar Prato", inactive_restaurant_dish_path(@restaurant, @dish) %>
-  <% else %>
-    <%= button_to "Ativar Prato", active_restaurant_dish_path(@restaurant, @dish) %>
-  <% end %>
-</div>
-
-<div>
-  <%= link_to "Cadastrar Porção", new_restaurant_dish_serving_path(@restaurant, @dish) %>
-</div>
-
-<% if @dish.servings.empty? %>
-  <p>Não esqueça de adicionar porções para este prato!</p>
-<% else %>
-  <% @dish.servings.each do |serving| %>
-    <%= serving.description %>
-    <p>Preço Atual: <%= number_to_currency(serving.price_display) %></p> 
-    <%= link_to "Atualizar Preço", edit_restaurant_dish_serving_path(@restaurant, @dish, serving) %>
-    <p>Histórico de Preços:</p>
-    <% serving.price_histories.each do |history| %>
-      <p>Preço: <%= number_to_currency(history.price_display) %></p>
-      <p>Data de Atualização: <%= history.changed_at.strftime("%d/%m/%Y") %></p>
-    <% end  %>
-  <% end  %>
-<% end  %>
-
-
-<%= link_to 'Editar Prato', edit_restaurant_dish_path(@restaurant, @dish) %> |
-<%= button_to 'Excluir Prato', restaurant_dish_path(@restaurant, @dish), method: :delete %> |
-<%= link_to 'Voltar para o Restaurante', restaurant_path(@restaurant) %>

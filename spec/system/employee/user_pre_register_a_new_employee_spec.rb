@@ -24,7 +24,7 @@ describe 'Usuário registra um funcionário' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
     click_on 'Adicionar novo funcionário'
     fill_in "E-mail", with: "email@email.com"
     fill_in "CPF", with: "662.142.320-99"
@@ -60,7 +60,7 @@ describe 'Usuário registra um funcionário' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
     click_on 'Adicionar novo funcionário'
     fill_in "E-mail", with: "email@email.com"
     fill_in "CPF", with: "109.789.030-99"
@@ -96,7 +96,7 @@ describe 'Usuário registra um funcionário' do
     # Act
     login_as(user, :scope => :user)
     visit root_path
-    click_on 'Ver Funcionários Cadastrados'
+    click_on 'Funcionários'
     click_on 'Adicionar novo funcionário'
     fill_in "E-mail", with:  "sergio.vieira.de.melo@ri.com"
     fill_in "CPF", with: "662.142.320-99"

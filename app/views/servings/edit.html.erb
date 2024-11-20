@@ -1,13 +1,24 @@
-<h1>Atualizar preço: <%= @menu_item.name %></h1>
+<div class="container mx-auto px-5 mt-10">
+  <h1 class="text-2xl font-bold text-gray-800 mb-6">
+    Atualizar preço: 
+    <span class="text-blue-600"><%= @menu_item.name %></span>
+  </h1>
 
-<%= form_with(model: [@restaurant, @menu_item, @serving]) do |f| %>
-  <div>
-    <%= f.label :price, "Preço", required: true %>
-    <%= f.number_field  :price %>
+  <div class="bg-white shadow-md rounded-md p-6">
+    <%= form_with(model: [@restaurant, @menu_item, @serving], class: "space-y-6") do |f| %>
+
+      <div>
+        <%= f.label :price, "Preço", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.number_field :price, 
+          class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500",
+          required: true %>
+      </div>
+
+      <div>
+        <%= f.submit "Atualizar", 
+          class: "w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-md shadow hover:bg-blue-500 transition-colors" %>
+      </div>
+
+    <% end %>
   </div>
-
-  <div>
-    <%= f.submit "Atualizar" %>
-  </div>
-
-<% end %>
+</div>
