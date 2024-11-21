@@ -16,10 +16,6 @@
 5. [Configurações](#configurações)
 6. [Rodando os Testes](#rodando-os-testes)
 7. [Protótipo](#protótipo)
-8. [Database](#database)
-9. [Rotas](#rotas)
-10. [Resolvendo Problemas](#resolvendo-problemas)
-11. [Licença](#licença)
 
 ---
 
