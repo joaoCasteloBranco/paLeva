@@ -1,0 +1,11 @@
+<h1>Consultar Status do Pedido</h1>
+
+<%= form_with url: orders_check_path, method: :post do |f| %>
+  <div>
+    <%= f.label :code, 'Código do Pedido' %>
+    <%= f.text_field :code, required: true %>
+  </div>
+  <div>
+    <%= f.submit 'Consultar' %>
+  </div>
+<% end %>

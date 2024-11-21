@@ -322,3 +322,125 @@ describe 'Usuário inicia um novo pedido' do
     
   end
 end
+
+describe 'Status do pedido é alterado' do
+  it 'e possui histórico de mudanças' do
+    # Arrange
+
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    dish = Dish.create!(
+      restaurant: restaurant, 
+      name: "Prato Teste",
+      description: 'Uma descrição do prato de teste.',
+      calories: 300
+    )
+
+    serving_1 = Serving.create!(
+      menu_item: dish,
+      price: 1000,
+      description: 'Porção Teste (600g)'
+    )
+
+    order = Order.create!(
+      restaurant: restaurant,
+      customer_name: 'João',
+      contact_phone: "6731423872",
+      contact_email: 'joao.silva@email.com',
+      cpf: '109.789.030-99',
+    )
+
+    order_item = OrderItem.create!(
+      order: order,
+      serving: serving_1,
+      note: "Sem Cebola"
+    )
+    
+    # Act
+    order.update(status: :awaiting_confirmation)
+    
+    # Assert
+    
+    expect(order.status_historics).to be_present
+    expect(order.status_historics.last.changed_at).to be_present
+    expect(order.status_historics.last.status).to eq 'awaiting_confirmation'
+  end
+
+  it 'E possui histório para todas as mudanças' do
+      # Arrange
+
+      user = User.create!(
+        cpf: "109.789.030-99",
+        email:  "sergio.vieira.de.melo@ri.com",
+        name: "Sergio",
+        last_name: "Vieira",
+        password: "nacoesunidas",
+      )
+  
+      restaurant = Restaurant.create!(
+        user: user,
+        registered_name: "Arvo",
+        comercial_name: "Arvo Restaurante",
+        cnpj: "61.236.299/0001-72",
+        address: "Av. 1000",
+        phone: "6731423872",
+        email: "arvo@restaurante.com"
+      )
+  
+      dish = Dish.create!(
+        restaurant: restaurant, 
+        name: "Prato Teste",
+        description: 'Uma descrição do prato de teste.',
+        calories: 300
+      )
+  
+      serving_1 = Serving.create!(
+        menu_item: dish,
+        price: 1000,
+        description: 'Porção Teste (600g)'
+      )
+  
+      order = Order.create!(
+        restaurant: restaurant,
+        customer_name: 'João',
+        contact_phone: "6731423872",
+        contact_email: 'joao.silva@email.com',
+        cpf: '109.789.030-99',
+      )
+  
+      order_item = OrderItem.create!(
+        order: order,
+        serving: serving_1,
+        note: "Sem Cebola"
+      )
+      
+      # Act
+      order.update(status: :awaiting_confirmation)
+      order.update(status: :in_preparation)
+      
+      # Assert
+      
+      expect(order.status_historics).to be_present
+      expect(order.status_historics.length).to eq 2
+
+      expect(order.status_historics.first.status).to eq 'awaiting_confirmation'
+      expect(order.status_historics.last.status).to eq 'in_preparation'
+    end
+
+end

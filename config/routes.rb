@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   root "home#index"
+  get '/orders/status', to: 'orders#status'
+  post '/orders/check', to: 'orders#check'
 
   resources :restaurants do
 
@@ -34,6 +36,7 @@ Rails.application.routes.draw do
 
     resources :orders, only: [:new, :create, :show, :index] do
       post 'close_order', on: :member
+      get 'result', on: :member
       resources :order_items, only: [:new, :create]
     end
 

@@ -1,0 +1,17 @@
+pt-BR:
+  awaiting_confirmation: "Esperando confirmação"
+  in_preparation: "Em Preparação"
+  canceled: "Cancelado"
+  ready: "Pronto"
+  delivered: "Entregue"
+  editing: "Em Edição"
+  activerecord:
+    models:
+      status_historic:
+        one: "Histórico do Status"
+        other: "Históricos do Status"
+    attributes:
+      status_historic:
+        note: "Nota"
+        changed_at: "Alterado em"
+

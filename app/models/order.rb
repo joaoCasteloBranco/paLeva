@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
   belongs_to :restaurant
+  has_many :status_historics, dependent: :destroy
   has_many :order_items, dependent: :destroy
   has_many :servings, through: :order_items
 
@@ -13,6 +14,7 @@ class Order < ApplicationRecord
   validate :cpf_must_be_valid
 
   before_validation :generate_order_code
+  after_update :track_status_change
 
   def total_price
     BigDecimal(servings.sum { |serving| serving.price }) / 100
@@ -45,6 +47,16 @@ class Order < ApplicationRecord
 
   def cpf_must_be_valid
     errors.add(:cpf, 'inválido') unless CPF.valid?(cpf)
+  end
+
+  def track_status_change
+    if status_previously_changed?
+      StatusHistoric.create!(
+        order: self,
+        status: status,
+        changed_at: Time.current,
+      )
+    end
   end
 
 end

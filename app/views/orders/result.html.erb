@@ -1,0 +1,29 @@
+<% if @order.status_historics.present? %>
+  <h1>Status do Pedido</h1>
+
+  <h2>Informações do Pedido</h2>
+  <p><strong>Nome do Cliente:</strong> <%= @order.customer_name %></p>
+  <p><strong>Status:</strong> <%= t(@order.status) %></p>
+  <p><strong>Total:</strong> R$ <%= @order.total_price %></p>
+
+  <h2>Informações do Restaurante</h2>
+  <p><strong>Nome:</strong> <%= @restaurant.comercial_name %></p>
+  <p><strong>Endereço:</strong> <%= @restaurant.address %></p>
+  <p><strong>Contato:</strong> <%= @restaurant.phone %> | <%= @restaurant.email %></p>
+
+  <h2>Detalhes do Pedido:</h2>
+
+  <div>
+
+    <% @order.status_historics.each do |historic| %>
+      Status: <p><%= I18n.t(historic.status) %></p> | Alterado em: <p><%= historic.changed_at %></p>
+    <% end %>
+  </div>
+
+  
+<% else %>
+  <p>Pedido ainda está sendo cadastrado no sistema.</p>
+<% end %>
+
+
+

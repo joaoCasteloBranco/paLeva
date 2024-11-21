@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_restaurant
+  before_action :set_restaurant, except: [:status, :check]
 
   def index
     @orders = @restaurant.orders
@@ -27,6 +27,26 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.awaiting_confirmation!
     redirect_to restaurant_orders_path(@restaurant, @order), notice: "#{@order.code} agora está completo"
+  end
+
+  def status
+    
+  end
+
+  def result
+    @order = Order.find(params[:id])
+  end
+
+  def check
+    @order = Order.find_by(code: params[:code].upcase)
+
+    if @order
+      @restaurant = @order.restaurant
+      redirect_to result_restaurant_order_path(@restaurant, @order)
+    else
+      flash.now[:notice] = 'Código inválido. Tente novamente.'
+      render :status, status: :unprocessable_entity
+    end
   end
 
   private
