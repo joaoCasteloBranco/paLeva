@@ -469,7 +469,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423873",
         contact_email: 'carlos.silva@email.com',
         cpf: '662.142.320-99',
-        status: :canceled
+        status: :editing
       )
   
       order_item_3 = OrderItem.create!(
@@ -485,7 +485,7 @@ describe 'Orders API', type: :request do
       )
 
       # Act
-      get "/api/v1/restaurants/#{restaurant.code}/orders/?status=canceled"
+      get "/api/v1/restaurants/#{restaurant.code}/orders/?status=editing"
 
       json_response = JSON.parse(response.body)
       orders_response = json_response['orders']
@@ -604,7 +604,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423873",
         contact_email: 'carlos.silva@email.com',
         cpf: '662.142.320-99',
-        status: :canceled
+        status: :editing
       )
   
       order_item_3 = OrderItem.create!(
@@ -741,7 +741,7 @@ describe 'Orders API', type: :request do
         contact_phone: "6731423873",
         contact_email: 'carlos.silva@email.com',
         cpf: '662.142.320-99',
-        status: :canceled
+        status: :editing
       )
   
       order_item_3 = OrderItem.create!(
@@ -1612,7 +1612,7 @@ describe 'Orders API', type: :request do
       )
 
       # Act 
-      post "/api/v1/restaurants/INVALID/orders/#{order.code}/in_preparation"
+      post "/api/v1/restaurants/INVALID/orders/#{order.code}/ready"
 
       # Assert
       expect(response.status).to eq 404
@@ -1621,8 +1621,199 @@ describe 'Orders API', type: :request do
       expect(response.body).not_to include '6731423872'
       expect(response.body).not_to include 'joao.silva@email.com'
       expect(response.body).not_to include '109.789.030-99'
-      expect(response.body).not_to include 'in_preparation'      
+      expect(response.body).not_to include 'ready'      
 
     end
   end
+
+  context 'POST /api/v1/restaurant/restaunrant_code/orders/order_code/canceled' do 
+    it 'sucess change' do
+      user = User.create!(
+        cpf: "109.789.030-99",
+        email:  "sergio.vieira.de.melo@ri.com",
+        name: "Sergio",
+        last_name: "Vieira",
+        password: "nacoesunidas",
+      )
+  
+      restaurant = Restaurant.create!(
+        user: user,
+        registered_name: "Arvo",
+        comercial_name: "Arvo Restaurante",
+        cnpj: "61.236.299/0001-72",
+        address: "Av. 1000",
+        phone: "6731423872",
+        email: "arvo@restaurante.com"
+      )
+  
+      dish = Dish.create!(
+        restaurant: restaurant, 
+        name: "Prato Teste",
+        description: 'Uma descrição do prato de teste.',
+        calories: 300
+      )
+  
+      serving = Serving.create!(
+        menu_item: dish,
+        price: 1000,
+        description: 'Porção Teste (600g)'
+      )
+  
+  
+      order = Order.create!(
+        restaurant: restaurant,
+        customer_name: 'João',
+        contact_phone: "6731423872",
+        contact_email: 'joao.silva@email.com',
+        cpf: '109.789.030-99',
+        status: :in_preparation
+      )
+  
+      order_item = OrderItem.create!(
+        order: order,
+        serving: serving,
+        note: "Com Cebola"
+      )
+
+      # Act 
+      
+      post "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/canceled"
+
+      json_response = JSON.parse(response.body)
+
+      # Assert
+      expect(response.status).to eq 200
+      expect(response.content_type).to include 'application/json'
+      expect(json_response['message']).to include 'Pedido atualizado'
+      expect(json_response['order']['order']['customer_name']).to include 'João'
+      expect(json_response['order']['order']['contact_phone']).to include '6731423872'
+      expect(json_response['order']['order']['contact_email']).to include 'joao.silva@email.com'
+      expect(json_response['order']['order']['cpf']).to include '109.789.030-99'
+      expect(json_response['order']['order']['status']).to include 'canceled'  
+    end
+  end
+
+  it 'fail, invalid order' do
+      user = User.create!(
+        cpf: "109.789.030-99",
+        email:  "sergio.vieira.de.melo@ri.com",
+        name: "Sergio",
+        last_name: "Vieira",
+        password: "nacoesunidas",
+      )
+  
+      restaurant = Restaurant.create!(
+        user: user,
+        registered_name: "Arvo",
+        comercial_name: "Arvo Restaurante",
+        cnpj: "61.236.299/0001-72",
+        address: "Av. 1000",
+        phone: "6731423872",
+        email: "arvo@restaurante.com"
+      )
+  
+      dish = Dish.create!(
+        restaurant: restaurant, 
+        name: "Prato Teste",
+        description: 'Uma descrição do prato de teste.',
+        calories: 300
+      )
+  
+      serving = Serving.create!(
+        menu_item: dish,
+        price: 1000,
+        description: 'Porção Teste (600g)'
+      )
+  
+  
+      order = Order.create!(
+        restaurant: restaurant,
+        customer_name: 'João',
+        contact_phone: "6731423872",
+        contact_email: 'joao.silva@email.com',
+        cpf: '109.789.030-99',
+      )
+  
+      order_item = OrderItem.create!(
+        order: order,
+        serving: serving,
+        note: "Sem Cebola"
+      )
+
+      # Act 
+      post "/api/v1/restaurants/#{restaurant.code}/orders/INVALID/canceled"
+    
+      # Assert
+      expect(response.status).to eq 404
+      expect(response.content_type).to include 'application/json'
+      expect(response.body).not_to include 'João'
+      expect(response.body).not_to include '6731423872'
+      expect(response.body).not_to include 'joao.silva@email.com'
+      expect(response.body).not_to include '109.789.030-99'
+      expect(response.body).not_to include 'canceled'      
+
+    end
+
+    it 'fail, alrady canceled' do
+      user = User.create!(
+        cpf: "109.789.030-99",
+        email:  "sergio.vieira.de.melo@ri.com",
+        name: "Sergio",
+        last_name: "Vieira",
+        password: "nacoesunidas",
+      )
+  
+      restaurant = Restaurant.create!(
+        user: user,
+        registered_name: "Arvo",
+        comercial_name: "Arvo Restaurante",
+        cnpj: "61.236.299/0001-72",
+        address: "Av. 1000",
+        phone: "6731423872",
+        email: "arvo@restaurante.com"
+      )
+  
+      dish = Dish.create!(
+        restaurant: restaurant, 
+        name: "Prato Teste",
+        description: 'Uma descrição do prato de teste.',
+        calories: 300
+      )
+  
+      serving = Serving.create!(
+        menu_item: dish,
+        price: 1000,
+        description: 'Porção Teste (600g)'
+      )
+  
+  
+      order = Order.create!(
+        restaurant: restaurant,
+        customer_name: 'João',
+        contact_phone: "6731423872",
+        contact_email: 'joao.silva@email.com',
+        cpf: '109.789.030-99',
+        status: :canceled
+      )
+  
+      order_item = OrderItem.create!(
+        order: order,
+        serving: serving,
+        note: "Sem Cebola"
+      )
+
+      # Act 
+      post "/api/v1/restaurants/#{restaurant.code}/orders/#{order.code}/canceled"
+
+      # Assert
+      expect(response.status).to eq 422
+      expect(response.content_type).to include 'application/json'
+      expect(response.body).to include 'Falha ao atualizar o status do pedido'
+      expect(response.body).not_to include 'João'
+      expect(response.body).not_to include '6731423872'
+      expect(response.body).not_to include 'joao.silva@email.com'
+      expect(response.body).not_to include '109.789.030-99'
+      expect(response.body).not_to include 'ready'      
+
+    end
 end

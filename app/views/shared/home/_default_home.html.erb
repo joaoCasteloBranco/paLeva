@@ -1,9 +1,53 @@
-<div class="bg-white shadow-md rounded-lg p-6 text-center">
-  <h2 class="text-xl text-gray-700 mb-4">Entre para registrar pedidos</h2>
-  <%= link_to 'Criar Cadastro', new_user_session_path, 
-              class: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500" %>
+<div class="container mx-auto px-5 mt-10 space-y-10">
 
-  <p>É um Cliente?</p>
-  <%= link_to 'Ver Detalhes do Meu Pedido', orders_status_path, 
-              class: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500" %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <div class="bg-blue-100 border-l-4 border-blue-600 shadow-md rounded-lg p-6 text-center">
+      <h2 class="text-xl text-blue-800 font-semibold mb-4">
+        É um Dono de Restaurante?
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Se cadastre para agilizar seus procedimentos.
+      </p>
+      <%= link_to 'Criar Cadastro', new_user_registration_path,
+        class: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 shadow-md" %>
+    </div>
+
+    <div class="bg-green-100 border-l-4 border-green-600 shadow-md rounded-lg p-6 text-center">
+      <h2 class="text-xl text-green-800 font-semibold mb-4">
+        É um Cliente?
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Verifique os detalhes do seu pedido rapidamente.
+      </p>
+      <%= link_to 'Ver Detalhes do Meu Pedido', orders_status_path,
+        class: "bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-500 shadow-md" %>
+    </div>
+
+    <div class="bg-yellow-100 border-l-4 border-yellow-600 shadow-md rounded-lg p-6 text-center">
+      <h2 class="text-xl text-yellow-800 font-semibold mb-4">
+        É um Funcionário?
+      </h2>
+      <p class="text-gray-700 mb-4">
+        Se cadastre para facilitar seu trabalho e procedimentos.
+      </p>
+      <%= link_to 'Criar Cadastro', new_employee_registration_path,
+        class: "bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-500 shadow-md" %>
+    </div>
+  </div>
+
+  <div class="bg-gray-100 border-l-4 border-gray-400 shadow-md rounded-lg p-6 text-center">
+    <h2 class="text-xl text-gray-800 font-semibold mb-4">
+      Já possui cadastro?
+    </h2>
+    <p class="text-gray-700 mb-6">
+      Faça login para acessar sua conta.
+    </p>
+    <div class="flex justify-center space-x-4">
+      <%= link_to 'Login para Donos de Restaurante', new_user_session_path,
+        class: "bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-500 shadow-md" %>
+      <%= link_to 'Login para Funcionários', new_employee_session_path,
+        class: "bg-yellow-600 text-white px-6 py-2 rounded-lg hover:bg-yellow-500 shadow-md" %>
+    </div>
+  </div>
 </div>

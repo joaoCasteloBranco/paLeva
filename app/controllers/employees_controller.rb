@@ -19,6 +19,7 @@ class EmployeesController < ApplicationController
     if @employee.save
       redirect_to restaurant_employees_path(@restaurant), notice: 'Funcionário pré-cadastrado com sucesso.'
     else
+      flash.now[:notice] = "Não foi possível cadastrar o funcionário!"
       render :new, status: :unprocessable_entity
     end
   end

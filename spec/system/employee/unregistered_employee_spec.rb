@@ -10,7 +10,7 @@ describe 'Funcionário não cadastrado tenta o login' do
     click_on 'Área Funcionários'
     click_on 'Sign up'
     fill_in 'Email', with: "email@email.com"
-    fill_in 'Cpf', with: "662.142.320-99"
+    fill_in 'CPF', with: "662.142.320-99"
     fill_in 'Nome', with: "Usuario"
     fill_in 'employee_password', with: "nacoesunidas"
     fill_in 'employee_password_confirmation', with: "nacoesunidas"

@@ -8,6 +8,8 @@ class Order < ApplicationRecord
     :awaiting_confirmation=>0, :in_preparation=>1, :canceled=>2, :ready=>3, :delivered=>4, :editing=>10
   }, default: :editing
 
+  scope :active, -> { where.not(status: [:canceled, :delivered]) }
+
   validates :status, :code, :customer_name, presence: true
  
   validate :phone_or_email_present
@@ -33,6 +35,22 @@ class Order < ApplicationRecord
     end
   end
 
+  def cancel_order(note)
+    if canceled?
+      errors.add(:status, "Already canceled")
+      return false
+    end
+    Order.transaction do
+      update!(status: :canceled) 
+      StatusHistoric.create!(
+        order: self,
+        status: :canceled,
+        changed_at: Time.current,
+        notes: note
+      )
+    end
+  end
+
   private
 
   def phone_or_email_present
@@ -42,7 +60,7 @@ class Order < ApplicationRecord
   end
 
   def generate_order_code
-    self.code = SecureRandom.alphanumeric(8).upcase
+    self.code ||= SecureRandom.alphanumeric(8).upcase
   end
 
   def cpf_must_be_valid
@@ -50,11 +68,13 @@ class Order < ApplicationRecord
   end
 
   def track_status_change
+    return if status_previously_changed? && status == "canceled"
+  
     if status_previously_changed?
       StatusHistoric.create!(
         order: self,
         status: status,
-        changed_at: Time.current,
+        changed_at: Time.current
       )
     end
   end

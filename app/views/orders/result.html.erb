@@ -16,7 +16,10 @@
   <div>
 
     <% @order.status_historics.each do |historic| %>
-      Status: <p><%= I18n.t(historic.status) %></p> | Alterado em: <p><%= historic.changed_at %></p>
+      Status: <p><%= I18n.t(historic.status) %></p> <br> Alterado em: <p><%= historic.changed_at %></p>
+      <% if historic.notes.present? %>
+        <p><%= historic.notes %></p>
+      <% end %>
     <% end %>
   </div>
 

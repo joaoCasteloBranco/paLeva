@@ -10,12 +10,12 @@ class Api::V1::OrdersController < ActionController::API
     if params[:status].present? && valid_statuses.include?(params[:status])
       status = Order.statuses[params[:status]]
 
-      orders = restaurant.orders
+      orders = restaurant.orders.active
       .where(status: status)
       .includes(order_items: { serving: :menu_item })
     
     else
-      orders = restaurant.orders
+      orders = restaurant.orders.active
       .includes(order_items: { serving: :menu_item })
     end
   
@@ -72,12 +72,34 @@ class Api::V1::OrdersController < ActionController::API
 
     if order.ready!
       render status: 200, json: {
-        message: 'Pedido atualizado para "em preparação"',
+        message: 'Pedido atualizado para "pronto"',
         order: {
           order: order,
           code: order.code,
           status: order.status,
           updated_at: order.updated_at
+        }
+      }
+    else
+      render status: 422, json: { error: 'Falha ao atualizar o status do pedido' }
+    end
+  end
+
+  def canceled
+
+    restaurant = find_restaurant
+    order = find_order(restaurant)
+    note = params[:note]
+
+    if order.cancel_order(note)
+      render status: 200, json: {
+        message: 'Pedido atualizado para "cancelado"',
+        order: {
+          order: order,
+          code: order.code,
+          status: order.status,
+          updated_at: order.updated_at,
+          note: note
         }
       }
     else

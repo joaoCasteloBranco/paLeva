@@ -1,4 +1,11 @@
 <div class="container mx-auto px-5 mt-10 max-w-3xl">
+  <% if @order.errors.any? %>
+    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md mb-6">
+      <% @order.errors.full_messages.each do |message| %>
+        <p class="text-sm"><%= message %></p>
+      <% end %>
+    </div>
+  <% end %>
   <h1 class="text-2xl font-bold text-gray-800 mb-6">Criar Novo Pedido</h1>
 
   <%= form_with(model: [@restaurant, @order], class: "bg-white shadow-md rounded-md p-6 space-y-4") do |f| %>
