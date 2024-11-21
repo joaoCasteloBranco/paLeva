@@ -26,36 +26,7 @@
         <% end %>
         
         <div class="flex items-center gap-4">
-          <% if user_signed_in? %>
-            <div class="hidden sm:flex items-center gap-2">
-              <%= form_with url: search_path, method: :get, html: { class: "flex items-center gap-2" } do |f| %>
-                <%= f.label :query, 'Buscar Item' %>
-                <%= f.text_field :query, placeholder: "Buscar pratos ou bebidas...", class: "border rounded-lg px-4 py-2 text-sm w-64" %>
-                <%= f.submit "Buscar", class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500" %>
-              <% end %>
-            </div>
-            <% if current_user.restaurant.present? %>
-              <%= link_to 'Funcionários', restaurant_employees_path(current_user.restaurant.id), class: "text-sm text-gray-600 hover:text-blue-600" %>
-              <%= link_to "Restaurante", restaurant_path(current_user.restaurant.id), class: "text-sm text-gray-600 hover:text-blue-600" %>
-              <%= link_to "Pedidos", restaurant_orders_path(current_user.restaurant.id), class: "text-sm text-gray-600 hover:text-blue-600" %>
-            <% else %>
-              <%= link_to "Cadastrar Restaurante", new_restaurant_path, class: "text-sm text-gray-600 hover:text-blue-600" %>
-            <% end %>
-            <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "text-sm text-red-600 hover:text-red-800" %>
-          <% elsif employee_signed_in? %>
-            <div class="hidden sm:flex items-center gap-2">
-              <%= form_with url: search_path, method: :get, html: { class: "flex items-center gap-2" } do |f| %>
-                <%= f.text_field :query, placeholder: "Buscar pratos ou bebidas...", class: "border rounded-lg px-4 py-2 text-sm w-64" %>
-                <%= f.submit "Buscar", class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500" %>
-              <% end %>
-            </div>
-            <%= link_to "Pedidos", restaurant_orders_path(current_employee.restaurant_id), class: "text-sm text-gray-600 hover:text-blue-600" %>
-
-            <%= button_to "Sair", destroy_employee_session_path, method: :delete, class: "text-sm text-red-600 hover:text-red-800" %>
-          <% else %>
-            <%= link_to 'Entrar como Usuário', new_user_session_path, class: "text-sm text-gray-600 hover:text-blue-600" %>
-            <%= link_to 'Área Funcionários', new_employee_session_path, class: "text-sm text-gray-600 hover:text-blue-600" %>
-          <% end %>
+          <%= render_nav %>
         </div>
       </nav>
     </header>

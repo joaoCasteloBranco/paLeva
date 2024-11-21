@@ -25,7 +25,16 @@
 
     <div>
       <%= f.label :phone, class: "block text-sm font-medium text-gray-700" %>
-      <%= f.telephone_field :phone, required: true, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      <%= f.text_field :phone, 
+      class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500",
+      required: true,
+      placeholder: "(XX) XXXXX-XXXX",
+      data: {
+        controller: "phone-mask",
+        action: "input->phone-mask#update blur->phone-mask#clean",
+        phone_mask_target: "field"
+      }
+       %>
     </div>
 
     <div>

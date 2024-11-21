@@ -15,7 +15,16 @@
 
     <div class="flex flex-col">
       <%= f.label :contact_phone, "Telefone", class: "text-gray-700 font-semibold mb-1" %>
-      <%= f.telephone_field :contact_phone, required: true, class: "border border-gray-300 rounded-md p-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500" %>
+      <%= f.text_field :contact_phone,
+        class: "border border-gray-300 rounded-md p-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500",
+        required: true,
+        placeholder: "(XX) XXXXX-XXXX",
+        data: {
+          controller: "phone-mask",
+          action: "input->phone-mask#update blur->phone-mask#clean",
+          phone_mask_target: "field"
+        }
+        %>
     </div>
 
     <div class="flex flex-col">
