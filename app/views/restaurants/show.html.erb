@@ -24,21 +24,6 @@
     </div>
   </div>
 
-  <div class="mt-8 bg-white shadow-md rounded-lg p-6 flex space-x-4">
-    <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant), class: "bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500" %>
-    <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant), class: "bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500" %>
-  </div>
-
-  <div class="mt-8 bg-white shadow-md rounded-lg p-6">
-    <h2 class="text-xl font-bold text-gray-800 mb-4">Marcadores de Pratos do Restaurante</h2>
-    <div class="space-y-2">
-      <% @markers.each do |marker| %>
-        <p class="text-gray-700"><%= marker.name %></p>
-      <% end %>
-    </div>
-    <%= link_to 'Adicionar um Marcador', new_restaurant_marker_path(@restaurant), class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 mt-4 inline-block" %>
-  </div>
-
   <div class="mt-8 bg-white shadow-md rounded-lg p-6 space-y-8">
     <div>
       <h2 class="text-xl font-bold text-gray-800 mb-4">Pratos</h2>
@@ -62,6 +47,21 @@
         <% end %>
       </ul>
     </div>
+  </div>
+
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6 flex space-x-4">
+    <%= link_to 'Adicionar um prato', new_restaurant_dish_path(@restaurant), class: "bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-500" %>
+    <%= link_to 'Adicionar uma bebida', new_restaurant_beverage_path(@restaurant), class: "bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-500" %>
+  </div>
+
+  <div class="mt-8 bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Marcadores de Pratos do Restaurante</h2>
+    <div class="space-y-2">
+      <% @markers.each do |marker| %>
+        <p class="text-gray-700"><%= marker.name %></p>
+      <% end %>
+    </div>
+    <%= link_to 'Adicionar um Marcador', new_restaurant_marker_path(@restaurant), class: "bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 mt-4 inline-block" %>
   </div>
 
   <div class="mt-8 bg-white shadow-md rounded-lg p-6">

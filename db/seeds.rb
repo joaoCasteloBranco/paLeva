@@ -56,13 +56,43 @@ beverage = Beverage.create!(
 serving_3 = Serving.create!(
   menu_item: beverage,
   price: 1000,
-  description: 'Embalagem Teste (150ml)'
+  description: 'Recipiente Teste (150ml)'
 )
 
 serving_4 = Serving.create!(
   menu_item: beverage,
   price: 2000,
-  description: 'Embalagem Teste (300ml)'
+  description: 'Recipiente Teste (300ml)'
+)
+
+red_wine = Beverage.create!(
+  restaurant: restaurant, 
+  name: "Vinho Tinto",
+  description: 'Vinho seco e forte',
+  calories: 100,
+  alcoholic: true
+)
+
+red_wine_serving_1 = Serving.create!(
+  menu_item: red_wine,
+  price: 1000,
+  description: 'Taça (100ml)'
+)
+
+red_wine_serving_2 = Serving.create!(
+  menu_item: red_wine,
+  price: 2000,
+  description: 'Garrafa (750ml)'
+)
+
+wine_list = Menu.create!(
+  name: "Carta de Vinhos",
+  restaurant: restaurant
+)
+
+MenuContent.create!(
+  menu: wine_list,
+  menu_item: red_wine
 )
 
 

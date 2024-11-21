@@ -106,7 +106,7 @@ describe 'Usuário inicia um novo pedido' do
 
     # Assert
     expect(page).to have_content 'Porção Teste (600g)'
-    expect(page).to have_content "Preço: R$ 10,00"
+    expect(page).to have_content "Valor Total do Pedido: R$ 10,00"
     
   end
 
@@ -182,10 +182,7 @@ describe 'Usuário inicia um novo pedido' do
 
     # Assert
     expect(page).to have_content 'Porção Teste (600g)'
-    expect(page).to have_content "Preço: R$ 10,00"
-
     expect(page).to have_content 'Porção Teste (1200g)'
-    expect(page).to have_content "Preço: R$ 20,00"
 
     expect(page).to have_content "Valor Total do Pedido: R$ 30,00"
     

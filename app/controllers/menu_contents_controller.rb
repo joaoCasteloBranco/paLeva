@@ -1,5 +1,6 @@
 class  MenuContentsController < ApplicationController
   before_action :set_restaurant_menu
+  before_action :authenticate_user!
 
   def new
     @menu_content = MenuContent.new
@@ -21,16 +22,21 @@ class  MenuContentsController < ApplicationController
       ), notice: "Cadastrado com sucesso"
     else
       flash.now[:alert] = "Não foi possível realizar o cadastro"
-      render :new
+      render :new, status: :unprocessable_entity
     end
 
   end
 
   def destroy
     @menu_content = MenuContent.find(params[:id])
-    @menu_content.destroy
-    puts @menu_content.errors.full_messages
-    redirect_to restaurant_menu_path(@restaurant, @menu), notice: 'Prato excluído com sucesso do cardápio!'
+    if @menu_content.destroy
+      @menu.reload
+      puts @menu_content.errors.full_messages
+      redirect_to restaurant_menu_path(@restaurant, @menu), notice: 'Prato excluído com sucesso do cardápio!'
+    else
+      flash[:alert] = "Erro ao excluir o prato do cardápio"
+      redirect_to restaurant_menu_path(@restaurant, @menu)
+    end
   end
 
   private

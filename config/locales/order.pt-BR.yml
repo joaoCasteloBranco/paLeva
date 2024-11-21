@@ -1,0 +1,20 @@
+pt-BR:
+  awaiting_confirmation: "Esperando confirmação"
+  in_preparation: "Em Preparação"
+  canceled: "Cancelado"
+  ready: "Pronto"
+  delivered: "Entregue"
+  editing: "Em Edição"
+  activerecord:
+    models:
+      order:
+        one: "Pedido"
+        other: "Pedidos"
+    attributes:
+      order:
+        customer_name: "Nome do Cliente"
+        contact_phone: "Telefone do Cliente"
+        contact_email: "Email de Contato"
+        cpf: "CPF"
+        code: "Código"
+        status: "Status"

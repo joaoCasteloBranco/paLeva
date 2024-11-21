@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   before_validation :generate_order_code
 
   def total_price
-    BigDecimal(order_items.sum { |item| item.serving.price }) / 100
+    BigDecimal(servings.sum { |serving| serving.price }) / 100
   end
 
   def can_transition_to?(new_status)

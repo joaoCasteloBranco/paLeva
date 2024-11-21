@@ -1,7 +1,8 @@
 <div class="container mx-auto px-5 mt-10 max-w-4xl">
-  <div class="bg-white shadow-md rounded-md p-6">
+  <div class="flex flex-col lg:flex-row gap-8">
+    <div class="bg-white shadow-md rounded-md p-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6">
-      Adicionar Itens para o Cardápio: <%= @menu.name %>
+      Adicionar Itens para o Cardápio: <br> <%= @menu.name %>
     </h1>
 
     <%= form_with(model: [@restaurant, @menu, @menu_content], class: "space-y-6") do |f| %>
@@ -19,4 +20,24 @@
 
     <% end %>
   </div>
+
+  
+  <div class="bg-gray-50 shadow-md rounded-md p-6 lg:w-1/3 hover:bg-gray-200 transition-colors">
+    <%= link_to  restaurant_menu_path(@restaurant, @menu) do %> 
+    <p class="text-xl font-semibold text-gray-700 mb-4"><%= @menu.name %></p>
+    
+    <div class="space-y-4">
+      <% @menu.menu_items.each do |menu_item| %>
+        <p><%= menu_item.name %></p>
+        <% menu_item.servings.each do |serving| %>
+          <p class="text-gray-600 text-sm px-2"><%= serving.description %></p>
+        <% end %>
+      <% end %>
+    </div>   
+    <% end %> 
+  </div>
+  
+
+  </div>
+  
 </div>

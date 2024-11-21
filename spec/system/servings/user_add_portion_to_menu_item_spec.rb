@@ -79,7 +79,7 @@ describe 'Usuário adiciona porção para um item do cardápio' do
    check 'Alcólica?'
    click_on 'Adicionar Bebida'
    click_on 'Bebida Teste'
-   click_on 'Cadastrar Embalagem'
+   click_on 'Cadastrar Recipiente'
    fill_in 'Descrição', with: 'Garrafa 150ml'
    fill_in 'Preço', with: 2000
    click_on 'Cadastrar'

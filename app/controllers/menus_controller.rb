@@ -1,5 +1,6 @@
 class MenusController < ApplicationController
   before_action :set_restaurant
+  before_action :authenticate_user!
   before_action :authorize_menu!, only: [:show, :new ]
 
   def show
