@@ -17,6 +17,15 @@ class Serving < ApplicationRecord
     BigDecimal(self.price.to_s) / 100
   end
 
+  def price_with_discount
+    current_discount = discounts.active.max_by(&:value) 
+    if current_discount
+      discounted_price = price - (price *  BigDecimal(current_discount.value.to_s) / 100.0)
+    else
+      BigDecimal(self.price.to_s)
+    end
+  end
+
   private 
 
   def record_price_history

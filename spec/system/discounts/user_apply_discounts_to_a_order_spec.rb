@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Usuário adiciona Porções a um desconto' do 
+describe 'Usuário adiciona cria um pedido com descontos' do 
   it 'e com sucesso' do 
     user = User.create!(
       cpf: "109.789.030-99",
@@ -20,6 +20,33 @@ describe 'Usuário adiciona Porções a um desconto' do
       email: "arvo@restaurante.com"
     )
 
+    dish = Dish.create!(
+      restaurant: restaurant, 
+      name: "Prato Teste",
+      description: 'Uma descrição do prato de teste.',
+      calories: 300
+    )
+
+    serving_1 = Serving.create!(
+      menu_item: dish,
+      price: 1000,
+      description: 'Porção Teste (600g)'
+    )
+
+    order = Order.create!(
+      restaurant: restaurant,
+      customer_name: 'João',
+      contact_phone: "6731423872",
+      contact_email: 'joao.silva@email.com',
+      cpf: '109.789.030-99',
+    )
+
+    order_item = OrderItem.create!(
+      order: order,
+      serving: serving_1,
+      note: "Sem Cebola"
+    )
+
     discount = Discount.create!(
       restaurant: restaurant,
       name: "Semana do Suco",
@@ -28,19 +55,7 @@ describe 'Usuário adiciona Porções a um desconto' do
       value: 10
     )
 
-    dish = Dish.create!(
-      restaurant: restaurant, 
-      name: "Prato Teste",
-      description: 'Uma descrição do prato de teste.',
-      calories: 300
-    )
-
-    serving = Serving.create!(
-      menu_item: dish,
-      price: 1000,
-      description: 'Porção Teste (600g)'
-    )
-
+    # Act
     login_as(user, :scope => :user)
     visit root_path
     within('nav') do
@@ -55,12 +70,15 @@ describe 'Usuário adiciona Porções a um desconto' do
     click_on 'Adicionar'
 
     within('nav') do
-      click_on "Restaurante"
+      click_on "Pedidos"
     end
 
-    expect(discount.servings).to be_present
-    expect(discount.servings.last.description).to eq serving.description
-    expect(serving.price_with_discount).to eq 900
+    click_on 'joao.silva@email.com'
+
+    # Assert
+
+    expect(order.total_price).to eq 10
+    expect(order.total_price_with_discount).to eq 9
 
   end
 end

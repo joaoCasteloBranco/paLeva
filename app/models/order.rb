@@ -22,6 +22,10 @@ class Order < ApplicationRecord
     BigDecimal(servings.sum { |serving| serving.price }) / 100
   end
 
+  def total_price_with_discount
+    BigDecimal(servings.sum { |serving| serving.price_with_discount }) / 100
+  end
+
   def can_transition_to?(new_status)
     case new_status
     when 'in_preparation'
