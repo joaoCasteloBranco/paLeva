@@ -16,6 +16,7 @@
 5. [Configurações](#configurações)
 6. [Rodando os Testes](#rodando-os-testes)
 7. [Protótipo](#protótipo)
+8. [Próximos passos](#próximos-passos)
 
 ---
 
@@ -42,6 +43,7 @@ Com ele, donos e funcionários podem organizar o fluxo operacional de forma efic
   - Adicionar/editar/remover pratos e bebidas com descrição, calorias, imagem, preço e porções.
   - Ativar/desativar itens e adicionar marcadores para classificação.
   - Criar cardápios temáticos e vinculá-los aos produtos.
+  - Cria cardápios sazonais com período de atuação
 
 - **Gestão de Pedidos**
   - Criar pedidos personalizados com notas e detalhes de porções.
@@ -54,8 +56,12 @@ Com ele, donos e funcionários podem organizar o fluxo operacional de forma efic
   - Endpoints para listar pedidos, consultar detalhes e atualizar status.
 
 ### **Funcionário**
-- Criar pedidos com personalização de porções e notas.
-- Visualizar o status e o valor total do pedido.
+  - Criar pedidos com personalização de porções e notas.
+  - Visualizar o status e o valor total do pedido.
+
+### **Cliente**
+  - Visualizar o status e o valor total do pedido.
+  - Acompanhar cada etapa do processo de preparação do pedido com horário informado
 
 ---
 
@@ -134,3 +140,10 @@ employee = Employee.create!(
   password: "nacoesunidas"
 )
 ```
+
+## Próximos Passos
+
+### Funcionalidades
+
+- Aplicação de descontos
+- Em progresso na <code> branch feature/discounts </code>  
