@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_22_012259) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_22_044356) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -37,6 +37,27 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_22_012259) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "discount_servings", force: :cascade do |t|
+    t.integer "discount_id", null: false
+    t.integer "serving_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["discount_id"], name: "index_discount_servings_on_discount_id"
+    t.index ["serving_id"], name: "index_discount_servings_on_serving_id"
+  end
+
+  create_table "discounts", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "value", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.integer "limit_usage"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "restaurant_id", null: false
+    t.index ["restaurant_id"], name: "index_discounts_on_restaurant_id"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -199,6 +220,9 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_22_012259) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "discount_servings", "discounts"
+  add_foreign_key "discount_servings", "servings"
+  add_foreign_key "discounts", "restaurants"
   add_foreign_key "employees", "restaurants"
   add_foreign_key "markers", "restaurants"
   add_foreign_key "menu_contents", "menu_items"

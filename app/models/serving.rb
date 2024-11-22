@@ -3,6 +3,9 @@ class Serving < ApplicationRecord
   has_many :price_histories, dependent: :destroy
   has_many :order_items
 
+  has_many :discount_servings
+  has_many :discounts, through: :discount_servings
+
   validates :description, :price, :menu_item_id, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 

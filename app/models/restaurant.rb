@@ -5,6 +5,7 @@ class Restaurant < ApplicationRecord
   has_many :menu_items
   has_many :dishes, dependent: :destroy
   has_many :beverages, dependent: :destroy
+  has_many :discounts
 
   has_many :operating_days
   

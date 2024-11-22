@@ -1,0 +1,11 @@
+<h1><%= @discount.name %></h1>
+
+<p><%= @discount.start_date %></p>
+<p><%= @discount.end_date %></p>
+<p><%= @discount.value %></p>
+
+<% if @discount.limit_usage.present? %>
+  <p><%= @discount.limit_usage %></p>
+<% end %>
+
+<%= link_to "Adicionar Porções", new_restaurant_discount_discount_serving_path(@restaurant, @discount) %>

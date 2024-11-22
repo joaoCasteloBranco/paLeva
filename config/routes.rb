@@ -41,6 +41,7 @@ Rails.application.routes.draw do
     end
 
     resources :discounts do
+      resources :discount_servings, only: [:new, :create]
     end
 
   end
