@@ -8,140 +8,152 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.create!(
-  cpf: "109.789.030-99",
-  email:  "sergio.vieira.de.melo@ri.com",
-  name: "Sergio",
-  last_name: "Vieira",
-  password: "nacoesunidas",
-)
+user_1 = User.find_or_create_by!(cpf: "109.789.030-99") do |user|
+  user.email = "sergio.vieira.de.melo@ri.com"
+  user.name = "Sergio"
+  user.last_name = "Vieira"
+  user.password = "nacoesunidas"
+end
 
-restaurant = Restaurant.create!(
-  user: user,
-  registered_name: "Arvo",
-  comercial_name: "Arvo Restaurante",
-  cnpj: "61.236.299/0001-72",
-  address: "Av. 1000",
-  phone: "6731423872",
-  email: "arvo@restaurante.com"
-)
+user_2 = User.find_or_create_by!(cpf: "047.086.700-01") do |user|
+  user.email = "ana.paula@exemplo.com"
+  user.name = "Ana"
+  user.last_name = "Paula"
+  user.password = "senhaSegura123"
+end
 
-dish = Dish.create!(
-  restaurant: restaurant, 
-  name: "Prato Teste",
-  description: 'Uma descrição do prato de teste.',
-  calories: 300
-)
+# Criação de restaurantes
+restaurant_1 = Restaurant.find_or_create_by!(cnpj: "61.236.299/0001-72") do |restaurant|
+  restaurant.user = user_1
+  restaurant.registered_name = "Arvo LTDA"
+  restaurant.comercial_name = "Arvo Restaurante"
+  restaurant.address = "Av. 1000"
+  restaurant.phone = "6731423872"
+  restaurant.email = "arvo@restaurante.com"
+end
 
-serving_1 = Serving.create!(
-  menu_item: dish,
-  price: 1000,
-  description: 'Porção Teste (600g)'
-)
+restaurant_2 = Restaurant.find_or_create_by!(cnpj: "40.884.396/0001-00") do |restaurant|
+  restaurant.user = user_2
+  restaurant.registered_name = "Delícias da Serra"
+  restaurant.comercial_name = "Serra Gourmet"
+  restaurant.address = "Rua da Serra, 456"
+  restaurant.phone = "6731421234"
+  restaurant.email = "contato@serragourmet.com"
+end
 
-serving_2 = Serving.create!(
-  menu_item: dish,
-  price: 2000,
-  description: 'Porção Teste (1200g)'
-)
+# Criação de pratos
+dish_1 = Dish.find_or_create_by!(name: "Prato Executivo", restaurant: restaurant_1) do |dish|
+  dish.description = "Um prato balanceado com arroz, feijão e carne."
+  dish.calories = 550
+end
 
-beverage = Beverage.create!(
-  restaurant: restaurant, 
-  name: "Bebida Teste",
-  description: 'Uma descrição do prato de teste.',
-  calories: 300,
-  alcoholic: false
-)
+dish_2 = Dish.find_or_create_by!(name: "Salada Verde", restaurant: restaurant_1) do |dish|
+  dish.description = "Uma combinação fresca de folhas e legumes."
+  dish.calories = 200
+end
 
-serving_3 = Serving.create!(
-  menu_item: beverage,
-  price: 1000,
-  description: 'Recipiente Teste (150ml)'
-)
+dish_3 = Dish.find_or_create_by!(name: "Peixe Grelhado", restaurant: restaurant_2) do |dish|
+  dish.description = "Peixe grelhado com ervas e legumes."
+  dish.calories = 400
+end
 
-serving_4 = Serving.create!(
-  menu_item: beverage,
-  price: 2000,
-  description: 'Recipiente Teste (300ml)'
-)
+dish_4 = Dish.find_or_create_by!(name: "Risoto de Cogumelos", restaurant: restaurant_2) do |dish|
+  dish.description = "Risoto cremoso com cogumelos selecionados."
+  dish.calories = 350
+end
 
-red_wine = Beverage.create!(
-  restaurant: restaurant, 
-  name: "Vinho Tinto",
-  description: 'Vinho seco e forte',
-  calories: 100,
-  alcoholic: true
-)
+# Criação de porções para pratos
+Serving.find_or_create_by!(menu_item: dish_1, description: "Porção Individual") do |serving|
+  serving.price = 1500
+end
 
-red_wine_serving_1 = Serving.create!(
-  menu_item: red_wine,
-  price: 1000,
-  description: 'Taça (100ml)'
-)
+Serving.find_or_create_by!(menu_item: dish_2, description: "Porção Familiar") do |serving|
+  serving.price = 2500
+end
 
-red_wine_serving_2 = Serving.create!(
-  menu_item: red_wine,
-  price: 2000,
-  description: 'Garrafa (750ml)'
-)
+Serving.find_or_create_by!(menu_item: dish_3, description: "Porção Simples") do |serving|
+  serving.price = 1800
+end
 
-wine_list = Menu.create!(
-  name: "Carta de Vinhos",
-  restaurant: restaurant
-)
+Serving.find_or_create_by!(menu_item: dish_4, description: "Porção Gourmet") do |serving|
+  serving.price = 2200
+end
 
-MenuContent.create!(
-  menu: wine_list,
-  menu_item: red_wine
-)
+# Criação de bebidas
+beverage_1 = Beverage.find_or_create_by!(name: "Suco Natural", restaurant: restaurant_1) do |beverage|
+  beverage.description = "Suco fresco e saudável."
+  beverage.calories = 120
+  beverage.alcoholic = false
+end
 
+beverage_2 = Beverage.find_or_create_by!(name: "Cerveja Artesanal", restaurant: restaurant_2) do |beverage|
+  beverage.description = "Uma cerveja artesanal de alta qualidade."
+  beverage.calories = 180
+  beverage.alcoholic = true
+end
 
-order_1 = Order.create!(
-  restaurant: restaurant,
-  customer_name: 'João',
-  contact_phone: "6731423872",
-  contact_email: 'joao.silva@email.com',
-  cpf: '109.789.030-99',
-)
+beverage_3 = Beverage.find_or_create_by!(name: "Água com Gás", restaurant: restaurant_1) do |beverage|
+  beverage.description = "Água mineral com gás."
+  beverage.calories = 0
+  beverage.alcoholic = false
+end
 
-order_item = OrderItem.create!(
-  order: order_1,
-  serving: serving_1,
-  note: "Sem Cebola"
-)
+beverage_4 = Beverage.find_or_create_by!(name: "Vinho Branco", restaurant: restaurant_2) do |beverage|
+  beverage.description = "Vinho branco suave."
+  beverage.calories = 120
+  beverage.alcoholic = true
+end
 
-order_item_2 = OrderItem.create!(
-  order: order_1,
-  serving: serving_2,
-  note: "Com Cebola"
-)
+# Criação de porções para bebidas
+Serving.find_or_create_by!(menu_item: beverage_1, description: "Copo 300ml") do |serving|
+  serving.price = 800
+end
 
-order_2 = Order.create!(
-  restaurant: restaurant,
-  customer_name: 'Carlos',
-  contact_phone: "6731423873",
-  contact_email: 'carlos.silva@email.com',
-  cpf: '662.142.320-99',
-  status: :canceled
-)
+Serving.find_or_create_by!(menu_item: beverage_2, description: "Garrafa 600ml") do |serving|
+  serving.price = 2500
+end
 
-order_item_3 = OrderItem.create!(
-  order: order_2,
-  serving: serving_3,
-  note: "Fria"
-)
+Serving.find_or_create_by!(menu_item: beverage_3, description: "Garrafa 500ml") do |serving|
+  serving.price = 600
+end
 
-order_item_4 = OrderItem.create!(
-  order: order_2,
-  serving: serving_4,
-  note: "Quente"
-)
+Serving.find_or_create_by!(menu_item: beverage_4, description: "Taça 150ml") do |serving|
+  serving.price = 1200
+end
 
-order_3 = Order.create!(
-  restaurant: restaurant,
-  customer_name: 'Junior',
-  contact_phone: "6731423875",
-  contact_email: 'junior.silva@email.com',
-  cpf: '662.142.320-99',
+# Criação de menus
+menu_1 = Menu.find_or_create_by!(name: "Menu Executivo", restaurant: restaurant_1)
+menu_2 = Menu.find_or_create_by!(name: "Menu Especial", restaurant: restaurant_2)
+menu_3 = Menu.find_or_create_by!(name: "Carta de Vinhos", restaurant: restaurant_2)
 
-)
+# Adicionando itens ao menu
+MenuContent.find_or_create_by!(menu: menu_1, menu_item: dish_1)
+MenuContent.find_or_create_by!(menu: menu_1, menu_item: beverage_1)
+MenuContent.find_or_create_by!(menu: menu_2, menu_item: dish_3)
+MenuContent.find_or_create_by!(menu: menu_2, menu_item: beverage_2)
+MenuContent.find_or_create_by!(menu: menu_3, menu_item: beverage_4)
+
+# Criação de pedidos
+order_1 = Order.find_or_create_by!(restaurant: restaurant_1, customer_name: "João Silva") do |order|
+  order.contact_phone = "6731423872"
+  order.contact_email = "joao.silva@email.com"
+  order.cpf = "945.300.480-47"
+end
+
+order_2 = Order.find_or_create_by!(restaurant: restaurant_2, customer_name: "Carlos Oliveira") do |order|
+  order.contact_phone = "6731421234"
+  order.contact_email = "carlos.oliveira@email.com"
+  order.cpf = "305.780.620-11"
+  order.status = :in_preparation
+end
+
+order_3 = Order.find_or_create_by!(restaurant: restaurant_1, customer_name: "Ana Beatriz") do |order|
+  order.contact_phone = "6731425555"
+  order.contact_email = "ana.beatriz@email.com"
+  order.cpf = "023.009.210-14"
+end
+
+# Adicionando itens aos pedidos
+OrderItem.find_or_create_by!(order: order_1, serving: Serving.first, note: "Sem cebola")
+OrderItem.find_or_create_by!(order: order_2, serving: Serving.last, note: "Bem gelado")
+OrderItem.find_or_create_by!(order: order_3, serving: Serving.second, note: "Pouco sal")

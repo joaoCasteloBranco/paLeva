@@ -3,12 +3,10 @@ class EmployeesController < ApplicationController
   before_action :set_restaurant
 
   def index
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @employees = @restaurant.employees
   end
 
   def new
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @employee = Employee.new
   end
 

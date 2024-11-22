@@ -8,12 +8,6 @@ class  MenuContentsController < ApplicationController
 
   def create
 
-    menu_content_params = params.
-    require(:menu_content)
-    .permit(
-      :menu_item_id
-    )
-
     @menu_content = @menu.menu_contents.build(menu_content_params)
 
     if @menu_content.save
@@ -44,6 +38,14 @@ class  MenuContentsController < ApplicationController
   def set_restaurant_menu
     @restaurant = Restaurant.find(params[:restaurant_id])
     @menu = Menu.find(params[:menu_id])
+  end
+
+  def menu_content_params
+    params.
+    require(:menu_content)
+    .permit(
+      :menu_item_id
+    )
   end
 
 end

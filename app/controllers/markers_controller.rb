@@ -1,20 +1,12 @@
 class MarkersController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :set_restaurant
+  
   def new 
-    @restaurant = Restaurant.find(params[:restaurant_id])
     @marker = Marker.new
   end
 
   def create
-    @restaurant = Restaurant.find(params[:restaurant_id])
-
-    marker_params = params
-    .require(:marker)
-    .permit(
-      :name,
-      :restaurant_id
-    )
-
     @marker = @restaurant.markers.build(marker_params)
     
     if @marker.save
@@ -24,6 +16,21 @@ class MarkersController < ApplicationController
       render :new, status: :unprocessable_entity
     end
 
+  end
+
+  private 
+
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:restaurant_id])
+  end
+
+  def marker_params
+    params
+    .require(:marker)
+    .permit(
+      :name,
+      :restaurant_id
+    )
   end
 
 end
