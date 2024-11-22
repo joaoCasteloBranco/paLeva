@@ -12,6 +12,6 @@ class HomeController < ApplicationController
     return unless user.present? && user.restaurant.present?
     
     @restaurant = user.restaurant
-    @menus = @restaurant.menus
+    @menus = @restaurant.menus.active
   end
 end

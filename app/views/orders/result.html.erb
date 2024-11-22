@@ -27,8 +27,8 @@
         <% @order.status_historics.each do |historic| %>
           <div class="border-b pb-4">
             <p class="text-gray-600"><strong>Status:</strong> <%= I18n.t(historic.status) %></p>
-            <p class="text-gray-500"><strong>Alterado em:</strong> <%= historic.changed_at.strftime('%d/%m/%Y %H:%M') %></p>
-            <% if historic.notes.present? %>
+            <p class="text-gray-500"><strong>Alterado em:</strong> <%= I18n.localize(historic.changed_at, format: :long) %></p>
+            <% if historic.notes.present? %> 
               <p class="text-gray-500 mt-2"><strong>Notas:</strong> <%= historic.notes %></p>
             <% end %>
           </div>

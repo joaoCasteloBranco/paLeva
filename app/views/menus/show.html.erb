@@ -1,6 +1,12 @@
 <div class="container mx-auto px-5 mt-10 max-w-4xl">
   <div class="bg-white shadow-md rounded-md p-6">
     <h1 class="text-2xl font-bold text-gray-800 mb-6"><%= @menu.name %></h1>
+    <% if @menu.start_date.present? %>
+      <p class="text-gray-500">Cardápio Sazonal</p>
+      <p class="text-sm text-gray-400 italic">
+        Período: <%= I18n.localize(@menu.start_date) %> - <%= I18n.localize(@menu.end_date) %>
+      </p>
+    <% end %>
 
     <div class="mb-6">
 

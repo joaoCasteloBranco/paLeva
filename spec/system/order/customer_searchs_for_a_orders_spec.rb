@@ -63,7 +63,7 @@ describe 'Cliente pesquisa por um pedido' do
     expect(page).to have_content restaurant.phone
 
     expect(page).to have_content 'Esperando confirmação'
-    expect(page).to have_content order.status_historics.last.changed_at
+    expect(page).to have_content I18n.localize(order.status_historics.last.changed_at, format: :long)
 
 
   end
@@ -131,10 +131,10 @@ describe 'Cliente pesquisa por um pedido' do
     expect(page).to have_content restaurant.phone
 
     expect(page).to have_content 'Esperando confirmação'
-    expect(page).to have_content order.status_historics.first.changed_at
+    expect(page).to have_content I18n.localize(order.status_historics.first.changed_at, format: :long)
 
     expect(page).to have_content 'Em Preparação'
-    expect(page).to have_content order.status_historics.last.changed_at
+    expect(page).to have_content I18n.localize(order.status_historics.last.changed_at, format: :long)
 
 
   end
@@ -202,10 +202,10 @@ describe 'Cliente pesquisa por um pedido' do
     expect(page).not_to have_content restaurant.phone
 
     expect(page).not_to have_content 'Esperando confirmação'
-    expect(page).not_to have_content order.status_historics.first.changed_at
+    expect(page).not_to have_content I18n.localize(order.status_historics.first.changed_at, format: :long)
 
     expect(page).not_to have_content 'Em Preparação'
-    expect(page).not_to have_content order.status_historics.last.changed_at
+    expect(page).not_to have_content I18n.localize(order.status_historics.last.changed_at, format: :long)
 
     expect(page).to have_content 'Código inválido. Tente novamente.'
   end

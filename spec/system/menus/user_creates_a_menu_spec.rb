@@ -224,4 +224,221 @@ describe 'Usuário cria um cardápio' do
     expect(current_path).to eq root_path  
 
   end
+
+  it 'e cria com sucesso um cardápio sazonal' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Início", with: Date.today - 1.week
+    fill_in "Data de Fim", with: Date.today + 1.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(current_path).to eq root_path
+    expect(page).to have_content "Menu Verão"
+
+    click_on "Menu Verão"
+    expect(page).to have_content "Período: #{I18n.localize(Date.today - 1.week)} - #{I18n.localize(Date.today + 1.week)}"
+
+  end
+
+  it 'e cria com sucesso um cardápio sazonal, mas que não aparece por ter período no futuro' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Início", with: Date.today + 1.week
+    fill_in "Data de Fim", with: Date.today + 2.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(current_path).to eq root_path
+    expect(page).not_to have_content "Menu Verão"
+
+  end
+
+  it 'e cria com sucesso um cardápio sazonal, mas que não aparece por ter período no passado' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Início", with: Date.today - 2.week
+    fill_in "Data de Fim", with: Date.today - 1.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(current_path).to eq root_path
+    expect(page).not_to have_content "Menu Verão"
+
+  end
+
+  it 'mas falha ao criar um menu sazonal por ter data de fim antes da data de início' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Início", with: Date.today - 1.week
+    fill_in "Data de Fim", with: Date.today - 2.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(page).to have_content 'falha ao criar o cardápio'
+    expect(page).not_to have_content "Menu Verão"
+
+  end
+
+  it 'mas falha ao criar um menu sazonal só com data de fim' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Fim", with: Date.today + 2.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(page).to have_content 'falha ao criar o cardápio'
+    expect(page).not_to have_content "Menu Verão"
+
+  end
+
+  it 'mas falha ao criar um menu sazonal só com data de início' do
+    # Arrange
+    user = User.create!(
+      cpf: "109.789.030-99",
+      email:  "sergio.vieira.de.melo@ri.com",
+      name: "Sergio",
+      last_name: "Vieira",
+      password: "nacoesunidas",
+    )
+
+    restaurant = Restaurant.create!(
+      user: user,
+      registered_name: "Arvo",
+      comercial_name: "Arvo Restaurante",
+      cnpj: "61.236.299/0001-72",
+      address: "Av. 1000",
+      phone: "6731423872",
+      email: "arvo@restaurante.com"
+    )
+
+    # Act
+    login_as(user, :scope => :user)
+    visit root_path
+    click_on 'Adicionar Cardápio'
+
+    fill_in "Nome", with: "Menu Verão"
+    fill_in "Data de Início", with: Date.today + 1.week
+    click_on "Adicionar"
+
+    # Assert
+    expect(page).to have_content 'falha ao criar o cardápio'
+    expect(page).not_to have_content "Menu Verão"
+
+  end
 end

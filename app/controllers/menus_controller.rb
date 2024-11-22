@@ -29,7 +29,9 @@ class MenusController < ApplicationController
     menus_params = params
     .require(:menu)
     .permit(
-      :name
+      :name,
+      :start_date,
+      :end_date
     )
   end
 
