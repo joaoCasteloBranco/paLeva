@@ -40,6 +40,9 @@ Rails.application.routes.draw do
       resources :order_items, only: [:new, :create]
     end
 
+    resources :discounts do
+    end
+
   end
   get 'search', to: 'search#search'
 
