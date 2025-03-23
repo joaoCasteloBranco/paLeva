@@ -43,7 +43,7 @@ Com ele, donos e funcionários podem organizar o fluxo operacional de forma efic
   - Adicionar/editar/remover pratos e bebidas com descrição, calorias, imagem, preço e porções.
   - Ativar/desativar itens e adicionar marcadores para classificação.
   - Criar cardápios temáticos e vinculá-los aos produtos.
-  - Cria cardápios sazonais com período de atuação
+  - Criar cardápios sazonais com período de atuação.
 
 - **Gestão de Pedidos**
   - Criar pedidos personalizados com notas e detalhes de porções.
@@ -95,8 +95,16 @@ git clone https://github.com/joaoCasteloBranco/paLeva
 cd paLeva
 ````
 
+````bash
+bundle install
+````
+
+````bash
+rails db:create db:migrate db:seed
+````
+
 ```bash
-$ rails s
+rails s
 ```
 
 > Acessar http://localhost:3000 
@@ -104,12 +112,16 @@ $ rails s
 ## Rodando os testes 
 
 ```bash
-$ rspec 
+RAILS_ENV=test rails db:create db:migrate
 ```
 
-## Prototipo
+```bash
+rspec 
+```
 
-O projeto já possui uma série de registros já pré cadastrados para facilitar a visualização das funcionalidades da plataforma 
+### Protótipo
+
+O projeto já possui uma série de registros pré-cadastrados para facilitar a visualização das funcionalidades da plataforma.
 
 No terminal:
 
