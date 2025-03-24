@@ -23,4 +23,15 @@ class ApplicationController < ActionController::Base
       redirect_to new_restaurant_path
     end
   end
+
+  def check_is_admin
+    return redirect_to root_path, alert: 'Acesso negado!' if current_user.nil?
+  end
+
+  def authenticate_account!
+    unless user_signed_in? || employee_signed_in?
+      redirect_to new_user_session_path, alert: 'Você precisa estar autenticado para acessar esta página.'
+    end
+  end
+
 end

@@ -1,6 +1,8 @@
 class BeveragesController < ApplicationController
+    before_action :authenticate_account!
+    before_action :check_is_admin
     before_action :set_restaurant
-    before_action :authorize_beverage!, only: [:show, :edit, :active, :inactive, :destroy]
+    before_action :authorize_beverage!, only: [:show, :edit, :active, :inactive, :destroy, :new, :create, :update, :edit ]
   
     def index
     end
